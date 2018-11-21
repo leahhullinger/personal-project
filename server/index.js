@@ -3,7 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-const upload_helper = require("./controllers/upload_controller");
+const upload_helper = require("./controllers/fine_uploader");
 const PORT = process.env.PORT;
 
 const app = express();
