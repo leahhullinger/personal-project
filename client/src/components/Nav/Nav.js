@@ -1,5 +1,6 @@
-import React from "react";
+// template Component for desktop Nav and mobile bottom nav
+import React, { Component } from "react";
 
-export default function Nav() {
-  return <div>Nav Bar</div>;
-}
+// desktop
+import { Drawer, SwipeableDrawer } from "@material-ui/core";
+// mobile

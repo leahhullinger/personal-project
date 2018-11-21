@@ -3,13 +3,14 @@ import axios from "axios";
 
 import FineUploaderTraditional from "fine-uploader-wrappers";
 import Gallery from "react-fine-uploader";
+import { Button } from "rmwc";
 import "react-fine-uploader/gallery/gallery.css";
 
 const BASE_URL = "http://localhost:3005";
 
 const uploader = new FineUploaderTraditional({
   options: {
-    // autoUpload: false,
+    autoUpload: false,
     chunking: {
       enabled: true
     },
@@ -19,16 +20,25 @@ const uploader = new FineUploaderTraditional({
     },
     request: {
       endpoint: BASE_URL + "/uploads"
-    }
-    // retry: {
-    //   enableAuto: true
-    // }
+    },
+    retry: {
+      enableAuto: true
+    },
+    onSubmitted: {}
   }
 });
 
 class UploadComponent extends Component {
+  uploadFiles = () => {
+    uploader.methods.uploadStoredFiles();
+  };
   render() {
-    return <Gallery uploader={uploader} />;
+    return (
+      <div>
+        <Gallery uploader={uploader} />
+        <Button onClick={this.uploadFiles}>test submit</Button>
+      </div>
+    );
   }
 }
 
