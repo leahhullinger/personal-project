@@ -1,20 +1,16 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import { Button, Paper } from "@material-ui/core";
+// import { connect } from "react-redux";
+// import PropTypes from "prop-types";
+import { Paper } from "@material-ui/core";
 import UploadButton from "../Upload/UploadButton";
 
-const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit
-  },
+const styles = {
   input: {
-    display: "none",
-    onChange: this.handleFileSelect()
+    display: "none"
   }
-});
+};
 
-class FileUploader extends Component {
+class FileUpload extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,7 +20,7 @@ class FileUploader extends Component {
   }
 
   handleFileSelect = e => {
-    console.log(this.state.files);
+    console.log(FileList);
     this.setState({ files: e.target.files[0] });
   };
 
@@ -51,9 +47,10 @@ class FileUploader extends Component {
   render() {
     return (
       <Paper>
-        <UploadButton />
+        <UploadButton handleFileSelect={this.handleFileSelect} />
       </Paper>
     );
   }
 }
-export default FileUploader;
+
+export default FileUpload;

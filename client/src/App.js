@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import axios from "axios";
+import Routes from "./routes";
 import "./App.css";
 
-import Dashboard from "./components/Dashboard/MainDashboard";
+import Nav from "./components/Nav/Nav";
+import Dashboard from "./components/Dashboard/Dashboard";
 import Form from "./components/Form/Form";
 import NewEventForm from "./components/Form/NewEventForm";
-import FineUploader from "./components/Upload/FineUploader";
-import Typography from "@rmwc/typography";
-import "@material/typography/dist/mdc.typography.css";
-
+import { Jumbotron } from "react-bootstrap";
+import Button from "@material-ui/core/Button";
 // Material UI Components to use
 /* 
  - Navbar, bottom navbar
@@ -22,12 +22,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="headline-container">
-          <Typography use="headline2">citizen ==></Typography>
-          <Typography use="headline2"> sidekick</Typography>
+        <Nav />
+        <div className="main-body">
+          <Routes />
         </div>
-        <Dashboard />
-        <Form />
       </div>
     );
   }

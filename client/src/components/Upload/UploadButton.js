@@ -17,6 +17,7 @@ function OutlinedButtons(props) {
   return (
     <div>
       <input
+        onChange={classes.handleFileSelect}
         accept={["image/*", "audio/*", "video/*"]}
         className={classes.input}
         id="outlined-button-file"
