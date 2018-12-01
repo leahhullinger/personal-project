@@ -1,29 +1,33 @@
-require("dotenv").config();
-const multer = require("multer");
-const multerS3 = require("multer-s3");
 const aws = require("aws-sdk");
+require("dotenv").config();
 
-aws.config.update({
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+aws.config.region = "us-east"; // correct Region
 
-  accessKeyId: process.env.AWS_SECRET_ACCESS_ID,
-  region: "us-east-2" // region of your bucket
-});
+aws.config.credentials = new aws.Credentials(
+  process.env.AWS_ACCESS_ID,
+  process.env.AWS_SECRET_KEY
+);
 
-const s3 = new aws.S3();
-
-const upload = multer({
-  storage: multerS3({
-    s3: s3,
-    bucket: "citizen-sidekick",
-    acl: "public-read",
-    metadata: function(req, file, cb) {
-      cb(null, { fieldName: file.fieldname });
-    },
-    key: function(req, file, cb) {
-      cb(null, Date.now().toString());
-    }
-  })
-});
-
-module.exports = upload;
+module = module.exports = {
+  sign: function(req, res, next) {
+    console.log("made it", req.body);
+    var filename = req.body.filename;
+    var filetype = req.body.filetype;
+    var s3 = new aws.S3();
+    var params = {
+      Bucket: process.env.AWS_BUCKET, // add my bucket name
+      Key: filename,
+      Expires: 60,
+      ContentType: filetype
+    };
+    s3.getSignedUrl("putObject", params, function(err, data) {
+      if (err) {
+        console.log(err);
+        return err;
+      } else {
+        console.log("file added");
+        res.status(200).send(data);
+      }
+    });
+  }
+};

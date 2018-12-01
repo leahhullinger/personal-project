@@ -1,0 +1,34 @@
+.form-container {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.Paper {
+  width: 70%;
+}
+
+.form-inputs-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px;
+}
+
+.divider {
+  height: 30px;
+  width: 100vw;
+  border-bottom: 1px solid blue;
+}
+
+input,
+textarea,
+.select-folder {
+  margin: 5px;
+  border: none;
+  border-radius: none;
+  border-bottom: 1px solid #eaeaea;
+  box-direction: none;
+}

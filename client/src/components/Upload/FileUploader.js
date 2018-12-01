@@ -1,56 +1,72 @@
 import React, { Component } from "react";
-// import { connect } from "react-redux";
-// import PropTypes from "prop-types";
-import { Paper } from "@material-ui/core";
-import UploadButton from "../Upload/UploadButton";
+import axios from "axios";
 
-const styles = {
-  input: {
-    display: "none"
+import FineUploaderTraditional from "fine-uploader-wrappers";
+import Gallery from "react-fine-uploader";
+
+import Button from "../Button/Button";
+const BASE_URL = "http://localhost:3005";
+
+const uploader = new FineUploaderTraditional({
+  options: {
+    autoUpload: false,
+    chunking: {
+      enabled: true
+    },
+    deleteFile: {
+      enabled: true,
+      endpoint: BASE_URL + "/uploads"
+    },
+    request: {
+      endpoint: BASE_URL + "/uploads"
+    },
+    retry: {
+      enableAuto: true
+    },
+    onSubmitted: {}
   }
-};
+});
 
-class FileUpload extends Component {
+const fileInputChildren = (
+  <span>
+    <button>Select Files</button>
+  </span>
+);
+
+class FileUploader extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      open: false,
-      files: []
+      FilesToUpload: []
     };
   }
 
-  handleFileSelect = e => {
-    console.log(FileList);
-    this.setState({ files: e.target.files[0] });
-  };
+  // onFileSelect = (e, files) => {
+  //   console.log(this.state.FilesToUpload);
+  //   this.setState({ selectedFiles: e.target.files[0] });
+  // };
 
-  handleClose = () => {
-    this.setState({
-      open: false
-    });
-  };
-
-  handleSave = files => {
-    //Saving files to state for further use and closing Modal.
-    this.setState({
-      files: files,
-      open: false
-    });
-  };
-
-  handleOpen = () => {
-    this.setState({
-      open: true
-    });
+  uploadFiles = () => {
+    console.log(this.state.FilesToUpload);
+    uploader.methods.uploadStoredFiles();
   };
 
   render() {
     return (
-      <Paper>
-        <UploadButton handleFileSelect={this.handleFileSelect} />
-      </Paper>
+      <div>
+        <Gallery
+          dropzone-disabled={true}
+          dropzone-content={true}
+          fileInput-children={fileInputChildren}
+          uploader={uploader}
+        />
+        <Button name="test submit" onClick={this.uploadFiles}>
+          test submit
+        </Button>
+      </div>
     );
   }
 }
 
-export default FileUpload;
+export default FileUploader;

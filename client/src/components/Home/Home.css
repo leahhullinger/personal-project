@@ -1,0 +1,36 @@
+.home-page-container {
+  display: flex;
+}
+
+.top-container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  padding: 30px;
+}
+.top-left {
+  height: 100vh;
+  width: 50vw;
+  background-color: #263238;
+}
+
+.top-right {
+  height: 100vh;
+  width: 50vw;
+  background-color: #ffcb95;
+}
+
+h1 {
+  color: white;
+  font: oswald-webfont;
+  font-weight: 700;
+  font-size: 70px;
+  text-align: justify;
+  padding: 30px;
+}
+
+ {
+  /* layer drawing stuff of people or words circled, crossed out, etc */
+}

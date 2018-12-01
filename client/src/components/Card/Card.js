@@ -11,3 +11,16 @@ import {
   Collapse,
   Paper
 } from "@material-ui/core";
+
+class Card extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      image: "",
+      date: '',
+      notes: '',
+
+
+  }
+}

@@ -3,27 +3,29 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.5.0",
     "@material-ui/core": "^3.5.1",
     "@material-ui/icons": "^3.0.1",
+    "auth0-js": "^9.8.2",
     "axios": "^0.18.0",
     "fine-uploader": "^5.16.2",
     "fine-uploader-wrappers": "^1.0.1",
     "material-ui-dropzone": "^2.0.0",
     "material-ui-upload": "^1.2.1",
+    "oswald-webfont": "0.0.1",
     "prop-types": "^15.6.2",
     "react": "^16.6.0",
     "react-bootstrap": "^0.32.4",
     "react-dom": "^16.6.0",
+    "react-dropzone": "^7.0.1",
     "react-fine-uploader": "^1.1.1",
     "react-redux": "^5.1.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.0",
-    "reactjs-file-uploader": "^1.0.8",
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.6",
     "redux-promise-middleware": "^5.1.1",
-    "rmwc": "^3.0.10"
+    "tesseract.js": "^1.0.14",
+    "typeface-roboto": "0.0.54"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -34,6 +36,7 @@
   "eslintConfig": {
     "extends": "react-app"
   },
+  "proxy": "http://localhost:3005",
   "browserslist": [
     ">0.2%",
     "not dead",

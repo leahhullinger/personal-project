@@ -1,14 +1,11 @@
-.App {
-  text-align: center;
-  height: 100vh;
-}
-
-.Button {
+button {
   font-family: source-code-pro, sans-serif;
   padding: 16px 71px 16px 14px;
   border: 1px solid #eaeaea;
   border-radius: 5px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  line-height: 1;
+  /* line-height: 1; */
+  padding: 7px 10px;
+  margin: 5px;
 }

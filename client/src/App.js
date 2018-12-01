@@ -4,19 +4,12 @@ import Routes from "./routes";
 import "./App.css";
 
 import Nav from "./components/Nav/Nav";
+import Home from "./components/Home/Home";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Form from "./components/Form/Form";
 import NewEventForm from "./components/Form/NewEventForm";
-import { Jumbotron } from "react-bootstrap";
-import Button from "@material-ui/core/Button";
-// Material UI Components to use
-/* 
- - Navbar, bottom navbar
- - Paper
- - Icon Buttons
- - Card: for image preview
- - Expansion Panel
-*/
+
+var Tesseract = window.Tesseract;
 
 class App extends Component {
   render() {

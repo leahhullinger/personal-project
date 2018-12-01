@@ -1,18 +1,14 @@
-// template Component for desktop Nav and mobile bottom nav
 import React, { Component } from "react";
-import { AppBar } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import "../Nav/Nav.css";
-
-// desktop
-import { Drawer, SwipeableDrawer } from "@material-ui/core";
-// mobile
 
 class Nav extends Component {
   render() {
     return (
-      <div className="nav-container">
-        <h2>citizen => sidekick</h2>
-        <p>log in</p>
+      <div className="top-nav-bar">
+        <div className="nav-container" style={{ padding: "10px" }}>
+          <Link to="/login">Log In</Link>
+        </div>
       </div>
     );
   }

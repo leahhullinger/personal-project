@@ -1,7 +1,6 @@
 // EVENT FORM
 import React, { Component } from "react";
 import axios from "axios";
-import FineUploader from "../Upload/FineUploader";
 import FileUploader from "../Upload/FileUploader";
 // used for both NEW EVENT and EDIT EVENT
 import UploadButton from "../Button/Button";
@@ -11,7 +10,6 @@ class NewEventForm extends Component {
     return (
       <div>
         NewEventForm
-        <FineUploader />
         <FileUploader />
       </div>
     );

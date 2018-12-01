@@ -1,0 +1,8 @@
+.paper {
+  min-height: 400px;
+  min-width: 50vw;
+  background-color: white;
+  border: 1px solid #eaeaea;
+  border-radius: 15px;
+  padding: 20px;
+}
