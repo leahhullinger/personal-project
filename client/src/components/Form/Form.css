@@ -6,10 +6,6 @@
   align-items: center;
 }
 
-.Paper {
-  width: 70%;
-}
-
 .form-inputs-container {
   display: flex;
   flex-direction: column;

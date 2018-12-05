@@ -16,7 +16,7 @@ class Home extends Component {
     super(props);
   }
   onClick = () => {
-    axios.get("http://citizen-sidekick/auth");
+    axios.get("/auth");
   };
   render() {
     return (
@@ -24,6 +24,7 @@ class Home extends Component {
         <div className="top-left">
           <h1>CITIZEN SIDEKICK</h1>
         </div>
+        <a href="http://localhost:3005/login">Login</a>
         <div className="top-right" />
       </div>
     );

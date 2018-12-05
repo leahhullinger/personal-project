@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import FineUploaderTraditional from "fine-uploader-wrappers";
+import FineUploaderS3 from "fine-uploader-wrappers/s3";
 import Gallery from "react-fine-uploader";
 
 import Button from "../Button/Button";
 const BASE_URL = "http://localhost:3005";
 
-const uploader = new FineUploaderTraditional({
+const uploader = new FineUploaderS3({
   options: {
     autoUpload: false,
     chunking: {
@@ -26,6 +26,15 @@ const uploader = new FineUploaderTraditional({
     onSubmitted: {}
   }
 });
+
+const completeHandler = ("complete",
+(id, name, response) => {
+  // handle completed upload
+});
+uploader.on("complete", completeHandler);
+
+// later on
+uploader.off("complete", completeHandler);
 
 const fileInputChildren = (
   <span>

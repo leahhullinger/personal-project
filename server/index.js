@@ -6,6 +6,7 @@ const session = require("express-session");
 const passport = require("passport");
 const strategy = require("./strategy");
 const aws_upload = require("./controllers/aws_upload");
+const ocr_controller = require("./controllers/ocr_controller");
 
 const app = express();
 const PORT = process.env.PORT;
@@ -41,18 +42,26 @@ passport.deserializeUser(function(user, done) {
 });
 
 // Enpoints
+
+// auth endpoints
 app.get(
-  "/login",
+  "/auth",
   passport.authenticate("auth0", {
     successRedirect: "/dash",
-    failureRedirect: "/login",
-    failureFlash: false
+    failureRedirect: "/auth"
   })
 );
-
-app.get("/callback", (req, res) => {
-  res.send("made it");
+app.get("/dash", (req, res, next) => {
+  if (!req.user) {
+    res.redirect("/auth");
+  } else {
+    res.status(200).send(JSON.stringify(req.user, null, 10));
+  }
 });
+
+// get google vision api key
+app.get("/api/transcript", ocr_controller.textExtract);
+
 // aws
 app.post("/api/aws", aws_upload.sign);
 // app.post("/uploads", fine_uploader.onUpload);

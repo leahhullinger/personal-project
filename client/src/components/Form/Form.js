@@ -5,11 +5,8 @@ import FileUploader from "../Upload/FileUploader";
 import Button from "../Button/Button";
 import Paper from "../Paper/Paper";
 import FileSelect from "../Upload/FileSelect";
-import ImageCard from "../Card/ImageCard";
-import tesseract_test from "../OCR/tesseract_test.png";
 import "../Form/Form.css";
-
-var Tesseract = window.Tesseract;
+import OCR from "../OCR/OCR";
 
 const classes = {
   backgroundColor: "#ff3d00",
@@ -20,48 +17,48 @@ class Form extends Component {
     super(props);
 
     this.state = {
-      imageURL: "",
+      fileUrl: "",
       date: "",
       folder: null,
       notes: "",
+      url: "",
       text: ""
     };
   }
 
   setFileUrl = url => {
-    const newUrl = url.substring(0, url.indexOf("?"));
-    this.setState({ imageUrl: newUrl });
+    console.log(url);
+    var newUrl = url.substring(0, url.indexOf("?"));
+    this.setState({ fileUrl: newUrl });
   };
 
-  handleTextExtract = () => {
-    const { image } = this.state;
+  // handleTextExtract = () => {
+  //   const { image } = this.state;
 
-    Tesseract.recognize(image)
-      .progress(p => {
-        console.log("progress", p);
-      })
-      .then(result => {
-        console.log("result", result);
-        this.setState({ text: result.text });
-      })
-      .finally(resultOrError => {
-        console.log(resultOrError);
-      });
-  };
+  //   Tesseract.recognize(image)
+  //     .progress(p => {
+  //       console.log("progress", p);
+  //     })
+  //     .then(result => {
+  //       console.log("result", result);
+  //       this.setState({ text: result.text });
+  //     })
+  //     .finally(resultOrError => {
+  //       console.log(resultOrError);
+  //     });
+  // };
   // ADD CREATE FOLDER BUTTON, FOLDER SELECT
   render() {
     return (
       <div className="form-container">
         <Paper>
-          {!this.state.imageURL ? (
-            <div className="dropzone">
-              <FileSelect setImageUrl={this.setFileUrl} />
-            </div>
-          ) : (
-            <div>
-              <img src={this.state.imageURL} alt="image" />
-            </div>
-          )}
+          {!this.state.fileUrl} ?
+          <div className="dropzone">
+            <FileSelect setFileUrl={this.setFileUrl} />
+            :
+            <img src={this.state.fileUrl} alt="upload img" />
+          </div>
+          }
           <span className="divider" />
           <div className="form-inputs-container">
             <select className="folder-select">Select Folder</select>

@@ -1,0 +1,6 @@
+.textarea {
+  border-radius: 3px;
+  border: 0.5px solid blue;
+  word-wrap: inherit;
+  font-size: 8px;
+}
