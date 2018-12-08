@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import OCR from "../OCR/OCR";
+import { connect } from "react-redux";
 import Textarea from "../Textarea/Textarea";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 import "./UploadForm.css";
-import Tesseract from "../OCR/Tesseract";
 
 export default class UploadForm extends Component {
   constructor(props) {
@@ -32,8 +31,8 @@ export default class UploadForm extends Component {
           <Textarea placeholder="Notes" />
         </div>
         <div>
-          <button>save</button>
-          <button>cancel</button>
+          <Button>save</Button>
+          <Button>cancel</Button>
         </div>
       </div>
     );

@@ -3,9 +3,6 @@ import Textarea from "../Textarea/Textarea";
 import Button from "../Button/Button";
 import axios from "axios";
 // set up redux
-import test from "../OCR/tesseract_test.png";
-
-var Tesseract = window.Tesseract;
 
 export default class OCR extends Component {
   constructor(props) {
@@ -16,15 +13,15 @@ export default class OCR extends Component {
     };
   }
 
-  handleTranscript = () => {
-    const testImage = test;
-    Tesseract.recognize(testImage)
-      .then(result => {
-        console.log("result", result.data);
-        this.setState({ transcript: result.text });
-      })
-      .catch(error => console.log("error", error));
-  };
+  // handleTranscript = props => {
+  //   const { fileName } = this.props;
+  //   Tesseract.recognize(fileName)
+  //     .then(result => {
+  //       console.log("result", result.data);
+  //       this.setState({ transcript: result.text });
+  //     })
+  //     .catch(error => console.log("error", error));
+  // };
 
   //   axios
   //     .post("http://localhost:3005/api/transcript", this.state.imageURL)
@@ -40,7 +37,7 @@ export default class OCR extends Component {
   render() {
     return (
       <div className="ocr-container">
-        <Button onClick={this.handleTranscript}>Transcript</Button>
+        {/* <Button onClick={this.props.onTranscript}>Transcript</Button> */}
         <Textarea onChange={this.handleTextEdit}>
           {this.state.transcript}
         </Textarea>

@@ -1,8 +1,11 @@
 // s3 upload
 
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import Dropzone from "react-dropzone";
 import axios from "axios";
+
+import { onFileSelect } from "../../ducks/reducer";
 
 class FileSelect extends Component {
   constructor(props) {
@@ -46,4 +49,12 @@ class FileSelect extends Component {
     );
   }
 }
-export default FileSelect;
+function mapStateToProps(state) {
+  return {
+    filesToUpload: state.filesToUpload
+  };
+}
+export default connect(
+  mapStateToProps,
+  { onFileSelect }
+)(FileSelect);

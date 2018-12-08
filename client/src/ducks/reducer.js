@@ -1,48 +1,57 @@
+import axios from "axios";
+const BASE_URL = "http://localhost:3005";
 const initialState = {
   filesToUpload: [
     {
-      id: {
-        file: null,
-        type: "",
-        size: "",
-        date: "",
-        folder: null,
-        notes: "",
-        transcriptText: ""
-      }
+      name: "",
+      size: 0,
+      type: ""
     }
-  ]
+  ],
+  date: "",
+  folder: null,
+  notes: "",
+  extractedText: "",
+  folder: ""
 };
 
 // user's selected files
-const HANDLE_FILES_TO_UPLOAD = "HANDLE_FILES_TO_UPLOAD";
-
-//
-
+const ON_FILE_SELECT = "ON_FILE_SELECT";
 // handles date input
-const HANDLE_DATE_INPUT = "HANDLE_DATE_INPUT";
+const UPDATE_DATE = "UPDATE_DATE";
 
-// handles notes input
-const HANDLE_NOTES_INPUT = "HANDLE_NOTES_INPUT";
+// UPDATEs notes input
+const UPDATE_NOTES = "UPDATE_NOTES";
 
-// handles tesseract text results
-const HANDLE_EXTRACTED_TEXT = "HANDLE_EXTRACTED_TEXT";
+// UPDATEs tesseract text results
+const UPDATE_EXTRACTED_TEXT = "UPDATE_EXTRACTED_TEXT";
 
-// get file id
-const GET_FILE_ID = "GET_FILE_ID";
-
-//
+// folder select
+const UPDATE_FOLDER = "UPDATE_FOLDER";
+// submit form
+const ON_FORM_SUBMIT = "ON_FORM_SUBMIT";
 
 function reducer(state = initialState, action) {
   switch (action.type) {
-    case HANDLE_FILES_TO_UPLOAD:
-      return { ...state, filesToUpload: action.payload };
-    case HANDLE_DATE_INPUT:
+    case ON_FILE_SELECT:
+      return {
+        ...state,
+        filesToUpload: {
+          name: action.payload,
+          size: action.payload,
+          type: action.payload
+        }
+      };
+    case UPDATE_DATE:
       return { ...state, date: action.payload };
-    case HANDLE_NOTES_INPUT:
+    case UPDATE_NOTES:
       return { ...state, notes: action.payload };
-    case HANDLE_EXTRACTED_TEXT:
+    case UPDATE_EXTRACTED_TEXT:
       return { ...state, transcriptText: action.payload };
+    case UPDATE_FOLDER:
+      return { ...state, folder: action.payload };
+    case ON_FORM_SUBMIT:
+      return { ...state, date: action.payload, notes: action.payload };
     default:
       return state;
   }
@@ -50,29 +59,56 @@ function reducer(state = initialState, action) {
 
 // EXPORT FUNCTIONS HERE
 
-export function handleFilesToUpload(files) {
+export function onFileSelect({ files }) {
+  const {
+    file: { name, size, type }
+  } = files;
+  console.log(files);
   return {
-    type: HANDLE_FILES_TO_UPLOAD,
-    payload: files
+    type: ON_FILE_SELECT,
+    payload: {
+      name: name,
+      size: size,
+      type: type
+    }
   };
 }
-
-export function handleDateInput(date) {
+export function updateDate(date) {
   return {
-    type: HANDLE_DATE_INPUT,
+    type: UPDATE_DATE,
     payload: date
   };
 }
-export function handleNotesInput(notes) {
+export function updateNotes(notes) {
   return {
-    type: HANDLE_NOTES_INPUT,
+    type: UPDATE_NOTES,
     payload: notes
   };
 }
-export function handleExtractedText(text) {
+export function updateExtractedText(text) {
   return {
-    type: HANDLE_EXTRACTED_TEXT,
+    type: UPDATE_EXTRACTED_TEXT,
     payload: text
   };
 }
+export function updateFolder(folder) {
+  return {
+    type: UPDATE_FOLDER,
+    payload: folder
+  };
+}
+export function onFormSubmit(date, notes) {
+  return {
+    type: ON_FORM_SUBMIT,
+    payload: axios
+      .post(BASE_URL + "/api/upload", {
+        date,
+        notes
+      })
+      .then(response => {
+        console.log(response.data);
+      })
+  };
+}
+
 export default reducer;

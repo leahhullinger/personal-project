@@ -1,21 +1,25 @@
 // MAIN DASHBOARD
 import React from "react";
-// import { Link } from "react-router-dom";
-// import { Drawer } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
-// displays Nav, UploadDash, FolderDash
-// bonus: audio record button
-
-import FolderDash from "./FolderDash";
+import FolderDash from "./FolderDash/FolderDash";
 import UploadDash from "./UploadDash/UploadDash";
 
 export default function Dashboard() {
   return (
     <div className="dashboard-container">
-      {/* <Drawer variant="permanent" anchor="right">
-        <div>Drawer</div>
-      </Drawer> */}
-      <UploadDash />
+      <div>
+        <h1>hey, _____ </h1>
+        <h2>sidekick here.</h2>
+      </div>
+      <div style={{ backgroundColor: "#a87a2f" }}>
+        <Link to="/upload">
+          <h1>+ ADD </h1>
+        </Link>
+        <h1>FIND</h1>
+      </div>
+      {/* <UploadDash />
+      <FolderDash /> */}
     </div>
   );
 }

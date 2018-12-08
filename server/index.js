@@ -59,8 +59,12 @@ app.get("/dash", (req, res, next) => {
   }
 });
 
+app.post("/api/upload", (req, res, next) => {
+  const { date, notes } = req.body;
+  res.status(200).send("dates and notes made it");
+});
 // get google vision api key
-app.get("/api/transcript", ocr_controller.textExtract);
+// app.post("/api/transcript", ocr_controller.getText);
 
 // aws
 app.post("/api/aws", aws_upload.sign);

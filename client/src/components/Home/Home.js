@@ -23,9 +23,8 @@ class Home extends Component {
       <div className="home-page-container">
         <div className="top-left">
           <h1>CITIZEN SIDEKICK</h1>
+          <a href="http://localhost:3005/login">Login</a>
         </div>
-        <a href="http://localhost:3005/login">Login</a>
-        <div className="top-right" />
       </div>
     );
   }
