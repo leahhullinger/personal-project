@@ -3,9 +3,10 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
-import Button from "../Button/Button";
 import Paper from "../Paper/Paper";
 import FileSelect from "../Upload/FileSelect";
+import FileUploader from "../Upload/FileUploader";
+import "../../styles.css";
 import "../Form/Form.css";
 import OCR from "../OCR/OCR";
 
@@ -33,8 +34,8 @@ class Form extends Component {
     });
   };
   setFileUrl = url => {
-    console.log(url);
     var newUrl = url.substring(0, url.indexOf("?"));
+    console.log(newUrl);
     this.setState({ fileUrl: newUrl });
   };
   onSubmitClick = () => {
@@ -45,11 +46,11 @@ class Form extends Component {
   render() {
     return (
       <div className="form-container">
-        <OCR onTranscript={this.onTranscript} />
+        <FileSelect setFileUrl={this.setFileUrl} />
         <Paper>
           {!this.state.fileUrl ? (
             <div className="dropzone">
-              <FileSelect setImageUrl={this.setImageUrl} />
+              <FileSelect setFileUrl={this.setFileUrl} />
             </div>
           ) : (
             <div>
@@ -58,14 +59,12 @@ class Form extends Component {
           )}
           <span className="divider" />
           <div className="form-inputs-container">
-            <select className="folder-select">Select Folder</select>
+            <select placeholder="select folder" />
             <input
-              className="form-input"
               placeholder="Date"
               onChange={e => this.props.updateDate(e.target.value)}
             />
             <textarea
-              className="form-notes"
               placeholder="Notes"
               onChange={e => this.props.updateNotes(e.target.value)}
             />
@@ -89,6 +88,7 @@ function mapStateToProps(state) {
     folder: state.folder
   };
 }
+
 export default connect(
   mapStateToProps,
   {

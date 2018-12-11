@@ -1,7 +1,7 @@
 const aws = require("aws-sdk");
 require("dotenv").config();
 
-aws.config.region = "us-east-1";
+aws.config.region = "us-east-2";
 
 aws.config.credentials = new aws.Credentials(
   process.env.AWS_ACCESS_KEY,
@@ -10,13 +10,13 @@ aws.config.credentials = new aws.Credentials(
 
 exports = module.exports = {
   sign: function(req, res, next) {
-    var filename = req.body.filename;
-    var filetype = req.body.filetype;
-    var s3 = new aws.S3();
+    const filetype = req.body.filetype;
+    const filename = req.body.filename;
+    var s3 = new aws.S3({ signatureVersion: "v4" });
     var params = {
       Bucket: process.env.SOME_BUCKET,
       Key: filename,
-      Expires: 60,
+      Expires: 100,
       ContentType: filetype
     };
     s3.getSignedUrl("putObject", params, function(err, data) {

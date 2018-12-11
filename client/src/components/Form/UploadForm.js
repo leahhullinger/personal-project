@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Textarea from "../Textarea/Textarea";
-import Input from "../Input/Input";
 import Button from "../Button/Button";
 import "./UploadForm.css";
 
@@ -27,8 +26,8 @@ export default class UploadForm extends Component {
         </div>
         <div className="form">
           <select>folder</select>
-          <Input placeholder="Date" label={this.placeholder} />
-          <Textarea placeholder="Notes" />
+          <input placeholder="Date" label={this.placeholder} />
+          <textarea placeholder="Notes" />
         </div>
         <div>
           <Button>save</Button>

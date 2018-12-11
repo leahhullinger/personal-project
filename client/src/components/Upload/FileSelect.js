@@ -3,6 +3,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Dropzone from "react-dropzone";
+import "../../styles.css";
 import axios from "axios";
 
 import { onFileSelect } from "../../ducks/reducer";
@@ -10,10 +11,13 @@ import { onFileSelect } from "../../ducks/reducer";
 class FileSelect extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      fileUrl: ""
+    };
   }
 
   _onDrop = files => {
-    console.log(files);
     var file = files[0];
 
     axios
@@ -21,20 +25,18 @@ class FileSelect extends Component {
         filename: file.name,
         filetype: file.type
       })
+
       .then(function(result) {
-        console.log(result, "signed url result");
         var signedUrl = result.data;
         var options = {
           headers: {
             "Content-Type": file.type
           }
         };
-
         return axios.put(signedUrl, file, options);
       })
       .then(res => {
-        console.log(res);
-        this.props.setImageUrl(res.config.url);
+        this.props.setFileUrl(res.config.url);
       })
       .catch(function(err) {
         console.log(2, err);
@@ -43,8 +45,22 @@ class FileSelect extends Component {
 
   render() {
     return (
-      <Dropzone style={{ border: "1px solid gray" }} onDrop={this._onDrop}>
-        <div>Click to upload picture!</div>
+      <Dropzone
+        style={{
+          border: "1px solid #f0f0f0",
+          borderRadius: "5px",
+          fontSize: "10px",
+          fontFamily: "Noto Sans SC, sans-serif",
+          padding: "10px",
+          minHeight: "100px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center"
+        }}
+        onDrop={this._onDrop}
+      >
+        {" "}
+        UPLOAD FILE
       </Dropzone>
     );
   }

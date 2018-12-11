@@ -1,15 +1,33 @@
 import React, { Component } from "react";
-import ReactS3Uploader from "react-s3-uploader";
+import axios from "axios";
 
+const BASE_URL = "http://localhost:3005";
 export default class S3Uploader extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      files: [],
       url: []
     };
   }
-  onSignedUrl = () => {}
+
+  onFileSelect = e => {
+    const files = e.target.files;
+
+    console.log("selected files", files);
+    this.setState({ files: files });
+
+    let reader = new FileReader();
+    reader.readAsDataURL(files[0]);
+
+    reader.onload = e => {
+      const formData = { file: e.target.result };
+      return axios.post(BASE_URL + "/upload", formData).then(response => {
+        console.log("result", response);
+      });
+    };
+  };
 
   handleFinishedUpload = info => {
     console.log("File uploaded with filename", info.filename);
@@ -17,28 +35,10 @@ export default class S3Uploader extends Component {
   };
 
   render() {
-    const uploadOptions = {
-      server: "http://localhost:3005",
-      signingUrlQueryParams: { uploadType: "avatar" }
-    };
-    const s3Url = "https://citizen-sidekick.s3.amazonaws.com";
-
     return (
-      <ReactS3Uploader
-        signingUrl="/s3/sign"
-        signingUrlMethod="GET"
-        accept={["image/*", "audio/*"]}
-        s3path="/uploads/"
-        onSignedUrl={this.onSignedUrl}
-        onProgress={this.onUploadProgress}
-        onError={this.onUploadError}
-        onFinish={this.onUploadFinish}
-        contentDisposition="auto"
-        scrubFilename={filename => filename.replace(/[^\w\d_\-.]+/gi, "")}
-        server="http://localhost:3005"
-        inputRef={cmp => (this.uploadInput = cmp)}
-        autoUpload={true}
-      />
+      <div>
+        <input type="file" onChange={e => this.onFileSelect(e)} />
+      </div>
     );
   }
 }

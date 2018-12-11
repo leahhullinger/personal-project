@@ -1,15 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-
-import "./Home.css";
-// import { Typography } from "@material-ui/core";
-// const styles = withStyles({
-//   pallette: {
-//     primary: "#e0f2f1",
-//     secondary: "#ff3d00"
-//   }
-// });
+import "../../styles.css";
+import "../Home/Home.css";
 
 class Home extends Component {
   constructor(props) {
@@ -20,10 +13,10 @@ class Home extends Component {
   };
   render() {
     return (
-      <div className="home-page-container">
-        <div className="top-left">
-          <h1>CITIZEN SIDEKICK</h1>
-          <a href="http://localhost:3005/login">Login</a>
+      <div className="home">
+        <div className="page">
+          <h1 className="name">CITIZEN SIDEKICK</h1>
+          <a href="http://localhost:3005/auth">login</a>
         </div>
       </div>
     );

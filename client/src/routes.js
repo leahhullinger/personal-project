@@ -14,8 +14,7 @@ export default () => (
     <Route exact path="/" component={Home} />
     <Route path="/login" component={Login} />
     <Route path="/dash" component={Dashboard} />
-    <Route path="/upload" component={FileUploader} />
     <Route path="/form" component={Form} />
-    <Route path="/uploadform" component={FileSelect} />
+    <Route path="/upload" component={FileUploader} />
   </Switch>
 );

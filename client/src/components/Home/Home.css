@@ -1,31 +1,23 @@
-.home-page-container {
+.home {
   height: 100vh;
-  width: 100vw;
-  display: flex;
-  background-color: #b68531;
-  margin: 25px;
-  border-radius: 1px;
+  padding: 25px;
 }
-
-.top-container {
+.page {
+  padding: 50px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  margin: 0;
-  padding: 30px;
+  border-radius: 2px;
+  background-color: #b68531;
 }
 
-.top-right {
-  height: 100vh;
-  width: 50vw;
-  background-color: #ffcb95;
-}
-h1 {
-  color: #f8f8f8;
-  font-family: Roboto, sans-serif;
+.name {
+  font-size: 70px;
   font-weight: 900;
-  font-size: 100px;
-  text-align: justify;
-  padding: 20px;
+}
+
+a {
+  color: white;
+  font-size: 20px;
 }

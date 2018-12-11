@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "citizen-sidekick",
+  "private_key_id": "3e81c6d674d7c7345c385a470e5c7b2c0e20dbbb",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCy8P3sxwk7D3oW\noL0EXBn5TL0asVkLb2/zcCBZcp61b+fTUJE6FjQFQEUhrpVZLkZNNSlUdfoa1D4n\nCidNwBX4ZLJ6qpW47tE3yyvBN5u5bOgacy0CCRKnunvIhVKqdb35xlcHsXerJ0jg\n+omqtW00kZssxAKtAyNUDlm3M1epByBtcwxRqIBy+ZPNKFoP+mAy67zLIjzgYsqP\ny5kajT+FIIo2T8a9Z8NelTmO/vDws/ehebQibbcqnsTLhrgE7Q3FBjd+zw2I8Moa\nlChcJ36Pd9LsK3h7BG6mBdoGsEI7BJmaiBAv1XD4Z/EEU1ZLwweBZ8u9PGYIxJ/6\nN2qs/tg1AgMBAAECggEAS9JMrhsqQKHOuC7U2LeT8+w9xsU191/5PlwZAP3N3RB1\nWTduyf+lfEIe6OY6d0bh2A46HIU+/EZJra4iOFI3nQBCFjMY7PsYoL0QpbcD356T\nfL2n6RBiHLsqfy1q+TqZzG/r6aEblWS4f0f5tGFazCcUavQFND07p37LKhLxxnc8\nLFoOZf1rJQyQ9RmEMK55bZBzEW2w0N5aY0UQchG66JHyUaxODG965bkKCEhtU+DR\npVvUfr6mRLOfxJd0K0hfHAhmNMPkcKzKmhoPVeds/C4ZjhCdlU7E+436xvMNWbkB\nFI5YY0uzPaSRr0DvUzJp3w6SFHaJd0gaGlzVWjMPowKBgQD8/QQKIRehslCM+07t\nnYH24GE7un/hDcWTs5N1IgDBQHMZ2JAAnVxKpQAdf3/KzUikWptxiBf85OtWUIDJ\nAAGH6Xop+iqbfiC2lePnbJTdMmw1UQv2LCRqtbOvpP/OSmoolRyp0x8OGu0ndl4l\niwTGyJniGOEHUcICra7/ruRgewKBgQC1ElE7+0rdx8G6bCTLHgQR338urG28Xr8q\nIfNJztnNRlfCy2Z+MGc5AyYNuh4chmZKqQeW0xyfOdB3XrvAq3csj6PMT/q3nGN1\nWm7QoPd61lvTZ7Crr+m3Jx9FOP6jkOQXhTls8D0/NV94Gpo80H2/pVgXWSdmYvUp\nJvxKfwdDDwKBgQDxqpCNTIdSgw/HXNlMysU3m6fGcqVtysYODeCyZ8To1jQdYG5O\n6AMdmvi9NOpSRD88IQGUNjkT72mPjl83orXTqwhzyPGij52YTR7kFyktE9miJMWU\nZx5ygRgglTF3UkaOdcJnx7FGvBoHNF9C5cWuTjoRbUqov0ThYiBlRiAKuQKBgQCu\nB2jkCWWvOqpLjlzei37F3tTR+w+NGFMLH45Axfo3fQAkTHG5nrPW69vLHbKLH/F4\nmHSe1VCRCHQABqDVUPc9cOCxIb2Kc1h0FfKjudGh0hx3VxVKLcynJ4a6dUjn0/4l\nTPogZdW3xoh3Wroa8Req9jNwXVOs6DdQ0hNxVh2YqQKBgAQfrs8yEEC4tNwq17rF\ni7lWmC48Fz8/7fsMPokDO+PRMXf77kiotgGgOMFT15FGnPA3+2WtxmYNN1m5YMTf\nJVxA6g/py17gn6lzKG/aYPCtmeUMQjUQ4lWPgtqH6BFw08Y5/EWL07/gN0gTpM+N\nn0szggFc5BkenHpbohFtH7eS\n-----END PRIVATE KEY-----\n",
+  "client_email": "citizen-sidekick@citizen-sidekick.iam.gserviceaccount.com",
+  "client_id": "107501419695408326083",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/citizen-sidekick%40citizen-sidekick.iam.gserviceaccount.com"
+}
