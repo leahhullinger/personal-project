@@ -1,24 +1,23 @@
 import React, { Component } from "react";
-import {connect} from 'react-redux';
-import Button from "../../Button/Button";
-import "../Card/ImageCard.css";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { Button, Thumbnail } from "react-bootstrap";
+import TextDetect from "../../TextDetect/TextDetect";
 
-export default class ImageCard extends Component {
-  
+class PreviewCard extends Component {
   render() {
     return (
-      
-      <div className="img-preview-card">
-        <img className="img-preview" src={} />
-        <div className="card-nav-bar">
-          <Button>Edit</Button>
-          <Button>Save</Button>
+      <div className="card">
+        <Thumbnail className="img" src={this.props.src} alt="171x180" />
+        <div className="nav-bar">
+          <Button onClick={this.props.onTranscript} />
+          <Button onClick={this.props.onClick}>Submit</Button>
         </div>
+        <div className="form-container" />
       </div>
     );
   }
 }
 
-
-
-export default ImageCard;
+export default PreviewCard;

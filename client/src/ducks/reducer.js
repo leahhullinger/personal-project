@@ -1,22 +1,19 @@
 import axios from "axios";
 const BASE_URL = "http://localhost:3005";
 const initialState = {
-  filesToUpload: [
-    {
-      name: "",
-      size: 0,
-      type: ""
-    }
-  ],
+  filesToUpload: [],
   date: "",
   folder: null,
   notes: "",
-  extractedText: "",
-  folder: ""
+  detectedText: "",
+  folder: "",
+  s3Urls: []
 };
 
 // user's selected files
-const ON_FILE_SELECT = "ON_FILE_SELECT";
+const UPDATE_SELECTED_FILES = "UPDATE_SELECTED_FILES";
+// s3 ref urls
+const UPDATE_S3_URLS = "UPDATE_S3_URLS";
 // handles date input
 const UPDATE_DATE = "UPDATE_DATE";
 
@@ -24,7 +21,7 @@ const UPDATE_DATE = "UPDATE_DATE";
 const UPDATE_NOTES = "UPDATE_NOTES";
 
 // UPDATEs tesseract text results
-const UPDATE_EXTRACTED_TEXT = "UPDATE_EXTRACTED_TEXT";
+const UPDATE_TEXT_DETECT = "UPDATE_TEXT_DETECT";
 
 // folder select
 const UPDATE_FOLDER = "UPDATE_FOLDER";
@@ -33,20 +30,22 @@ const ON_FORM_SUBMIT = "ON_FORM_SUBMIT";
 
 function reducer(state = initialState, action) {
   switch (action.type) {
-    case ON_FILE_SELECT:
+    case UPDATE_SELECTED_FILES:
+      console.log(action.payload);
       return {
         ...state,
-        filesToUpload: {
-          name: action.payload,
-          size: action.payload,
-          type: action.payload
-        }
+        filesToUpload: [action.payload]
+      };
+    case UPDATE_S3_URLS:
+      return {
+        ...state,
+        s3Urls: action.payload
       };
     case UPDATE_DATE:
       return { ...state, date: action.payload };
     case UPDATE_NOTES:
       return { ...state, notes: action.payload };
-    case UPDATE_EXTRACTED_TEXT:
+    case UPDATE_TEXT_DETECT:
       return { ...state, transcriptText: action.payload };
     case UPDATE_FOLDER:
       return { ...state, folder: action.payload };
@@ -59,18 +58,11 @@ function reducer(state = initialState, action) {
 
 // EXPORT FUNCTIONS HERE
 
-export function onFileSelect({ files }) {
-  const {
-    file: { name, size, type }
-  } = files;
+export function updateSelectedFiles(files) {
   console.log(files);
   return {
-    type: ON_FILE_SELECT,
-    payload: {
-      name: name,
-      size: size,
-      type: type
-    }
+    type: UPDATE_SELECTED_FILES,
+    payload: files
   };
 }
 export function updateDate(date) {
@@ -85,9 +77,15 @@ export function updateNotes(notes) {
     payload: notes
   };
 }
-export function updateExtractedText(text) {
+export function updateS3Urls(s3Urls) {
   return {
-    type: UPDATE_EXTRACTED_TEXT,
+    type: UPDATE_S3_URLS,
+    payload: s3Urls
+  };
+}
+export function updateTextDetect(text) {
+  return {
+    type: UPDATE_TEXT_DETECT,
     payload: text
   };
 }

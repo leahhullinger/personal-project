@@ -15,26 +15,22 @@ class FileSelect extends Component {
     super(props);
 
     this.state = {
-      files: [],
-      s3Urls: []
+      selectedFiles: [],
+      fileUrls: []
     };
   }
 
-  // onFileSelect = acceptedFiles => {
-  //   console.log(e.target.files);
-  //   var files = e.target.files;
-  //   updateSelectedFiles(files);
-  // };
-
-  oncancel = () => {
-    this.setState({ files: [] });
+  onFileSelect = e => {
+    console.log(e.target.files);
+    files = e.target.files;
+    updateSelectedFiles(files);
   };
 
-  onDrop = files => {
+  _onDrop = files => {
     var file = files[0];
-    console.log(files);
-    this.props.updateSelectedFiles(file);
+  };
 
+  onUpload = file => {
     axios
       .post("http://localhost:3005/api/aws", {
         filename: file.name,
@@ -72,8 +68,7 @@ class FileSelect extends Component {
           justifyContent: "center",
           alignItems: "center"
         }}
-        onDrop={this.onDrop}
-        onFileDialogCancel={this.onCancel}
+        onDrop={this._onDrop}
       >
         {" "}
         UPLOAD FILE

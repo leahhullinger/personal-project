@@ -11,7 +11,9 @@ export default class Login extends Component {
       user: {}
     };
   }
-
+  componentDidMount() {
+    axios.get(BASE_URL + "/auth");
+  }
   render() {
     return <div className="login-page">Login Page</div>;
   }

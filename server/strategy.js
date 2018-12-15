@@ -8,7 +8,7 @@ const strategy = new Auth0Strategy(
     domain: DOMAIN,
     clientID: CLIENT_ID,
     clientSecret: CLIENT_SECRET,
-    callbackURL: "http://localhost:3005/auth",
+    callbackURL: "http://localhost:3000/dash",
     scope: "openid email profile"
   },
 
@@ -16,7 +16,7 @@ const strategy = new Auth0Strategy(
     console.log(extraParams.id_token);
     try {
       // Initialize the Amazon Cognito credentials provider
-      AWS.config.region = "us-east-1"; // Region
+      AWS.config.region = "us-east-1"; // changed this from us-east-1 to us-east-2
       AWS.config.credentials = new AWS.CognitoIdentityCredentials({
         IdentityPoolId: process.env.IDENTITY_POOL_ID,
         Logins: {

@@ -6,9 +6,11 @@
     "@google-cloud/vision": "^0.23.0",
     "auth0-js": "^9.8.2",
     "axios": "^0.18.0",
+    "feather-icons": "^4.9.0",
     "oswald-webfont": "0.0.1",
     "prop-types": "^15.6.2",
     "react": "^16.6.0",
+    "react-bootstrap": "^0.32.4",
     "react-dom": "^16.6.0",
     "react-dropzone": "^7.0.1",
     "react-dropzone-s3-uploader": "^1.1.0",
@@ -32,6 +34,7 @@
   "eslintConfig": {
     "extends": "react-app"
   },
+  "proxy": "http://localhost:3005",
   "browserslist": [
     ">0.2%",
     "not dead",

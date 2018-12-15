@@ -7,7 +7,8 @@ import FileUploader from "./components/Upload/FileUploader";
 import FileSelect from "./components/Upload/FileSelect";
 import Form from "./components/Form/Form";
 import Login from "./components/Login/Login";
-import UploadForm from "./components/Form/UploadForm";
+import TextDetect from "./components/TextDetect/TextDetect";
+import PreviewCard from "./components/Card/PreviewCard/PreviewCard";
 
 export default () => (
   <Switch>
@@ -16,5 +17,7 @@ export default () => (
     <Route path="/dash" component={Dashboard} />
     <Route path="/form" component={Form} />
     <Route path="/upload" component={FileUploader} />
+    <Route path="/textDetect" component={TextDetect} />
+    <Route path="/previewCard" component={PreviewCard} />
   </Switch>
 );
