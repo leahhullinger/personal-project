@@ -1,0 +1,18 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-inputs-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.divider {
+  height: 30px;
+  width: 100vw;
+  border-bottom: 1px solid blue;
+}
