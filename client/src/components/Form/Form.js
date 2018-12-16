@@ -105,14 +105,3 @@ export default connect(
     onFormSubmit
   }
 )(Form);
-
-// styles
-
-/* outlined inputs with label, outline color light version of background color
-background is main, buttons dark */
-
-// event.target.files[0]
-// URL.creatObjectURL()
-// URL.revokeObjectURL()
-
-// this.state = file: "", preview: ""
