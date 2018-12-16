@@ -1,22 +1,22 @@
+require("dotenv").config();
 const Auth0Strategy = require("passport-auth0");
 const AWS = require("aws-sdk");
 
 const { DOMAIN, CLIENT_ID, CLIENT_SECRET, AWS_ACCESS_KEY } = process.env;
-
 const strategy = new Auth0Strategy(
   {
     domain: DOMAIN,
     clientID: CLIENT_ID,
     clientSecret: CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/dash",
+    callbackURL: "/dash",
     scope: "openid email profile"
   },
 
   function(sessionToken, refreshToken, extraParams, profile, done) {
-    console.log(extraParams.id_token);
+    console.log("fireball");
     try {
       // Initialize the Amazon Cognito credentials provider
-      AWS.config.region = "us-east-1"; // changed this from us-east-1 to us-east-2
+      AWS.config.region = "us-east-1";
       AWS.config.credentials = new AWS.CognitoIdentityCredentials({
         IdentityPoolId: process.env.IDENTITY_POOL_ID,
         Logins: {
@@ -39,36 +39,12 @@ const strategy = new Auth0Strategy(
           sessionToken,
           identityId
         };
-        console.log("you win");
       });
     } catch (err) {
       console.log("something went wrong with aws", err);
     }
+    console.log("here is the profile", profile);
   }
 );
 
 module.exports = strategy;
-
-// {
-//   "Version": "2012-10-17",
-//   "Statement": [
-//     {
-//       "Effect": "Allow",
-//       "Action": ["s3:ListBucket"],
-//       "Resource": ["arn:aws:s3:::citizen-sidekick"],
-//       "Condition": {"StringLike": {"s3:prefix": ["Auth0/my-upload-app/${citizen-sidekick.auth0.com:sub}/*"]}}
-//     },
-//     {
-//       "Effect": "Allow",
-//       "Action": [
-//         "s3:GetObject",
-//         "s3:PutObject",
-//         "s3:DeleteObject"
-//       ],
-//       "Resource": [
-//         "arn:aws:s3:::citizen-sidekick/Auth0/citizen-sidekick/${citizen-sidekick.auth0.com:sub}",
-//         "arn:aws:s3:::citizen-sidekick/Auth0/citizen-sidekick/${citizen-sidekick.auth0.com:sub}/*"
-//       ]
-//     }
-//   ]
-// }

@@ -20,12 +20,6 @@ class FileSelect extends Component {
     };
   }
 
-  // onFileSelect = acceptedFiles => {
-  //   console.log(e.target.files);
-  //   var files = e.target.files;
-  //   updateSelectedFiles(files);
-  // };
-
   oncancel = () => {
     this.setState({ files: [] });
   };

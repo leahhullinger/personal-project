@@ -5,9 +5,8 @@ const Rekognition = require("node-rekognition");
 //
 exports = module.exports = {
   transcript: (req, res) => {
-    const { file } = req.body;
-    const filename = file.split("/").pop(-1);
-    // i need to get filename
+    console.log(req.body);
+
     var rekognition = new AWS.Rekognition({
       endpoint: "https://rekognition.us-east-2.amazonaws.com",
       accessKeyId: process.env.AWS_ACCESS_KEY,
@@ -20,7 +19,7 @@ exports = module.exports = {
         /* required */
         S3Object: {
           Bucket: process.env.SOME_BUCKET,
-          Name: filename
+          Name: req.body
         }
       }
     };

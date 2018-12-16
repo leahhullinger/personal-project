@@ -5,7 +5,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 import FileSelect from "../Upload/FileSelect";
 import PreviewCard from "../Card/PreviewCard/PreviewCard";
-import "../../styles.css";
+// import "../../styles.css";
 import "../Form/Form.css";
 
 import {
@@ -28,6 +28,7 @@ class Form extends Component {
   }
   // need to connect file name to file Url
   onTranscript = file => {
+    console.log("file being passed", file);
     axios.post("http://localhost:3005/api/transcript", file).then(response => {
       console.log(response.data);
       this.props.updateTextDetect(response.data);
@@ -57,7 +58,7 @@ class Form extends Component {
             <PreviewCard
               src={file}
               key={index}
-              onTranscript={() => this.onTranscript(file)}
+              onTranscript={this.onTranscript}
             />
           );
         })}
@@ -109,3 +110,9 @@ export default connect(
 
 /* outlined inputs with label, outline color light version of background color
 background is main, buttons dark */
+
+// event.target.files[0]
+// URL.creatObjectURL()
+// URL.revokeObjectURL()
+
+// this.state = file: "", preview: ""

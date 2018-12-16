@@ -1,8 +1,6 @@
 TABLE Users (
-id SERIAL PRIMARY KEY,
-first_name VARCHAR(30),
-last_name VARCHAR(40),
-username VARCHAR(30),
+id VARCHAR PRIMARY KEY,
+user_name VARCHAR(40),
 password VARCHAR(30),
 email VARCHAR(50)
 );
@@ -12,33 +10,28 @@ email VARCHAR(50)
 CREATE TABLE Folders (
 id SERIAL PRIMARY KEY,
 folder_name VARCHAR (50),
-description VARCHAR(300),
-user_id INT FOREIGN KEY REFERENCES Users(id)
+user_id VARCHAR REFERENCES Users(id)
 )
 
 // An event is an upload post
 
-CREATE TABLE Events (
+CREATE TABLE Files (
 id SERIAL PRIMARY KEY,
-upload_date DATE,
-upload_time TIME,
-event_date DATE,
-event_time TIME,
-user_id INT FOREIGN KEY REFERENCES Users(id)
-folder_id INT FOREIGN KEY REFERENCES Folders(id)
+date DATE,
+notes TEXT,
+user_id VARCHAR REFERENCES Users(id),
+folder_id INT REFERENCES Folders(id)
 )
 
 // Image, Audio, Video Files
 
 CREATE TABLE Media (
 id SERIAL PRIMARY KEY,
-file_name VARCHAR(500),
-file_type VARCHAR(50),
-file_orig TEXT,
-file_transform TEXT,
-upload_date DATE,
-upload_time TIME,
-event_id INT FOREIGN KEY REFERENCES (id),
+name VARCHAR(500),
+type VARCHAR(50),
+url VARCHAR(500),
+user_id VARCHAR REFERENCES Users(id),
+file_id INT REFERENCES Files(id)
 )
 
 CREATE TABLE Notes (

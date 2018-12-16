@@ -1,5 +1,5 @@
 const db = app.get("db");
-db.get_user_by_fb_id({ fb_id: profile.id }).then(results => {
+db.get_user({ fb_id: profile.id }).then(results => {
   let user = results[0];
 
   if (user) {
