@@ -14,5 +14,18 @@
 .divider {
   height: 30px;
   width: 100vw;
-  border-bottom: 1px solid blue;
+  border-bottom: 1px solid black;
+}
+
+.uploadContainer {
+  display: flex;
+  padding: 15px;
+}
+
+.selectHeader {
+  min-height: 80px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 25px;
 }

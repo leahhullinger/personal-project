@@ -30,7 +30,7 @@ textarea {
 }
 
 button {
-  height: 24px;
+  min-height: 24px;
   min-width: 100px;
   background: none;
   border-radius: 3px;

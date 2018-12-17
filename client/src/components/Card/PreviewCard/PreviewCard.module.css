@@ -1,0 +1,14 @@
+.card {
+  width: 33.3%;
+  overflow: hidden;
+  margin: 15px;
+}
+
+.card img {
+  height: 300px;
+}
+
+.actions button {
+  border-radius: 2px;
+  margin: 2px;
+}

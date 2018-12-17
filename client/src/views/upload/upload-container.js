@@ -1,85 +1,122 @@
 // template form for newUploadForm, newUserForm
 // redux
-import React, { Component } from 'react';
-import axios from 'axios';
-import { connect } from 'react-redux';
-import FileSelect from '../../components/Upload/FileSelect';
-import PreviewCard from '../../components/Card/PreviewCard/PreviewCard';
-import styles from './upload-container.css';
+import React, { Component } from "react";
+import axios from "axios";
+import { connect } from "react-redux";
+import FileSelect from "../../components/Upload/FileSelect";
+import PreviewCard from "../../components/Card/PreviewCard/PreviewCard";
+import styles from "./upload-container.module.css";
 
 import {
   updateDate,
   updateNotes,
   updateFolder,
   onFormSubmit,
-} from '../../ducks/reducer';
+} from "../../ducks/reducer";
 
-const BASE_URL = 'http://localhost:3005';
+const BASE_URL = "http://localhost:3005";
 
 class Uploader extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      files: [],
-      fileUrls: [],
+      loading: false,
+      uploads: [
+        {
+          fileName: "testing.jpg",
+          referenceLink:
+            "https://jonbrown.org/assets/images/blog/2017/bluegreen/textmessage_image_1.jpg",
+          isSaved: true,
+        },
+      ], // [{fileName: string, referenceLink: string, isSaved: boolean }]
     };
   }
+
+  onUpdateLoading = () => this.setState({ loading: !this.state.loading });
+
   // need to connect file name to file Url
   onTranscript = file => {
-    console.log('file being passed', file);
-    axios.post('http://localhost:3005/api/transcript', file).then(response => {
+    console.log("file being passed", file);
+    axios.post("http://localhost:3005/api/transcript", file).then(response => {
       console.log(response.data);
       this.props.updateTextDetect(response.data);
     });
   };
-  setFileUrl = url => {
-    var newUrl = url.substring(0, url.indexOf('?'));
+  // s3 function passed to s3 upload function in fileSelect
+  setFileUrl = (url, fileName) => {
+    var newUrl = url.substring(0, url.indexOf("?"));
     console.log(newUrl);
-    this.setState({ fileUrls: [...this.state.fileUrls, newUrl] });
+    this.setState({
+      loading: false,
+      uploads: [
+        ...this.state.uploads,
+        { referenceLink: newUrl, fileName, isSaved: false },
+      ],
+    });
   };
 
-  onSubmitClick = () => {
-    onFormSubmit();
+  onSubmitClick = refString => {
+    const updated = this.state.uploads.map(f => {
+      if (f.referenceLink === refString) {
+        return { ...f, isSaved: true };
+      }
+      return f;
+    });
+    this.setState({
+      uploads: updated,
+    });
+    //onFormSubmit();
   };
 
   // ADD CREATE FOLDER BUTTON, FOLDER SELECT
   render() {
+    const { uploads, loading } = this.state;
+    const fileCount = this.state.uploads.length;
+    const savedFiles = uploads.filter(file => file.isSaved);
     return (
-      <div className="form-container">
-        {this.state.fileUrls.length < 3 ? (
-          <div className="dropzone">
-            <FileSelect setFileUrl={this.setFileUrl} />
-          </div>
-        ) : null}
-        {this.state.fileUrls.map((file, index) => {
-          return (
-            <PreviewCard
-              src={file}
-              key={index}
-              onTranscript={this.onTranscript}
+      <div>
+        {fileCount < 3 && (
+          <div className={styles.selectHeader}>
+            <span className={styles.divider} />
+            <FileSelect
+              setFileUrl={this.setFileUrl}
+              onUpdateLoading={this.onUpdateLoading}
+              isDropZone={false}
             />
-          );
-        })}
-        <span className="divider" />
-        <div className="form-inputs-container">
-          <select
-            placeholder="Add To Folder:"
-            onChange={e => this.props.updateFolder(e.target.value)}
-          />{' '}
-          <input
-            placeholder="Date"
-            onChange={e => this.props.updateDate(e.target.value)}
-          />
-          <textarea
-            placeholder="Notes"
-            onChange={e => this.props.updateNotes(e.target.value)}
-          />
+          </div>
+        )}
+        {loading && <h1>loading...</h1>}
+        <div className={styles.uploadContainer}>
+          {uploads.map((file, index) => {
+            return (
+              !file.isSaved && (
+                <PreviewCard
+                  src={file.referenceLink}
+                  key={index}
+                  onTranscript={this.onTranscript}
+                  onSubmitClick={this.onSubmitClick}
+                />
+              )
+            );
+          })}
+          {fileCount < 3 && (
+            <FileSelect
+              setFileUrl={this.setFileUrl}
+              onUpdateLoading={this.onUpdateLoading}
+              isDropZone={true}
+            />
+          )}
         </div>
-        <button onClick={this.onSubmitClick}>Save</button>
-        <div className="main-form-container">
-          <img src={this.state.image} />
-        </div>
+        {!!savedFiles && (
+          <ul>
+            {savedFiles.map(file => (
+              <li style={{ textAlign: "left" }} key={file.fileName}>
+                {file.fileName} saved
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     );
   }

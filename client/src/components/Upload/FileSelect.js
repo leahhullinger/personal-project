@@ -3,7 +3,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Dropzone from "react-dropzone";
-import "../../styles.css";
+import styles from "./FileSelect.module.css";
 import axios from "axios";
 
 import { updateSelectedFiles } from "../../ducks/reducer";
@@ -27,6 +27,7 @@ class FileSelect extends Component {
   onDrop = files => {
     var file = files[0];
     console.log(files);
+    this.props.onUpdateLoading();
     this.props.updateSelectedFiles(file);
 
     axios
@@ -45,7 +46,7 @@ class FileSelect extends Component {
         return axios.put(signedUrl, file, options);
       })
       .then(res => {
-        this.props.setFileUrl(res.config.url);
+        this.props.setFileUrl(res.config.url, file.name);
       })
       .catch(function(err) {
         console.log(2, err);
@@ -53,24 +54,15 @@ class FileSelect extends Component {
   };
 
   render() {
+    const isDropZoneClass = this.props.isDropZone ? styles.dropZone : "";
+    const classes = [styles.uploadArea, isDropZoneClass].join(" ");
     return (
       <Dropzone
-        style={{
-          border: "1px solid #f0f0f0",
-          borderRadius: "5px",
-          fontSize: "10px",
-          fontFamily: "Noto Sans SC, sans-serif",
-          padding: "10px",
-          minHeight: "100px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center"
-        }}
+        className={classes}
         onDrop={this.onDrop}
         onFileDialogCancel={this.onCancel}
       >
-        {" "}
-        UPLOAD FILE
+        {this.props.isDropZone ? "Drop image here" : "UPLOAD FILE"}
       </Dropzone>
     );
   }
