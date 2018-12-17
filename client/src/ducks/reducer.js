@@ -1,5 +1,22 @@
 import axios from "axios";
 const BASE_URL = "http://localhost:3005";
+/** 
+type FileT = {
+  id: string,
+  name: string,
+  image: ?string,
+  notes: string,
+  detectedText: string,
+  date: string,
+}
+
+type UserT = {
+  id: string,
+  name: string,
+  folders: FileT[],
+}
+*/
+
 const initialState = {
   filesToUpload: [],
   date: "",
