@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Card from "../Card/FileCard/FileCard";
+import FileCard from "../Card/FileCard/FileCard";
+import styles from "./Folder.module.css";
 
 const BASE_URL = "http://localhost:3005";
 export default class Folder extends Component {
@@ -11,19 +12,25 @@ export default class Folder extends Component {
       files: []
     };
   }
-  componentDidMount(user_id) {
-    axios.get(BASE_URL + `/folder/:user_id`).then(response => {
-      console.log("loaded folder", response.data);
+
+  componentDidMount() {
+    axios.get(BASE_URL + "/api/files").then(response => {
+      console.log(response.data);
       this.setState({ files: response.data });
     });
   }
 
   render() {
     return (
-      <div className="folder">
-        {this.state.files.map(file => (
-          <Card key={file.id} />
-        ))}
+      <div className={styles.foldercontainer}>
+        <h2>Folder Name</h2>
+        <div>
+          {this.state.files.map(file => {
+            return (
+              <FileCard key={file.id} date={file.date} notes={file.notes} />
+            );
+          })}
+        </div>
       </div>
     );
   }

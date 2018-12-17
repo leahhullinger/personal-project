@@ -1,0 +1,6 @@
+.card {
+  width: 80%;
+  overflow: hidden;
+  margin: 15px;
+  background-color: gray;
+}

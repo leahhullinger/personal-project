@@ -33,7 +33,7 @@ class TextDetect extends Component {
   render() {
     return (
       <div>
-        <Button onClick={this.onTranscript}>Test Transcript</Button>
+        <Button onClick={this.props.onTranscript}>Test Transcript</Button>
         {/* need to add axios.post func to get text from image*/}
         <Button onClick={this.handleShow}>
           <i data-feather="type">Transcript</i>

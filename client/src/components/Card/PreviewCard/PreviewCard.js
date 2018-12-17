@@ -40,6 +40,7 @@ class PreviewCard extends Component {
                   name="folder"
                   onChange={this.onUpdateField}
                 />
+
                 <input
                   type="date"
                   name="date"

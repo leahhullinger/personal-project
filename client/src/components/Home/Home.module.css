@@ -1,0 +1,30 @@
+.home-container {
+  height: 100vh;
+  padding: 25px;
+}
+
+.page {
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* .name {
+  border: 1px solid blue;
+  width: 275px;
+  height: 175px;
+} */
+.h1 {
+  font-family: "Anton", sans-serif;
+  font-size: 60px;
+  letter-spacing: 7px;
+  text-align: start;
+}
+
+.link {
+  font-family: "VT323", sans-serif;
+  color: #ff2f50;
+  font-size: 20px;
+}

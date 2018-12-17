@@ -5,8 +5,11 @@ const cors = require("cors");
 const session = require("express-session");
 const passport = require("passport");
 const Auth0Strategy = require("passport-auth0");
-const strategy = require("./strategy");
 const massive = require("massive");
+// const strategy = require("./strategy");
+
+// controllers
+const dc = require("./controllers/data_controller");
 const aws_upload = require("./controllers/aws_upload");
 const textDetect_controller = require("./controllers/textDetect_controller");
 
@@ -51,17 +54,17 @@ passport.use(
         if (user) {
           return done(null, user);
         } else {
-          let userObj = {
-            id: profile.id,
-            user_name: profile.displayName,
-            email: profile.emails[0].value
-          };
-          // let userInfo = [
-          //   profile.id,
-          //   profile.displayName,
-          //   profile.emails[0].value
-          // ];
-          db.new_user(userObj)
+          // let userObj = {
+          //   id: profile.id,
+          //   user_name: profile.displayName,
+          //   email: profile.emails[0].value
+          // };
+          let userInfo = [
+            profile.id,
+            profile.displayName,
+            profile.emails[0].value
+          ];
+          db.new_user(userInfo)
             .then(results => {
               let user = results[0];
               return done(null, user);
@@ -100,10 +103,20 @@ app.get("/dash", (req, res, next) => {
     res.status(200).send(JSON.stringify(req.user, null, 10));
   }
 });
-app.get("/logout", (req, res) => {
-  req.logout();
-  req.redirect("/");
-});
+
+// Folder Endpoints
+app.post("/api/add/folder", dc.createFolder);
+app.get("/api/folder/:id", dc.getFolderOne);
+app.get("/api/folders", dc.getFolderAll);
+app.delete("/api/folder/:id", dc.deleteFolder);
+app.put("/api/edit/folder/:id", dc.updateFolder);
+
+// File Endpoints
+app.post("/api/add/file", dc.newFile);
+app.get("/api/file/:id", dc.getFileOne);
+app.get("/api/files", dc.getFiles);
+app.delete("/api/file/:id", dc.deleteFile);
+app.put("/api/file/:id", dc.updateFile);
 
 // text detect from img -- AWS Rekognition Detect Text API
 app.post("/api/transcript", textDetect_controller.transcript);

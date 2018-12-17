@@ -11,7 +11,7 @@ import {
   updateDate,
   updateNotes,
   updateFolder,
-  onFormSubmit,
+  onFormSubmit
 } from "../../ducks/reducer";
 
 const BASE_URL = "http://localhost:3005";
@@ -27,9 +27,9 @@ class Uploader extends Component {
           fileName: "testing.jpg",
           referenceLink:
             "https://jonbrown.org/assets/images/blog/2017/bluegreen/textmessage_image_1.jpg",
-          isSaved: true,
-        },
-      ], // [{fileName: string, referenceLink: string, isSaved: boolean }]
+          isSaved: true
+        }
+      ] // [{fileName: string, referenceLink: string, isSaved: boolean }]
     };
   }
 
@@ -51,8 +51,8 @@ class Uploader extends Component {
       loading: false,
       uploads: [
         ...this.state.uploads,
-        { referenceLink: newUrl, fileName, isSaved: false },
-      ],
+        { referenceLink: newUrl, fileName, isSaved: false }
+      ]
     });
   };
 
@@ -64,7 +64,7 @@ class Uploader extends Component {
       return f;
     });
     this.setState({
-      uploads: updated,
+      uploads: updated
     });
     //onFormSubmit();
   };
@@ -128,7 +128,7 @@ function mapStateToProps(state) {
     folder: state.folder,
     notes: state.notes,
     detectedText: state.detectedText,
-    folder: state.folder,
+    folder: state.folder
   };
 }
 
@@ -138,6 +138,6 @@ export default connect(
     updateDate,
     updateNotes,
     updateFolder,
-    onFormSubmit,
-  },
+    onFormSubmit
+  }
 )(Uploader);
