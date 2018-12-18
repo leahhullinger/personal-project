@@ -33,18 +33,15 @@ class TextDetect extends Component {
   render() {
     return (
       <div>
-        <Button onClick={this.props.onTranscript}>Test Transcript</Button>
-        {/* need to add axios.post func to get text from image*/}
-        <Button onClick={this.handleShow}>
-          <i data-feather="type">Transcript</i>
-        </Button>
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>Here's the text your image.</Modal.Header>
           <Modal.Body>
             <Thumbnail src={this.props.src} />
             <textarea
               onChange={e => this.props.updateTextDetect(e.target.value)}
-            />
+            >
+              {this.props.detectedText}
+            </textarea>
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.handleClose}>Save</Button>
@@ -55,9 +52,7 @@ class TextDetect extends Component {
   }
 }
 function mapStateToProps(state) {
-  const { name } = state.filesToUpload.name;
   return {
-    name,
     detectedText: state.detectedText
   };
 }

@@ -5,8 +5,7 @@ const Rekognition = require("node-rekognition");
 //
 exports = module.exports = {
   transcript: (req, res) => {
-    // const { file }
-    console.log(req.body);
+    const { file } = req.body;
 
     var rekognition = new AWS.Rekognition({
       endpoint: "https://rekognition.us-east-2.amazonaws.com",
@@ -20,7 +19,7 @@ exports = module.exports = {
         /* required */
         S3Object: {
           Bucket: process.env.SOME_BUCKET,
-          Name: File
+          Name: file
         }
       }
     };

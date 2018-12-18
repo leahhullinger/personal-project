@@ -17,9 +17,14 @@ class PreviewCard extends Component {
   onUpdateField = e => this.setState({ [e.target.name]: e.target.value });
 
   render() {
+    console.log(this.props.file.fileName);
     return (
       <div className={styles.card}>
-        <Thumbnail className="img" src={this.props.src} alt="upload preview">
+        <Thumbnail
+          className="img"
+          src={this.props.file.referenceLink}
+          alt="upload preview"
+        >
           <div className={styles.actions}>
             <Button
               onClick={() =>
@@ -28,7 +33,11 @@ class PreviewCard extends Component {
             >
               + Add Notes
             </Button>
-            <Button onClick={this.props.onTranscript}>Transcribe</Button>
+            <Button
+              onClick={() => this.props.onTranscript(this.props.file.fileName)}
+            >
+              Transcribe
+            </Button>
             <Button onClick={this.props.onClick}>Submit</Button>
           </div>
           <div className="form-container" />

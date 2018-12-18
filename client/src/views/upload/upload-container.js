@@ -11,7 +11,8 @@ import {
   updateDate,
   updateNotes,
   updateFolder,
-  onFormSubmit
+  onFormSubmit,
+  updateTextDetect
 } from "../../ducks/reducer";
 
 const BASE_URL = "http://localhost:3005";
@@ -22,14 +23,7 @@ class Uploader extends Component {
 
     this.state = {
       loading: false,
-      uploads: [
-        {
-          fileName: "testing.jpg",
-          referenceLink:
-            "https://jonbrown.org/assets/images/blog/2017/bluegreen/textmessage_image_1.jpg",
-          isSaved: true
-        }
-      ] // [{fileName: string, referenceLink: string, isSaved: boolean }]
+      uploads: [] // [{fileName: string, referenceLink: string, isSaved: boolean }]
     };
   }
 
@@ -38,10 +32,12 @@ class Uploader extends Component {
   // need to connect file name to file Url
   onTranscript = file => {
     console.log("file being passed", file);
-    axios.post("http://localhost:3005/api/transcript", file).then(response => {
-      console.log(response.data);
-      this.props.updateTextDetect(response.data);
-    });
+    axios
+      .post("http://localhost:3005/api/transcript", { file })
+      .then(response => {
+        console.log(response.data);
+        this.props.updateTextDetect(response.data);
+      });
   };
   // s3 function passed to s3 upload function in fileSelect
   setFileUrl = (url, fileName) => {
@@ -74,6 +70,7 @@ class Uploader extends Component {
     const { uploads, loading } = this.state;
     const fileCount = this.state.uploads.length;
     const savedFiles = uploads.filter(file => file.isSaved);
+    console.log(uploads);
     return (
       <div>
         {fileCount < 3 && (
@@ -92,7 +89,7 @@ class Uploader extends Component {
             return (
               !file.isSaved && (
                 <PreviewCard
-                  src={file.referenceLink}
+                  file={file}
                   key={index}
                   onTranscript={this.onTranscript}
                   onSubmitClick={this.onSubmitClick}
@@ -138,6 +135,7 @@ export default connect(
     updateDate,
     updateNotes,
     updateFolder,
-    onFormSubmit
+    onFormSubmit,
+    updateTextDetect
   }
 )(Uploader);

@@ -105,7 +105,6 @@ module.exports = {
 
   getFiles: (req, res, next) => {
     const dbInstance = req.app.get("db");
-    // const { params } = req;
 
     dbInstance
       .get_files()
