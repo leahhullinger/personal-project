@@ -50,25 +50,24 @@ passport.use(
     function(accessToken, refreshToken, extraParams, profile, done) {
       const dbInstance = app.get("db");
       const { id } = profile;
-      const { emails } = profile.emails[0].value;
+      const email = profile.emails[0].value;
 
-      dbInstance.find_user([id]).then(results => {
-        let user = results[0];
-        console.log("found user", user);
-        if (user) {
+      if (profile) {
+        dbInstance.find_user([id]).then(results => {
+          console.log("find user results", results);
+          let user = results[0];
           return done(null, user);
-        } else {
-          dbInstance
-            .create_user([id, emails])
-            .then(results => {
-              let user = results[0];
-              console.log("created user", user);
-              return done(null, user);
-            })
-            .catch(error => console.log("error", error));
-        }
-        // return done(null, profile);
-      });
+        });
+      } else {
+        dbInstance
+          .create_user([id, email])
+          .then(results => {
+            console.log("create user results", results);
+            let user = results[0];
+            return done(null, user);
+          })
+          .catch(error => console.log("error", error));
+      }
     }
   )
 );
@@ -79,7 +78,16 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(user, done) {
-  done(null, user);
+  const dbInstance = app.get("db");
+  const { id } = user;
+  dbInstance
+    .find_session_user([id])
+    .then(user => {
+      return done(null, user);
+    })
+    .catch(error => {
+      console.log("error with deserialize", error);
+    });
 });
 // auth endpoints
 app.get("/auth", passport.authenticate("auth0"));
