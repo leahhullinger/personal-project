@@ -39,6 +39,11 @@ button {
   font-size: 10px;
 }
 
+button:hover {
+  background-color: transparent;
+  text-decoration: underline;
+}
+
 h1 {
   font-family: "Noto Sans SC", sans-serif;
 }

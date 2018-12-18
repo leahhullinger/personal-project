@@ -112,17 +112,16 @@ export function updateFolder(folder) {
     payload: folder
   };
 }
-export function onFormSubmit(date, notes) {
+export function onFormSubmit(file) {
   return {
     type: ON_FORM_SUBMIT,
     payload: axios
-      .post(BASE_URL + "/api/upload", {
-        date,
-        notes
-      })
+      .post(BASE_URL + "/api/add/file", file)
+      //.post(BASE_URL + "/api/upload", { file })
       .then(response => {
         console.log(response.data);
       })
+      .catch(err => console.log(err))
   };
 }
 

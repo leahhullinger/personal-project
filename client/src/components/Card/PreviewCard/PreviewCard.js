@@ -1,72 +1,110 @@
 import React, { Component } from "react";
-import axios from "axios";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import { Button, Thumbnail } from "react-bootstrap";
-import TextDetect from "../../TextDetect/TextDetect";
+import { Thumbnail } from "react-bootstrap";
+import { Btn as Button } from "../../Button/Button";
+import { TextDetect } from "../../TextDetect/TextDetect";
 import styles from "./PreviewCard.module.css";
 
 class PreviewCard extends Component {
-  state = {
-    isFormOpen: false,
-    folder: "",
-    date: "",
-    notes: ""
-  };
+  constructor(props) {
+    super(props);
+    const { file } = this.props;
+    this.state = {
+      isFormOpen: false,
+      isTranscribeOpen: false,
+      notes: file.notes || {
+        folder: "",
+        date: "",
+        text: ""
+      }
+    };
+  }
 
-  onUpdateField = e => this.setState({ [e.target.name]: e.target.value });
+  onUpdateInput = e =>
+    this.setState({
+      ...this.state,
+      notes: { ...this.state.notes, [e.target.name]: String(e.target.value) }
+    });
 
   render() {
-    console.log(this.props.file.fileName);
+    const { isFormOpen, isTranscribeOpen, notes } = this.state;
+    const { file, onSubmitClick, onTranscript, onUpdateUpload } = this.props;
+
     return (
       <div className={styles.card}>
         <Thumbnail
           className="img"
-          src={this.props.file.referenceLink}
+          src={file.referenceLink}
           alt="upload preview"
         >
           <div className={styles.actions}>
-            <Button
-              onClick={() =>
-                this.setState({ isFormOpen: !this.state.isFormOpen })
-              }
-            >
+            <Button onClick={() => this.setState({ isFormOpen: !isFormOpen })}>
               + Add Notes
             </Button>
             <Button
-              onClick={() => this.props.onTranscript(this.props.file.fileName)}
+              onClick={() => {
+                !file.transcription && onTranscript(file.fileName);
+                this.setState({
+                  isTranscribeOpen: !isTranscribeOpen
+                });
+              }}
             >
               Transcribe
             </Button>
-            <Button onClick={this.props.onClick}>Submit</Button>
+            <Button onClick={() => onSubmitClick(file)}>Submit</Button>
           </div>
-          <div className="form-container" />
-          {this.state.isFormOpen && (
-            <React.Fragment>
-              <div className="form-inputs-container">
-                <select
-                  placeholder="Add To Folder:"
-                  name="folder"
-                  onChange={this.onUpdateField}
-                />
+          {isFormOpen && (
+            <div className={styles.formWrapper}>
+              <span className={styles.row}>
+                <label>
+                  Add to folder:
+                  <select
+                    placeholder="Add To Folder:"
+                    value={notes.folder || ""}
+                    name="folder"
+                    onChange={this.onUpdateInput}
+                  >
+                    <option value="default">default</option>
+                  </select>
+                </label>
 
-                <input
-                  type="date"
-                  name="date"
-                  placeholder="Date"
-                  onChange={this.onUpdateField}
-                />
-                <textarea
-                  placeholder="Notes"
-                  name="notes"
-                  onChange={this.onUpdateField}
-                />
-              </div>
-              <button onClick={() => this.props.onSubmitClick(this.props.src)}>
+                <label>
+                  Add date:
+                  <input
+                    type="date"
+                    name="date"
+                    value={notes.date}
+                    placeholder="Date"
+                    onChange={this.onUpdateInput}
+                  />
+                </label>
+              </span>
+
+              <span className={styles.row}>
+                <label>
+                  Add notes:
+                  <textarea
+                    value={notes.text}
+                    name="text"
+                    onChange={this.onUpdateInput}
+                  />
+                </label>
+              </span>
+              <Button
+                onClick={() => {
+                  onUpdateUpload(file.fileName, { notes: this.state.notes });
+                  this.setState({ isFormOpen: false });
+                }}
+              >
                 Save
-              </button>
-            </React.Fragment>
+              </Button>
+            </div>
           )}
+          <TextDetect
+            onUpdateTranscription={onUpdateUpload}
+            file={file}
+            isOpen={isTranscribeOpen}
+            onClose={() => this.setState({ isTranscribeOpen: false })}
+          />
         </Thumbnail>
       </div>
     );

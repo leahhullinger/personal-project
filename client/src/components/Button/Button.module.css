@@ -1,25 +1,14 @@
-button {
-  font-family: source-code-pro, sans-serif;
-  padding: 16px 71px 16px 14px;
-  border: 1px solid #eaeaea;
-  border-radius: 5px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  /* line-height: 1; */
-  padding: 7px 10px;
-  margin: 5px;
+button.btn {
+  min-height: 24px;
+  min-width: 100px;
+  background: none;
+  border-radius: 3px;
+  font-family: "Noto Sans SC", sans-serif;
+  font-weight: 400;
+  font-size: 10px;
 }
 
-.large {
-  height: 32px;
-  min-width: 72px;
-  padding: 0 14px 0;
-  font-size: 30px;
-  font-weight: 700;
-  line-height: 0;
-  text-align: center;
-  border: 2px solid #0d2481;
-  border-radius: 16px;
-  color: #0d2481;
-  background-color: #feb0a5;
+button.btn:hover {
+  background-color: transparent;
+  text-decoration: underline;
 }

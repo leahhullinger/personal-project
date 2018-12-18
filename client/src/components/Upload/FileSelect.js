@@ -27,7 +27,7 @@ class FileSelect extends Component {
   onDrop = files => {
     var file = files[0];
     console.log(files);
-    this.props.onUpdateLoading();
+    this.props.onUpdateLoading(true);
     this.props.updateSelectedFiles(file);
 
     axios
@@ -61,6 +61,7 @@ class FileSelect extends Component {
         className={classes}
         onDrop={this.onDrop}
         onFileDialogCancel={this.onCancel}
+        disabled={this.props.disabled || false}
       >
         {this.props.isDropZone ? "Drop image here" : "UPLOAD FILE"}
       </Dropzone>

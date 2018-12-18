@@ -1,6 +1,11 @@
-import React, { Component } from "react";
-import "./Button.module.css";
+import React from "react";
+import { Button } from "react-bootstrap";
+import styles from "./Button.module.css";
 
-export default function Button(props) {
-  return <button>{props.children}</button>;
-}
+export const Btn = ({ children, ...rest }) => {
+  return (
+    <Button className={styles.btn} {...rest}>
+      {children}
+    </Button>
+  );
+};
