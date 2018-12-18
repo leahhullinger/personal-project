@@ -1,7 +1,6 @@
 TABLE Users (
 id VARCHAR PRIMARY KEY,
 user_name VARCHAR(40),
-password VARCHAR(30),
 email VARCHAR(50)
 );
 
