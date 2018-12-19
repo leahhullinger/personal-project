@@ -44,7 +44,7 @@ class Form extends Component {
     onFormSubmit();
   };
 
-  // ADD CREATE FOLDER BUTTON, FOLDER SELECT
+  // NEED TO ADD A POST TITLE INPUT
   render() {
     return (
       <div className="form-container">

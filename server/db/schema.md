@@ -4,42 +4,43 @@ user_name VARCHAR(40),
 email VARCHAR(50)
 );
 
-// Users create folders to store events that relate to each other
-
 CREATE TABLE Folders (
 id SERIAL PRIMARY KEY,
 folder_name VARCHAR (50),
 user_id VARCHAR REFERENCES Users(id)
 )
 
-// An event is an upload post
-
-CREATE TABLE Files (
+CREATE TABLE Posts (
 id SERIAL PRIMARY KEY,
+timestamp TIMESTAMP NOT NULL,
+title VARCHAR(100),
 date DATE,
 notes TEXT,
-user_id VARCHAR REFERENCES Users(id),
+user_id INT REFERENCES Users(id),
 folder_id INT REFERENCES Folders(id)
 )
 
-// Image, Audio, Video Files
-
-CREATE TABLE Media (
+CREATE TABLE Uploads (
 id SERIAL PRIMARY KEY,
-name VARCHAR(500),
-type VARCHAR(50),
-url VARCHAR(500),
-user_id VARCHAR REFERENCES Users(id),
-file_id INT REFERENCES Files(id)
+timestamp TIMESTAMP NOT NULL,
+filename VARCHAR(500),
+filetype VARCHAR(50),
+s3_url VARCHAR(500),
+user_id INT REFERENCES Users(id),
+post_id INT REFERENCES Posts(id)
 )
 
-CREATE TABLE Notes (
+CREATE TABLE Transcripts (
 id SERIAL PRIMARY KEY,
-note TEXT,
-media_id INT REFERENCES Media(id),
-user_id INT FOREIGN KEY REFERENCES Users(id),
-event_id INT FOREIGN KEY REFERENCES Events(id)
+timestamp TIMESTAMP NOT NULL,
+title VARCHAR(100),
+orig_result TEXT,
+transcript TEXT,
+upload_id INT REFERENCES Uploads(id),
+user_id INT REFERENCES Users(id)
 )
+
+// JOIN STATEMENT RETURNING FOLDER, FILES WITHIN THOSE FOLDERS, AND INDIVIDUAL FILES THAT AREN'T IN A FOLDER
 
 =====================
 PHASE 2

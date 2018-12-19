@@ -20,6 +20,12 @@ export default class Dashboard extends Component {
   //     this.setState({ folders: response.data });
   //   });
   // }
+
+  onNewFolderClick = () => {
+    axios.post("/api/add/folder", { name: "my test folder" }).then(response => {
+      console.log(response);
+    });
+  };
   render() {
     return (
       <div className={styles.container}>
@@ -33,9 +39,7 @@ export default class Dashboard extends Component {
             <Link to="/upload">
               <h2>+ UPLOAD </h2>
             </Link>
-            <Link to="/upload">
-              <h2>+ FOLDERS </h2>
-            </Link>
+            <button onClick={this.onNewFolderClick}>+ FOLDERS </button>
           </div>
         </div>
         {/* <div>
