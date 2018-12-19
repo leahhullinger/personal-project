@@ -12,7 +12,7 @@ export default class Login extends Component {
     };
   }
   componentDidMount() {
-    axios.get(BASE_URL + "/auth");
+    axios.get(BASE_URL + "/auth/callback");
   }
   render() {
     return <div className="login-page">Login Page</div>;

@@ -16,13 +16,10 @@ class Home extends Component {
       <div className="home-container">
         {/* <Nav /> */}
         <div className={styles.page}>
-          <div className={styles.name}>
-            <h1 className={styles.h1}>CITIZEN SIDEKICK</h1>
-          </div>
-          <p>a short description of what it is.</p>
-          <a className={styles.link} href="http://localhost:3005/auth">
-            sign up
-          </a>
+          {/* <div className={styles.name}> */}
+          <h1 className={styles.h1}>CITIZEN SIDEKICK</h1>
+          {/* <p>a short description of what it is.</p> */}
+          <a href="http://localhost:3005/auth">sign up</a>
         </div>
       </div>
     );

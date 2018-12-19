@@ -15,11 +15,11 @@ export default class Dashboard extends Component {
       folders: []
     };
   }
-  componentDidMount() {
-    axios.get(BASE_URL + "/api/folders/").then(response => {
-      this.setState({ folders: response.data });
-    });
-  }
+  // componentDidMount() {
+  //   axios.get(BASE_URL + "/api/folders/").then(response => {
+  //     this.setState({ folders: response.data });
+  //   });
+  // }
   render() {
     return (
       <div className={styles.container}>
