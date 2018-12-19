@@ -6,6 +6,7 @@ import { updateTextDetect } from "../../ducks/reducer";
 // this is the modal that pops up when tr
 // need help connecting image to user_id
 
+//  ADD TITLE INPUT
 class TextDetect extends Component {
   constructor(props) {
     super(props);

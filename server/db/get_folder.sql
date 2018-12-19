@@ -1,2 +1,2 @@
-SELECT * FROM TABLE Folders
-WHERE (user_id = $1, id = $2)
+SELECT * FROM Folders
+WHERE id = $1 AND user_id = $2
