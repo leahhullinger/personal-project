@@ -9,12 +9,14 @@ export default class Folder extends Component {
     super(props);
 
     this.state = {
+      name: "",
+      id: 0,
       files: []
     };
   }
 
   componentDidMount() {
-    axios.get(BASE_URL + "/api/files").then(response => {
+    axios.get(BASE_URL + `/api/folder/${this.state.id}`).then(response => {
       console.log(response.data);
       this.setState({ files: response.data });
     });
@@ -23,7 +25,7 @@ export default class Folder extends Component {
   render() {
     return (
       <div className={styles.foldercontainer}>
-        <h2>Folder Name</h2>
+        <h2>{this.state.foldername}</h2>
         <div>
           {this.state.files.map(file => {
             return (

@@ -1,76 +1,4 @@
 module.exports = {
-  // Folders
-  createFolder: (req, res, next) => {
-    const dbInstance = req.app.get("db");
-    const { name } = req.body;
-    dbInstance
-      .create_folder(name, req.user.id)
-      .then(() => {
-        res.sendStatus(200);
-      })
-      .catch(err => {
-        res.status(500).send({ errorMessage: "error creating folder" });
-        console.log(err);
-      });
-  },
-  readFolder: (req, res, next) => {
-    const dbInstance = req.app.get("db");
-    const { folder } = req.params;
-
-    dbInstance
-      .get_files_in_folder(folder.id, req.user.id)
-      .then(folder => {
-        res.status(200).send(folder);
-      })
-      .catch(err => {
-        res.status(500).send({ errorMessage: "error getting folder" });
-        console.log(err);
-      });
-  },
-  getFolders: (req, res, next) => {
-    const dbInstance = req.app.get("db");
-
-    dbInstance
-      .get_folders(req.user.id)
-      .then(folders => {
-        res.status(200).send(folders);
-      })
-      .catch(err => {
-        res.status(500).send({ errorMessage: "error getting folders" });
-        console.log(err);
-      });
-  },
-  // figure out sql statement for deleted files within the folder and folder
-  deleteFolder: (req, res, next) => {
-    const dbInstance = req.app.get("db");
-    const { folder } = req.params;
-
-    dbInstance
-      .delete_folder(folder.id, req.user.id)
-      .then(() => {
-        res.sendStatus(200);
-      })
-      .catch(err => {
-        res.status(500).send({ errorMessage: "error deleting folder" });
-        console.log(err);
-      });
-  },
-  updateFolderName: (req, res, next) => {
-    const dbInstance = req.app.get("db");
-    const { id } = req.params;
-    const { folderName } = req.body;
-
-    dbInstance
-      .update_folder_name(folderName, id, req.user.id)
-      .then(() => {
-        res.sendStatus(200);
-      })
-      .catch(err => {
-        res.status(500).send({ errorMessage: "error update folder" });
-        console.log(err);
-      });
-  },
-
   newPost: (req, res, next) => {
     console.log("new post");
     //   const dbInstance = req.app.get("db");
@@ -107,9 +35,9 @@ module.exports = {
   },
   readPost: (req, res, next) => {
     const dbInstance = req.app.get("db");
-    const { user_id, id } = req.params;
+    const { id } = req.params;
     dbInstance
-      .get_file(id, req.user.id)
+      .read_post(id, req.user.id)
       .then(file => {
         res.status(200).send(file);
       })
@@ -123,7 +51,7 @@ module.exports = {
     const dbInstance = req.app.get("db");
 
     dbInstance
-      .get_files()
+      .read_posts(req.user.id)
       .then(files => {
         res.status(200).send(files);
       })
@@ -135,10 +63,11 @@ module.exports = {
 
   updatePost: (req, res, next) => {
     const dbInstance = req.app.get("db");
-    const { params } = req;
+    const { id } = req.params;
+    const { title, date, notes } = req.body;
 
     dbInstance
-      .update_file(params.id)
+      .update_post(title, date, notes, id, req.user.id)
       .then(() => {
         res.sendStatus(200);
       })
@@ -150,10 +79,10 @@ module.exports = {
 
   deletePost: (req, res, next) => {
     const dbInstance = req.app.get("db");
-    const { params } = req;
+    const { id } = req;
 
     dbInstance
-      .delete_file(params.id)
+      .delete_post(id, req.user.id)
       .then(() => {
         res.sendStatus(200);
       })

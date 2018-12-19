@@ -12,6 +12,7 @@ import {
   updateDate,
   updateNotes,
   updateFolder,
+  updateTitle,
   onFormSubmit
 } from "../../ducks/reducer";
 
@@ -26,7 +27,7 @@ class Form extends Component {
       fileUrls: []
     };
   }
-  // need to connect file name to file Url
+
   onTranscript = file => {
     console.log("file being passed", file);
     axios.post("http://localhost:3005/api/transcript", file).then(response => {
@@ -34,6 +35,7 @@ class Form extends Component {
       this.props.updateTextDetect(response.data);
     });
   };
+  // function to parse s3 response url
   setFileUrl = url => {
     var newUrl = url.substring(0, url.indexOf("?"));
     console.log(newUrl);
@@ -69,7 +71,12 @@ class Form extends Component {
             onChange={e => this.props.updateFolder(e.target.value)}
           />{" "}
           <input
+            placeholder="title"
+            onChange={e => this.props.updateTitle(e.target.value)}
+          />
+          <input
             placeholder="Date"
+            type="date"
             onChange={e => this.props.updateDate(e.target.value)}
           />
           <textarea
@@ -102,6 +109,7 @@ export default connect(
     updateDate,
     updateNotes,
     updateFolder,
+    updateTitle,
     onFormSubmit
   }
 )(Form);

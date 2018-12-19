@@ -5,8 +5,8 @@ import { Thumbnail, Modal, Button } from "react-bootstrap";
 import { updateTextDetect } from "../../ducks/reducer";
 // this is the modal that pops up when tr
 // need help connecting image to user_id
+const BASE_URL = "http://localhost:3005";
 
-//  ADD TITLE INPUT
 class TextDetect extends Component {
   constructor(props) {
     super(props);
@@ -15,14 +15,7 @@ class TextDetect extends Component {
       show: false
     };
   }
-  // onTranscript = () => {
-  //   axios
-  //     .post("http://localhost:3005/api/transcript", this.props.file)
-  //     .then(response => {
-  //       console.log(response);
-  //       this.props.updateTextDetect(response.data);
-  //     });
-  // };
+
   handleClose = () => {
     this.setState({ show: false });
   };
@@ -31,11 +24,17 @@ class TextDetect extends Component {
     this.setState({ show: true });
   };
 
+  componentDidMount() {
+    // once response comes back from onTranscript()
+    axios.post(BASE_URL + "/api/transcri");
+  }
   render() {
     return (
       <div>
         <Modal show={this.state.show} onHide={this.handleClose}>
-          <Modal.Header closeButton>Here's the text your image.</Modal.Header>
+          <Modal.Header closeButton>
+            Here's the text from your image
+          </Modal.Header>
           <Modal.Body>
             <Thumbnail src={this.props.src} />
             <textarea

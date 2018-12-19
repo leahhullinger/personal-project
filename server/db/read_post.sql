@@ -1,3 +1,3 @@
 SELECT * FROM Posts
-WHERE id = $2 AND user_id = $2
+WHERE id = $1 AND user_id = $2
 

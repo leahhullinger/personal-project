@@ -1,49 +1,35 @@
 require("dotenv").config();
 const Auth0Strategy = require("passport-auth0");
-const AWS = require("aws-sdk");
 
-const { DOMAIN, CLIENT_ID, CLIENT_SECRET, AWS_ACCESS_KEY } = process.env;
+const { DOMAIN, CLIENT_ID, CLIENT_SECRET } = process.env;
 const strategy = new Auth0Strategy(
   {
     domain: DOMAIN,
     clientID: CLIENT_ID,
     clientSecret: CLIENT_SECRET,
-    callbackURL: "/dash",
+    callbackURL: "/auth",
     scope: "openid email profile"
   },
-
-  function(sessionToken, refreshToken, extraParams, profile, done) {
-    console.log("fireball");
-    try {
-      // Initialize the Amazon Cognito credentials provider
-      AWS.config.region = "us-east-1";
-      AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-        IdentityPoolId: process.env.IDENTITY_POOL_ID,
-        Logins: {
-          "citizen-sidekick.auth0.com": extraParams.id_token // id_token
-        }
+  function(accessToken, refreshToken, extraParams, profile, done) {
+    const dbInstance = app.get("db");
+    const { id } = profile;
+    const email = profile.emails[0].value;
+    if (profile) {
+      dbInstance.find_user([id]).then(results => {
+        console.log("find user results", results);
+        let user = results[0];
+        return done(null, user);
       });
-      console.log(AWS.config.credentials);
-      AWS.config.credentials.get(function(err) {
-        if (err) {
-          console.log("error getting credentials", err);
-        }
-        var accessKeyId = AWS.config.credentials.accessKeyId;
-        var secretAccessKey = AWS.config.credentials.secretAccessKey;
-        var sessionToken = AWS.config.credentials.sessionToken;
-        var identityId = AWS.config.credentials.params.IdentityId; //double check on if needed
-        // place this info on sessions to access when uploading
-        return {
-          accessKeyId,
-          secretAccessKey,
-          sessionToken,
-          identityId
-        };
-      });
-    } catch (err) {
-      console.log("something went wrong with aws", err);
+    } else {
+      dbInstance
+        .create_user([id, email])
+        .then(results => {
+          console.log("create user results", results);
+          let user = results[0];
+          return done(null, user);
+        })
+        .catch(error => console.log("error", error));
     }
-    console.log("here is the profile", profile);
   }
 );
 

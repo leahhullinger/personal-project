@@ -33,7 +33,7 @@ class Uploader extends Component {
   onTranscript = file => {
     console.log("file being passed", file);
     axios
-      .post("http://localhost:3005/api/transcript", { file })
+      .post("http://localhost:3005/api/textDetect", { file })
       .then(response => {
         console.log(response.data);
         this.props.updateTextDetect(response.data);
