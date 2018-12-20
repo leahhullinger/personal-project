@@ -12,7 +12,9 @@ class TextDetect extends Component {
     super(props);
 
     this.state = {
-      show: false
+      show: false,
+      title: "",
+      detectedText: ""
     };
   }
 
@@ -24,10 +26,16 @@ class TextDetect extends Component {
     this.setState({ show: true });
   };
 
-  componentDidMount() {
-    // once response comes back from onTranscript()
-    axios.post(BASE_URL + "/api/transcri");
-  }
+  onInputChange = e => {
+    this.setState({ title: e.target.value });
+  };
+
+  // componentDidMount() {
+  //   // once response comes back from onTranscript()
+  //   axios
+  //     .post(BASE_URL + "/api/textDetect/response", { upload_id, detectedText })
+  //     .then(this.setState({ detectedText }));
+  // }
   render() {
     return (
       <div>
@@ -36,6 +44,11 @@ class TextDetect extends Component {
             Here's the text from your image
           </Modal.Header>
           <Modal.Body>
+            <input
+              name="title"
+              placeholder="title"
+              onChange={this.onInputChange}
+            />
             <Thumbnail src={this.props.src} />
             <textarea
               onChange={e => this.props.updateTextDetect(e.target.value)}

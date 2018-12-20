@@ -1,6 +1,6 @@
 module.exports = {
-  newPost: (req, res, next) => {
-    console.log("new post");
+  newFile: (req, res, next) => {
+    console.log("new file");
     //   const dbInstance = req.app.get("db");
     //   const { postData, uploadFiles, transcript, folder } = req.body;
     //   const postData = [
@@ -33,11 +33,11 @@ module.exports = {
     //       console.log(error);
     //     });
   },
-  readPost: (req, res, next) => {
+  readFile: (req, res, next) => {
     const dbInstance = req.app.get("db");
     const { id } = req.params;
     dbInstance
-      .read_post(id, req.user.id)
+      .read_file(id, req.user.id)
       .then(file => {
         res.status(200).send(file);
       })
@@ -47,11 +47,11 @@ module.exports = {
       });
   },
 
-  readPosts: (req, res, next) => {
+  readFiles: (req, res, next) => {
     const dbInstance = req.app.get("db");
 
     dbInstance
-      .read_posts(req.user.id)
+      .read_files(req.user.id)
       .then(files => {
         res.status(200).send(files);
       })
@@ -61,13 +61,13 @@ module.exports = {
       });
   },
 
-  updatePost: (req, res, next) => {
+  updateFile: (req, res, next) => {
     const dbInstance = req.app.get("db");
     const { id } = req.params;
     const { title, date, notes } = req.body;
 
     dbInstance
-      .update_post(title, date, notes, id, req.user.id)
+      .update_file(title, date, notes, id, req.user.id)
       .then(() => {
         res.sendStatus(200);
       })
@@ -77,12 +77,12 @@ module.exports = {
       });
   },
 
-  deletePost: (req, res, next) => {
+  deleteFile: (req, res, next) => {
     const dbInstance = req.app.get("db");
     const { id } = req;
 
     dbInstance
-      .delete_post(id, req.user.id)
+      .delete_file(id, req.user.id)
       .then(() => {
         res.sendStatus(200);
       })

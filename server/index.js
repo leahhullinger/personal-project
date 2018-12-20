@@ -8,10 +8,10 @@ const massive = require("massive");
 const strategy = require("./strategy");
 
 // controllers
-const pc = require("./controllers/post_controller");
-const tc = require("./controllers/transcript_controller");
+const file = require("./controllers/file_controller");
+const transcript = require("./controllers/transcript_controller");
 const upload = require("./controllers/upload_controller");
-const fc = require("./controllers/folder_controller");
+const folder = require("./controllers/folder_controller");
 const aws_td = require("./controllers/textDetect_controller");
 
 const { DOMAIN, CLIENT_ID, CLIENT_SECRET, SESSION_SECRET } = process.env;
@@ -68,18 +68,18 @@ app.get("/dash", (req, res, next) => {
 });
 
 // FOLDER ENDPOINTS
-app.post("/api/add/folder", fc.createFolder);
-app.get("/api/folder/:id", fc.readFolder);
-app.get("/api/folders", fc.getFolders);
-app.delete("/api/folder/:id", fc.deleteFolder);
-app.put("/api/folder/:id", fc.updateFolderName);
+app.post("/api/add/folder", folder.createFolder);
+app.get("/api/folder/:id", folder.readFolder);
+app.get("/api/folders", folder.getFolders);
+app.delete("/api/folder/:id", folder.deleteFolder);
+app.put("/api/folder/:id", folder.updateFolderName);
 
 // FILE ENDPOINTS
-app.post("/api/add/post", pc.newPost);
-app.get("/api/post/:id", pc.readPost);
-app.get("/api/posts", pc.readPosts);
-app.delete("/api/post/:id", pc.deletePost);
-app.put("/api/post/:id", pc.updatePost);
+app.post("/api/add/post", file.newFile);
+app.get("/api/post/:id", file.readFile);
+app.get("/api/posts", file.readFiles);
+app.delete("/api/post/:id", file.deleteFile);
+app.put("/api/post/:id", file.updateFile);
 
 // UPLOAD ENDPOINTS
 app.post("/api/aws", upload.sign); // s3 upload
@@ -87,9 +87,9 @@ app.post("/api/save/info", upload.saveUploadInfo); // hit this right after s3 re
 
 // TRANSCRIPT ENDPOINTS
 app.post("/api/textDetect", aws_td.transcript); // aws rekognition textDetect, 1st
-app.get("/api/transcript/:id", tc.readTranscript);
-app.post("/api/textDetect/response", tc.saveOrigResponse); // 2nd
-app.post("/api/save/transcript", tc.saveTranscript); // 3rd
+app.get("/api/transcript/:id", transcript.readTranscript);
+app.post("/api/textDetect/response", transcript.saveOrigResponse); // 2nd
+app.post("/api/save/transcript", transcript.saveTranscript); // 3rd
 
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);

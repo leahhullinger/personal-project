@@ -9,6 +9,7 @@ import Login from "./components/Login/Login";
 import TextDetect from "./components/TextDetect/TextDetect";
 import PreviewCard from "./components/Card/PreviewCard/PreviewCard";
 import Folder from "./components/Folder/Folder";
+import NewFolderForm from "./components/Form/NewFolder/NewFolder";
 
 export default () => (
   <Switch>
@@ -20,5 +21,6 @@ export default () => (
     <Route path="/textDetect" component={TextDetect} />
     <Route path="/previewCard" component={PreviewCard} />
     <Route path="/folder" component={Folder} />
+    <Route path="/newFolder" component={NewFolderForm} />
   </Switch>
 );
