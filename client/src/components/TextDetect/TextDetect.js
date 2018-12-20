@@ -1,6 +1,6 @@
 import React from "react";
 import { Thumbnail, Modal } from "react-bootstrap";
-import { Btn as Button } from "../Button/Button";
+import { Button } from "../Button/Button";
 import { Loading } from "../Loading/Loading";
 // this is the modal that pops up when tr
 // need help connecting image to user_id
@@ -35,6 +35,7 @@ export const TextDetect = ({
       </Modal.Body>
       <Modal.Footer>
         <Button
+          simpleBtn={true}
           onClick={() => {
             onClose();
           }}

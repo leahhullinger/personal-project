@@ -1,11 +1,13 @@
 import React from "react";
-import { Button } from "react-bootstrap";
 import styles from "./Button.module.css";
 
-export const Btn = ({ children, ...rest }) => {
+export const Button = ({ children, simpleBtn, onClick }) => {
   return (
-    <Button className={styles.btn} {...rest}>
+    <button
+      className={simpleBtn ? styles.simpleBtn : styles.btn}
+      onClick={onClick}
+    >
       {children}
-    </Button>
+    </button>
   );
 };

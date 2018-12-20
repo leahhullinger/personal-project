@@ -1,91 +1,92 @@
 import axios from "axios";
 
 import {
-  UPDATE_FOLDER,
-  UPDATE_S3_URLS,
-  UPDATE_SELECTED_FILES,
-  UPDATE_TEXT_DETECT,
-  ON_FORM_SUBMIT,
-  API_URL,
-  ON_READ_FOLDER_SUCCESS,
-  ON_GET_FOLDERS_SUCCESS
+  ADD_FOLDER_COMPLETE,
+  GET_FOLDERS_COMPLETE,
+  GET_FOLDER_COMPLETE,
+  DELETE_FOLDER_COMPLETE,
+  UPDATE_FOLDER_COMPLETE
 } from "./constants";
 
 /** Action creators */
+
 export function updateSelectedFiles(files) {
   console.log(files);
   return {
-    type: UPDATE_SELECTED_FILES,
+    type: "UPDATE_SELECTED_FILES",
     payload: files
   };
 }
 
-export function updateS3Urls(s3Urls) {
+export function addFolderComplete(folder) {
   return {
-    type: UPDATE_S3_URLS,
-    payload: s3Urls
-  };
-}
-export function updateTextDetect(text) {
-  return {
-    type: UPDATE_TEXT_DETECT,
-    payload: text
-  };
-}
-export function updateFolder(folder) {
-  return {
-    type: UPDATE_FOLDER,
+    type: ADD_FOLDER_COMPLETE,
     payload: folder
   };
 }
 
-export function onReadFolderSuccess(files) {
+export function getFoldersComplete(folders) {
   return {
-    type: ON_READ_FOLDER_SUCCESS,
-    payload: files
+    type: GET_FOLDERS_COMPLETE,
+    payload: folders
   };
 }
 
-export function onGetFoldersSuccess(folders) {
+export function getFolderComplete(file) {
   return {
-    type: ON_GET_FOLDERS_SUCCESS,
-    payload: folders
+    type: GET_FOLDER_COMPLETE,
+    payload: file
+  };
+}
+
+export function deleteFolderComplete(id) {
+  return {
+    type: DELETE_FOLDER_COMPLETE,
+    payload: id
+  };
+}
+
+export function updateFolderComplete(id, update) {
+  return {
+    type: UPDATE_FOLDER_COMPLETE,
+    payload: { id, ...update }
   };
 }
 
 /** async API calls */
 
-export function onFormSubmit(file) {
-  return {
-    type: ON_FORM_SUBMIT,
-    payload: axios
-      .post(API_URL + "/add/file", file)
-      //.post(BASE_URL + "/api/upload", { file })
-      .then(response => {
-        console.log(response.data);
-      })
-      .catch(err => console.log(err))
-  };
+// export function onFormSubmit(file) {
+//   return {
+//     type: ON_FORM_SUBMIT,
+//     payload: axios
+//       .post(API_URL + "/add/file", file)
+//       //.post(BASE_URL + "/api/upload", { file })
+//       .then(response => {
+//         console.log(response.data);
+//       })
+//       .catch(err => console.log(err))
+//   };
+// }
+
+/** API calls */
+export function getAllFolders() {
+  return axios.get("/api/folders");
 }
-// files in a folder
-export function onReadFolder(folder_id) {
-  return dispatch => {
-    return axios
-      .get(API_URL + `/folder/${folder_id}`)
-      .then(response => {
-        dispatch(onReadFolderSuccess(response.data));
-      })
-      .catch(error => console.log(error));
-  };
+
+export function folderAction(actionType, id) {
+  const apiCall = `/api/folder/${id}`;
+  switch (actionType) {
+    case "get":
+      return axios.get(apiCall);
+    case "delete":
+      return axios.delete(apiCall);
+    case "update":
+      return axios.put(apiCall);
+    default:
+      break;
+  }
 }
-// user's folders
-export function onGetFolders() {
-  return dispatch => {
-    return axios
-      .get(API_URL + "folders")
-      .then(response => {
-        dispatch(onGetFoldersSuccess(response.data));
-      })
-      .catch(error => console.log(error));
-  };
+
+export function addFolder(name) {
+  return axios.post("/api/add/folder", { name });
 }

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 
-import Dashboard from "../../components/Dashboard/Dashboard";
+import Dashboard from "./dashboard-container";
 import Folder from "../../components/Folder/Folder";
 import Uploader from "../upload/upload-container";
 
@@ -17,9 +17,9 @@ class DashboardRouter extends Component {
         </header>
         <div className={styles.body}>
           <Switch>
-            <Route exact path={match.url} component={Dashboard} />
-            <Route path={`${match.url}/folder/:id`} component={Folder} />
-            <Route path={`${match.url}/upload`} component={Uploader} />
+            <Route exact path="/dash" component={Dashboard} />
+            <Route path="/dash/folder/:id" component={Folder} />
+            <Route path="/dash/upload" component={Uploader} />
           </Switch>
         </div>
       </div>

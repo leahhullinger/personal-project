@@ -1,12 +1,9 @@
 import {
-  UPDATE_DATE,
-  UPDATE_FOLDER,
-  UPDATE_NOTES,
-  UPDATE_S3_URLS,
-  UPDATE_SELECTED_FILES,
-  UPDATE_TEXT_DETECT,
-  ON_FORM_SUBMIT,
-  ON_GET_FOLDERS_SUCCESS
+  ADD_FOLDER_COMPLETE,
+  GET_FOLDERS_COMPLETE,
+  GET_FOLDER_COMPLETE,
+  DELETE_FOLDER_COMPLETE,
+  UPDATE_FOLDER_COMPLETE
 } from "./constants";
 /** 
 type FileT = {
@@ -39,31 +36,38 @@ const initialState = {
 
 function reducer(state = initialState, action) {
   switch (action.type) {
-    case UPDATE_SELECTED_FILES:
-      console.log(action.payload);
+    case ADD_FOLDER_COMPLETE:
       return {
         ...state,
-        filesToUpload: [action.payload]
+        folders: [...state.folders, action.payload]
       };
-    case UPDATE_S3_URLS:
-      return {
-        ...state,
-        s3Urls: action.payload
-      };
-    case UPDATE_DATE:
-      return { ...state, date: action.payload };
-    // case UPDATE_TITLE:
-    //   return { ...state, title: action.payload };
-    case UPDATE_NOTES:
-      return { ...state, notes: action.payload };
-    case UPDATE_TEXT_DETECT:
-      return { ...state, transcriptText: action.payload };
-    case UPDATE_FOLDER:
-      return { ...state, folder: action.payload };
-    case ON_GET_FOLDERS_SUCCESS:
+    case GET_FOLDERS_COMPLETE:
       return { ...state, folders: action.payload };
-    case ON_FORM_SUBMIT:
-      return { ...state, date: action.payload, notes: action.payload };
+    case GET_FOLDER_COMPLETE:
+      return {
+        ...state,
+        folders: this.state.map(folder => {
+          if (folder.id === action.payload.id) {
+            return action.payload;
+          }
+          return folder;
+        })
+      };
+    case DELETE_FOLDER_COMPLETE:
+      return {
+        ...state,
+        folders: this.state.filter(folder => folder.id === action.payload)
+      };
+    case UPDATE_FOLDER_COMPLETE:
+      return {
+        ...state,
+        folders: this.state.map(folder => {
+          if (folder.id === action.payload.id) {
+            return { ...action.payload };
+          }
+          return folder;
+        })
+      };
     default:
       return state;
   }
