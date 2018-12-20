@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Thumbnail } from "react-bootstrap";
 import { Btn as Button } from "../../Button/Button";
 import { TextDetect } from "../../TextDetect/TextDetect";
+import { Form } from "../../Form/Form";
 import styles from "./PreviewCard.module.css";
 
 class PreviewCard extends Component {
@@ -54,48 +55,14 @@ class PreviewCard extends Component {
           </div>
           {isFormOpen && (
             <div className={styles.formWrapper}>
-              <span className={styles.row}>
-                <label>
-                  Add to folder:
-                  <select
-                    placeholder="Add To Folder:"
-                    value={notes.folder || ""}
-                    name="folder"
-                    onChange={this.onUpdateInput}
-                  >
-                    <option value="default">default</option>
-                  </select>
-                </label>
-
-                <label>
-                  Add date:
-                  <input
-                    type="date"
-                    name="date"
-                    value={notes.date}
-                    placeholder="Date"
-                    onChange={this.onUpdateInput}
-                  />
-                </label>
-              </span>
-
-              <span className={styles.row}>
-                <label>
-                  Add notes:
-                  <textarea
-                    value={notes.text}
-                    name="text"
-                    onChange={this.onUpdateInput}
-                  />
-                </label>
-              </span>
+              <Form notes={notes} onUpdateInput={this.onUpdateInput} />
               <Button
                 onClick={() => {
                   onUpdateUpload(file.fileName, { notes: this.state.notes });
                   this.setState({ isFormOpen: false });
                 }}
               >
-                Save
+                Save notes
               </Button>
             </div>
           )}

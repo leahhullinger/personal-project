@@ -1,12 +1,13 @@
 // s3 upload
 
 import React, { Component } from "react";
+import axios from "axios";
 import { connect } from "react-redux";
 import Dropzone from "react-dropzone";
+import { API_URL } from "../../ducks/constants";
 import styles from "./FileSelect.module.css";
-import axios from "axios";
 
-import { updateSelectedFiles } from "../../ducks/reducer";
+import { updateSelectedFiles } from "../../ducks/actions";
 
 //const StyledDropArea = styled.div - use this for styling dropzone
 
@@ -31,7 +32,7 @@ class FileSelect extends Component {
     this.props.updateSelectedFiles(file);
 
     axios
-      .post("http://localhost:3005/api/aws", {
+      .post(`${API_URL}/aws`, {
         filename: file.name,
         filetype: file.type
       })

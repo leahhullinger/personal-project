@@ -3,10 +3,11 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
+import { API_URL } from "../../ducks/constants";
 import FileSelect from "../../components/Upload/FileSelect";
 import PreviewCard from "../../components/Card/PreviewCard/PreviewCard";
 import { Loading } from "../../components/Loading/Loading";
-import { onFormSubmit } from "../../ducks/reducer";
+import { onFormSubmit } from "../../ducks/actions";
 
 import styles from "./upload-container.module.css";
 

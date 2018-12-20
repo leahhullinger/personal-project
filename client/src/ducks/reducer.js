@@ -1,5 +1,12 @@
-import axios from "axios";
-const BASE_URL = "http://localhost:3005";
+import {
+  UPDATE_DATE,
+  UPDATE_FOLDER,
+  UPDATE_NOTES,
+  UPDATE_S3_URLS,
+  UPDATE_SELECTED_FILES,
+  UPDATE_TEXT_DETECT,
+  ON_FORM_SUBMIT
+} from "./constants";
 /** 
 type FileT = {
   id: string,
@@ -27,25 +34,6 @@ const initialState = {
   folder: "",
   s3Urls: []
 };
-
-// user's selected files
-const UPDATE_SELECTED_FILES = "UPDATE_SELECTED_FILES";
-// s3 ref urls
-const UPDATE_S3_URLS = "UPDATE_S3_URLS";
-// handles date input
-const UPDATE_DATE = "UPDATE_DATE";
-// post title
-const UPDATE_TITLE = "UPDATE_TITLE";
-// UPDATES notes input
-const UPDATE_NOTES = "UPDATE_NOTES";
-
-// UPDATES textDetect response
-const UPDATE_TEXT_DETECT = "UPDATE_TEXT_DETECT";
-
-// folder select
-const UPDATE_FOLDER = "UPDATE_FOLDER";
-// submit form
-const ON_FORM_SUBMIT = "ON_FORM_SUBMIT";
 
 function reducer(state = initialState, action) {
   switch (action.type) {
@@ -77,6 +65,7 @@ function reducer(state = initialState, action) {
   }
 }
 
+<<<<<<< Updated upstream
 // EXPORT FUNCTIONS HERE
 
 export function updateSelectedFiles(files) {
@@ -135,4 +124,6 @@ export function onFormSubmit(file) {
   };
 }
 
+=======
+>>>>>>> Stashed changes
 export default reducer;

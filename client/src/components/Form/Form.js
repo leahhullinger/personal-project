@@ -1,115 +1,42 @@
 // template form for newUploadForm, newUserForm
 // redux
-import React, { Component } from "react";
-import axios from "axios";
-import { connect } from "react-redux";
-import FileSelect from "../Upload/FileSelect";
-import PreviewCard from "../Card/PreviewCard/PreviewCard";
-// import "../../styles.css";
-import "../Form/Form.css";
+import React from "react";
+import styles from "./Form.module.css";
 
-import {
-  updateDate,
-  updateNotes,
-  updateFolder,
-  updateTitle,
-  onFormSubmit
-} from "../../ducks/reducer";
-
-const BASE_URL = "http://localhost:3005";
-
-class Form extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      files: [],
-      fileUrls: []
-    };
-  }
-
-  onTranscript = file => {
-    console.log("file being passed", file);
-    axios.post("http://localhost:3005/api/transcript", file).then(response => {
-      console.log(response.data);
-      this.props.updateTextDetect(response.data);
-    });
-  };
-  // function to parse s3 response url
-  setFileUrl = url => {
-    var newUrl = url.substring(0, url.indexOf("?"));
-    console.log(newUrl);
-    this.setState({ fileUrls: [...this.state.fileUrls, newUrl] });
-  };
-
-  onSubmitClick = () => {
-    onFormSubmit();
-  };
-
-  // NEED TO ADD A POST TITLE INPUT
-  render() {
-    return (
-      <div className="form-container">
-        {this.state.fileUrls.length < 3 ? (
-          <div className="dropzone">
-            <FileSelect setFileUrl={this.setFileUrl} />
-          </div>
-        ) : null}
-        {this.state.fileUrls.map((file, index) => {
-          return (
-            <PreviewCard
-              src={file}
-              key={index}
-              onTranscript={this.onTranscript}
-            />
-          );
-        })}
-        <span className="divider" />
-        <div className="form-inputs-container">
+export const Form = ({ notes, onUpdateInput }) => {
+  return (
+    <div className={styles.form}>
+      <span className={styles.row}>
+        <label>
+          Add to folder:
           <select
             placeholder="Add To Folder:"
-            onChange={e => this.props.updateFolder(e.target.value)}
-          />{" "}
-          <input
-            placeholder="title"
-            onChange={e => this.props.updateTitle(e.target.value)}
-          />
-          <input
-            placeholder="Date"
-            type="date"
-            onChange={e => this.props.updateDate(e.target.value)}
-          />
-          <textarea
-            placeholder="Notes"
-            onChange={e => this.props.updateNotes(e.target.value)}
-          />
-        </div>
-        <button onClick={this.onSubmitClick}>Save</button>
-        <div className="main-form-container">
-          <img src={this.state.image} />
-        </div>
-      </div>
-    );
-  }
-}
-function mapStateToProps(state) {
-  return {
-    filesToUpload: state.filesToUpload,
-    date: state.date,
-    folder: state.folder,
-    notes: state.notes,
-    detectedText: state.detectedText,
-    folder: state.folder
-  };
-}
+            value={notes.folder || ""}
+            name="folder"
+            onChange={onUpdateInput}
+          >
+            <option value="default">default</option>
+          </select>
+        </label>
 
-export default connect(
-  mapStateToProps,
-  {
-    updateDate,
-    updateNotes,
-    updateFolder,
-    updateTitle,
-    onFormSubmit
-  }
-)(Form);
+        <label>
+          Add date:
+          <input
+            type="date"
+            name="date"
+            value={notes.date}
+            placeholder="Date"
+            onChange={onUpdateInput}
+          />
+        </label>
+      </span>
+
+      <span className={styles.row}>
+        <label>
+          Add notes:
+          <textarea value={notes.text} name="text" onChange={onUpdateInput} />
+        </label>
+      </span>
+    </div>
+  );
+};
