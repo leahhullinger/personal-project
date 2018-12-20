@@ -8,6 +8,7 @@ import Form from "./components/Form/Form";
 import Login from "./components/Login/Login";
 import PreviewCard from "./components/Card/PreviewCard/PreviewCard";
 import Folder from "./components/Folder/Folder";
+import NewFolderForm from "./components/Form/NewFolder/NewFolder";
 
 export default () => (
   <Switch>
@@ -18,5 +19,6 @@ export default () => (
     <Route path="/upload" component={Uploader} />
     <Route path="/previewCard" component={PreviewCard} />
     <Route path="/folder" component={Folder} />
+    <Route path="/newFolder" component={NewFolderForm} />
   </Switch>
 );

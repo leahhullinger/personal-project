@@ -1,8 +1,7 @@
 require("dotenv").config();
 const AWS = require("aws-sdk");
 const Rekognition = require("node-rekognition");
-// after receiving the s3 file url then this function will be called if user clicks button
-//
+
 exports = module.exports = {
   transcript: (req, res) => {
     const { file } = req.body;

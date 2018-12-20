@@ -1,4 +1,4 @@
-input,
+/* input,
 select {
   height: 24px;
   min-width: 100px;
@@ -52,4 +52,80 @@ a {
   font-family: "Noto Sans SC", sans-serif;
   font-weight: 400;
   text-decoration: none;
+} */
+
+/* 
+
+h1, h2 
+font-family: 'Anton', sans-serif
+
+body font 
+font-family: 'Roboto Mono', monospace
+
+
+// styles from tomorrow-lab.com
+
+
+
+.btn {
+	margin:0;
+	color:#000;
+	line-height:1;
+	cursor:pointer;
+	border-radius:0;
+	position:relative;
+	padding:13px 20px;
+	display:inline-block;
+	background-color:#fff;
+	border:2px solid #1a1a1a;
+	-webkit-appearance:none;
+	font-family:roboto_monoregular;
+	font-size:18px;
+	/* text-decoration:none !important; 
+}
+@media (max-width:1100px) {
+	.btn {
+		font-size:16px;
+	}
+}
+
+.container--layer-up {
+	z-index:2;
+	position:relative;
+}
+
+// back shadow box
+.btn:before {
+	top:0;
+	left:0;
+	right:-3px;
+	z-index:-1;
+	bottom:-3px;
+	content:"\A";
+	position:absolute;
+	transition:all .2s ease-in-out 0s;
+	will-change:transform;
+	background-color:#1a1a1a;
+	-webkit-transform:translate(-6px,-6px);
+	transform:translate(-6px,-6px);
+}
+
+.btn:hover:before {
+	-webkit-transform:translate(-4px,-4px);
+	transform:translate(-4px,-4px);
+}
+
+input 
+
+width:100%;
+	display:block;
+	border-radius:0;
+	padding:18px 20px;
+	font-weight:400;
+	color:#007aff;
+	-webkit-appearance:none;
+	font-family:Graphik Web;
+	border:1px solid #007aff;
+	background-color:rgba(0,122,255,.1);
+	font-size:18px;
 }

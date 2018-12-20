@@ -22,11 +22,26 @@ exports = module.exports = {
     s3.getSignedUrl("putObject", params, function(err, data) {
       if (err) {
         console.log(err);
-        console.log("made it to backend");
         return err;
       } else {
         res.status(200).send(data);
       }
     });
+  },
+  saveUploadInfo: (req, res, next) => {
+    const dbInstance = req.app.get("db");
+    const { filename, filetype, s3_url, post_id } = req.body;
+
+    dbInstance
+      .save_upload([filename, filetype, s3_url, post_id, req.user.id])
+      .then(response => {
+        console.log("saved upload");
+        res.status(200).send("successfully saved");
+      })
+      .catch(error => {
+        console.log("error saving upload info", error);
+        res.status(500).send(error);
+      });
   }
+  // TODO add delete function
 };

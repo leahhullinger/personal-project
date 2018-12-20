@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import FileCard from "../../components/Card/FileCard/FileCard";
+import NewFolder from "../../components/Form/NewFolder/NewFolder";
 import styles from "./dashboard-container.module.css";
 
 const BASE_URL = "http://localhost:3005";
@@ -39,7 +40,7 @@ export default class Dashboard extends Component {
             <Link to="/upload">
               <h2>+ UPLOAD </h2>
             </Link>
-            <button onClick={this.onNewFolderClick}>+ FOLDERS </button>
+            <NewFolder />
           </div>
         </div>
         {/* <div>

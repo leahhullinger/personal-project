@@ -20,6 +20,7 @@ type UserT = {
 const initialState = {
   filesToUpload: [],
   date: "",
+  title: "",
   folder: null,
   notes: "",
   detectedText: "",
@@ -33,11 +34,12 @@ const UPDATE_SELECTED_FILES = "UPDATE_SELECTED_FILES";
 const UPDATE_S3_URLS = "UPDATE_S3_URLS";
 // handles date input
 const UPDATE_DATE = "UPDATE_DATE";
-
-// UPDATEs notes input
+// post title
+const UPDATE_TITLE = "UPDATE_TITLE";
+// UPDATES notes input
 const UPDATE_NOTES = "UPDATE_NOTES";
 
-// UPDATEs tesseract text results
+// UPDATES textDetect response
 const UPDATE_TEXT_DETECT = "UPDATE_TEXT_DETECT";
 
 // folder select
@@ -60,6 +62,8 @@ function reducer(state = initialState, action) {
       };
     case UPDATE_DATE:
       return { ...state, date: action.payload };
+    case UPDATE_TITLE:
+      return { ...state, title: action.payload };
     case UPDATE_NOTES:
       return { ...state, notes: action.payload };
     case UPDATE_TEXT_DETECT:
@@ -86,6 +90,12 @@ export function updateDate(date) {
   return {
     type: UPDATE_DATE,
     payload: date
+  };
+}
+export function updateTitle(title) {
+  return {
+    type: UPDATE_TITLE,
+    payload: title
   };
 }
 export function updateNotes(notes) {
