@@ -3,6 +3,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const session = require("express-session");
+const Auth0Strategy = require("passport-auth0");
+
 const passport = require("passport");
 const massive = require("massive");
 const strategy = require("./strategy");
@@ -38,7 +40,38 @@ massive(process.env.DB_CONNECTION_STRING)
   })
   .catch(error => console.log(error));
 
-passport.use(strategy);
+passport.use(
+  new Auth0Strategy(
+    {
+      domain: DOMAIN,
+      clientID: CLIENT_ID,
+      clientSecret: CLIENT_SECRET,
+      callbackURL: "/auth",
+      scope: "openid email profile"
+    },
+    function(accessToken, refreshToken, extraParams, profile, done) {
+      const dbInstance = app.get("db");
+      const { id } = profile;
+      const email = profile.emails[0].value;
+      if (profile) {
+        dbInstance.find_user([id]).then(results => {
+          console.log("find user results", results);
+          let user = results[0];
+          return done(null, user);
+        });
+      } else {
+        dbInstance
+          .create_user([id, email])
+          .then(results => {
+            console.log("create user results", results);
+            let user = results[0];
+            return done(null, user);
+          })
+          .catch(error => console.log("error", error));
+      }
+    }
+  )
+);
 
 // determines which data of the user obj to store in session
 passport.serializeUser(function(user, done) {
