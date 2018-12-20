@@ -2,7 +2,7 @@
 
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { updateTextDetect } from "../../ducks/reducer";
+import { updateTextDetect } from "../../ducks/actions";
 
 class Transcript extends Component {
   render() {

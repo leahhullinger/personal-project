@@ -10,8 +10,17 @@
   cursor: pointer;
 }
 
+.uploadArea:not(.dropZone) {
+  min-width: 100px;
+}
+
+.uploadArea:not(.dropZone):hover {
+  text-decoration: underline;
+}
+
 .dropZone {
-  width: 33.3%;
+  width: 30%;
+  height: 200px;
   margin: 15px;
   margin-bottom: 35px;
 }

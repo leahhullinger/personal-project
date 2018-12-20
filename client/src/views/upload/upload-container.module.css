@@ -12,14 +12,16 @@
 }
 
 .divider {
-  height: 30px;
+  margin: auto 0;
   width: 100vw;
   border-bottom: 1px solid black;
 }
 
 .uploadContainer {
   display: flex;
+  /* flex-wrap: wrap; */
   padding: 15px;
+  min-height: 300px;
 }
 
 .selectHeader {
@@ -28,4 +30,38 @@
   display: flex;
   justify-content: flex-end;
   padding: 25px;
+}
+
+.selectHeader button {
+  min-width: 100px;
+}
+
+.previewCardPlaceholder {
+  max-width: 30%;
+  width: 30%;
+  margin: 15px;
+  padding: 2px;
+  margin-bottom: 35px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  transition: border 0.2s ease-in-out;
+}
+
+.hidden,
+.saved {
+  padding: 10px;
+}
+
+.hidden {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.saved {
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+.savedItem {
+  text-align: left;
 }
