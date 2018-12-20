@@ -10,13 +10,9 @@ export default class NewFolderForm extends Component {
     super(props);
 
     this.state = {
-      show: false,
-      name: ""
+      show: false
     };
   }
-  onInputChange = e => {
-    this.setState({ name: e.target.value });
-  };
 
   handleShow = () => {
     this.setState({ show: true });
@@ -24,18 +20,6 @@ export default class NewFolderForm extends Component {
 
   handleClose = () => {
     this.setState({ show: false });
-  };
-
-  onFolderSave = () => {
-    axios
-      .post(BASE_URL + "/api/add/folder", {
-        name: this.state.name
-      })
-      .then(response => {
-        console.log("added new folder");
-        this.setState({ name: "" });
-        this.handleClose();
-      });
   };
 
   render() {
@@ -55,13 +39,13 @@ export default class NewFolderForm extends Component {
           </Modal.Header>
           <Modal.Body>
             <label className={styles.label}>Folder Name </label>
-            <input onChange={this.onInputChange} />
+            <input name="folderName" onChange={e => this.props.onChange(e)} />
           </Modal.Body>
           <Modal.Footer>
             <span>
               Tip: what event do you need to track? Name your folder that.
             </span>
-            <Button onClick={this.onFolderSave}>Save</Button>
+            <Button onClick={() => this.props.onAdd()}>Save</Button>
           </Modal.Footer>
         </Modal>
       </div>

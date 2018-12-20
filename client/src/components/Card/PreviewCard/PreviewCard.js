@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Thumbnail } from "react-bootstrap";
-import { Btn as Button } from "../../Button/Button";
+import { Button } from "../../Button/Button";
 import { TextDetect } from "../../TextDetect/TextDetect";
 import { Form } from "../../Form/Form";
 import styles from "./PreviewCard.module.css";
@@ -38,10 +38,14 @@ class PreviewCard extends Component {
           alt="upload preview"
         >
           <div className={styles.actions}>
-            <Button onClick={() => this.setState({ isFormOpen: !isFormOpen })}>
+            <Button
+              simpleBtn={true}
+              onClick={() => this.setState({ isFormOpen: !isFormOpen })}
+            >
               + Add Notes
             </Button>
             <Button
+              simpleBtn={true}
               onClick={() => {
                 !file.transcription && onTranscript(file.fileName);
                 this.setState({
@@ -51,12 +55,15 @@ class PreviewCard extends Component {
             >
               Transcribe
             </Button>
-            <Button onClick={() => onSubmitClick(file)}>Submit</Button>
+            <Button simpleBtn={true} onClick={() => onSubmitClick(file)}>
+              Submit
+            </Button>
           </div>
           {isFormOpen && (
             <div className={styles.formWrapper}>
               <Form notes={notes} onUpdateInput={this.onUpdateInput} />
               <Button
+                simpleBtn={true}
                 onClick={() => {
                   onUpdateUpload(file.fileName, { notes: this.state.notes });
                   this.setState({ isFormOpen: false });

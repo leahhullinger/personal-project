@@ -1,0 +1,21 @@
+.view {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.body {
+}
+
+.mainHeader {
+  padding-left: 25px;
+  padding-right: 25px;
+  height: 64px;
+}
+
+.mainHeader h1 {
+  font-family: "Anton", sans-serif;
+  font-size: 20px;
+  letter-spacing: 7px;
+  text-align: start;
+}

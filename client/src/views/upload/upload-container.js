@@ -7,7 +7,6 @@ import { API_URL } from "../../ducks/constants";
 import FileSelect from "../../components/Upload/FileSelect";
 import PreviewCard from "../../components/Card/PreviewCard/PreviewCard";
 import { Loading } from "../../components/Loading/Loading";
-import { onFormSubmit } from "../../ducks/actions";
 
 import styles from "./upload-container.module.css";
 
@@ -51,7 +50,7 @@ class Uploader extends Component {
   onTranscript = file => {
     console.log("file being passed", file);
     axios
-      .post("http://localhost:3005/api/textDetect", { file })
+      .post(`${API_URL}/textDetect`, { file })
       .then(response => {
         console.log(response.data);
         this.onUpdateUpload(file, { transcription: response.data });
@@ -149,7 +148,7 @@ class Uploader extends Component {
 // }
 function mapDispatchToProps(dispatch) {
   return {
-    dispatchOnFileSubmit: file => dispatch(onFormSubmit(file))
+    dispatchOnFileSubmit: file => dispatch(console.log(file))
   };
 }
 
