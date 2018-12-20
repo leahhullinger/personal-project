@@ -103,7 +103,7 @@ app.get("/dash", (req, res, next) => {
 // FOLDER ENDPOINTS
 app.post("/api/add/folder", folder.createFolder);
 app.get("/api/folder/:id", folder.readFolder);
-app.get("/api/folders", folder.getFolders);
+app.get("/api/folders", folder.readFolders);
 app.delete("/api/folder/:id", folder.deleteFolder);
 app.put("/api/folder/:id", folder.updateFolderName);
 

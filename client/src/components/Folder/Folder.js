@@ -10,19 +10,21 @@ export default class Folder extends Component {
 
     this.state = {
       name: "",
-      id: 0,
       files: []
     };
   }
 
   componentDidMount() {
-    axios.get(BASE_URL + `/api/folder/${this.state.id}`).then(response => {
-      console.log(response.data);
-      this.setState({ files: response.data });
-    });
+    axios
+      .get(BASE_URL + `/api/folder/${this.props.match.params.id}`)
+      .then(response => {
+        console.log(response.data);
+        this.setState({ files: response.data });
+      });
   }
 
   render() {
+    console.log(this.props.match);
     return (
       <div className={styles.foldercontainer}>
         <h2>{this.state.foldername}</h2>

@@ -1,3 +1,4 @@
+export const API_URL = "http://localhost:3005/api";
 // user's selected files
 export const UPDATE_SELECTED_FILES = "UPDATE_SELECTED_FILES";
 // s3 ref urls
@@ -16,4 +17,6 @@ export const UPDATE_FOLDER = "UPDATE_FOLDER";
 // submit form
 export const ON_FORM_SUBMIT = "ON_FORM_SUBMIT";
 
-export const API_URL = "http://localhost:3005/api";
+export const ON_READ_FOLDER_SUCCESS = "ON_READ_FOLDER_SUCCESS";
+
+export const ON_GET_FOLDERS_SUCCESS = "ON_GET_FOLDERS_SUCCESS";

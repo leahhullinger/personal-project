@@ -16,7 +16,7 @@ export default () => (
     <Route path="/dash" component={Dashboard} />
     <Route path="/upload" component={Uploader} />
     <Route path="/previewCard" component={PreviewCard} />
-    <Route path="/folder" component={Folder} />
+    <Route path="/folder/:id" component={Folder} />
     <Route path="/newFolder" component={NewFolderForm} />
   </Switch>
 );
