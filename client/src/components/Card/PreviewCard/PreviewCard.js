@@ -1,72 +1,77 @@
 import React, { Component } from "react";
-import axios from "axios";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import { Button, Thumbnail } from "react-bootstrap";
-import TextDetect from "../../TextDetect/TextDetect";
+import { Thumbnail } from "react-bootstrap";
+import { Btn as Button } from "../../Button/Button";
+import { TextDetect } from "../../TextDetect/TextDetect";
+import { Form } from "../../Form/Form";
 import styles from "./PreviewCard.module.css";
 
 class PreviewCard extends Component {
-  state = {
-    isFormOpen: false,
-    folder: "",
-    date: "",
-    notes: ""
-  };
+  constructor(props) {
+    super(props);
+    const { file } = this.props;
+    this.state = {
+      isFormOpen: false,
+      isTranscribeOpen: false,
+      notes: file.notes || {
+        folder: "",
+        date: "",
+        text: ""
+      }
+    };
+  }
 
-  onUpdateField = e => this.setState({ [e.target.name]: e.target.value });
+  onUpdateInput = e =>
+    this.setState({
+      ...this.state,
+      notes: { ...this.state.notes, [e.target.name]: String(e.target.value) }
+    });
 
   render() {
-    console.log(this.props.file.fileName);
+    const { isFormOpen, isTranscribeOpen, notes } = this.state;
+    const { file, onSubmitClick, onTranscript, onUpdateUpload } = this.props;
+
     return (
       <div className={styles.card}>
         <Thumbnail
           className="img"
-          src={this.props.file.referenceLink}
+          src={file.referenceLink}
           alt="upload preview"
         >
           <div className={styles.actions}>
-            <Button
-              onClick={() =>
-                this.setState({ isFormOpen: !this.state.isFormOpen })
-              }
-            >
+            <Button onClick={() => this.setState({ isFormOpen: !isFormOpen })}>
               + Add Notes
             </Button>
             <Button
-              onClick={() => this.props.onTranscript(this.props.file.fileName)}
+              onClick={() => {
+                !file.transcription && onTranscript(file.fileName);
+                this.setState({
+                  isTranscribeOpen: !isTranscribeOpen
+                });
+              }}
             >
               Transcribe
             </Button>
-            <Button onClick={this.props.onClick}>Submit</Button>
+            <Button onClick={() => onSubmitClick(file)}>Submit</Button>
           </div>
-          <div className="form-container" />
-          {this.state.isFormOpen && (
-            <React.Fragment>
-              <div className="form-inputs-container">
-                <select
-                  placeholder="Add To Folder:"
-                  name="folder"
-                  onChange={this.onUpdateField}
-                />
-
-                <input
-                  type="date"
-                  name="date"
-                  placeholder="Date"
-                  onChange={this.onUpdateField}
-                />
-                <textarea
-                  placeholder="Notes"
-                  name="notes"
-                  onChange={this.onUpdateField}
-                />
-              </div>
-              <button onClick={() => this.props.onSubmitClick(this.props.src)}>
-                Save
-              </button>
-            </React.Fragment>
+          {isFormOpen && (
+            <div className={styles.formWrapper}>
+              <Form notes={notes} onUpdateInput={this.onUpdateInput} />
+              <Button
+                onClick={() => {
+                  onUpdateUpload(file.fileName, { notes: this.state.notes });
+                  this.setState({ isFormOpen: false });
+                }}
+              >
+                Save notes
+              </Button>
+            </div>
           )}
+          <TextDetect
+            onUpdateTranscription={onUpdateUpload}
+            file={file}
+            isOpen={isTranscribeOpen}
+            onClose={() => this.setState({ isTranscribeOpen: false })}
+          />
         </Thumbnail>
       </div>
     );

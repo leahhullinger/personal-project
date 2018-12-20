@@ -3,19 +3,13 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
+import { API_URL } from "../../ducks/constants";
 import FileSelect from "../../components/Upload/FileSelect";
 import PreviewCard from "../../components/Card/PreviewCard/PreviewCard";
+import { Loading } from "../../components/Loading/Loading";
+import { onFormSubmit } from "../../ducks/actions";
+
 import styles from "./upload-container.module.css";
-
-import {
-  updateDate,
-  updateNotes,
-  updateFolder,
-  onFormSubmit,
-  updateTextDetect
-} from "../../ducks/reducer";
-
-const BASE_URL = "http://localhost:3005";
 
 class Uploader extends Component {
   constructor(props) {
@@ -23,81 +17,108 @@ class Uploader extends Component {
 
     this.state = {
       loading: false,
-      uploads: [] // [{fileName: string, referenceLink: string, isSaved: boolean }]
+      /** Upload data structure
+      [
+        {fileName: string, 
+         referenceLink: string, 
+         transcription: string, 
+         isSubmitted: boolean 
+        }
+      ] */
+      uploads: [
+        {
+          fileName: "textmessage_image_1.jpg",
+          referenceLink:
+            "https://jonbrown.org/assets/images/blog/2017/bluegreen/textmessage_image_1.jpg",
+          isSubmitted: false
+        }
+      ]
     };
   }
 
-  onUpdateLoading = () => this.setState({ loading: !this.state.loading });
+  onUpdateLoading = val => this.setState({ loading: val });
 
-  // need to connect file name to file Url
+  onUpdateUpload = (fileName, updated) => {
+    const updatedUploads = this.state.uploads.map(f => {
+      if (f.fileName === fileName) {
+        return { ...f, ...updated };
+      }
+      return f;
+    });
+    this.setState({ uploads: updatedUploads });
+  };
+
   onTranscript = file => {
     console.log("file being passed", file);
     axios
       .post("http://localhost:3005/api/textDetect", { file })
       .then(response => {
         console.log(response.data);
-        this.props.updateTextDetect(response.data);
-      });
+        this.onUpdateUpload(file, { transcription: response.data });
+      })
+      .catch(err => console.log(err));
   };
+
   // s3 function passed to s3 upload function in fileSelect
   setFileUrl = (url, fileName) => {
     var newUrl = url.substring(0, url.indexOf("?"));
-    console.log(newUrl);
     this.setState({
       loading: false,
       uploads: [
         ...this.state.uploads,
-        { referenceLink: newUrl, fileName, isSaved: false }
+        { referenceLink: newUrl, fileName, isSubmitted: false }
       ]
     });
   };
 
-  onSubmitClick = refString => {
+  onSubmitClick = file => {
     const updated = this.state.uploads.map(f => {
-      if (f.referenceLink === refString) {
-        return { ...f, isSaved: true };
+      if (f.fileName === file.fileName) {
+        return { ...f, isSubmitted: true };
       }
       return f;
     });
     this.setState({
       uploads: updated
     });
-    //onFormSubmit();
+    this.props.dispatchOnFileSubmit(
+      updated.find(f => f.fileName === file.fileName)
+    );
   };
 
   // ADD CREATE FOLDER BUTTON, FOLDER SELECT
   render() {
     const { uploads, loading } = this.state;
-    const fileCount = this.state.uploads.length;
-    const savedFiles = uploads.filter(file => file.isSaved);
-    console.log(uploads);
+    const fileCount = this.state.uploads.filter(item => !item.isSubmitted)
+      .length;
+    const submittedFiles = uploads.filter(file => file.isSubmitted);
     return (
       <div>
-        {fileCount < 3 && (
-          <div className={styles.selectHeader}>
-            <span className={styles.divider} />
-            <FileSelect
-              setFileUrl={this.setFileUrl}
-              onUpdateLoading={this.onUpdateLoading}
-              isDropZone={false}
-            />
-          </div>
-        )}
-        {loading && <h1>loading...</h1>}
+        <div className={styles.selectHeader}>
+          <span className={styles.divider} />
+          <FileSelect
+            setFileUrl={this.setFileUrl}
+            onUpdateLoading={this.onUpdateLoading}
+            isDropZone={false}
+            disabled={fileCount === 3}
+          />
+        </div>
         <div className={styles.uploadContainer}>
+          {!!loading && <Loading className={styles.previewCardPlaceholder} />}
           {uploads.map((file, index) => {
             return (
-              !file.isSaved && (
+              !file.isSubmitted && (
                 <PreviewCard
-                  file={file}
                   key={index}
+                  file={file}
+                  onUpdateUpload={this.onUpdateUpload}
                   onTranscript={this.onTranscript}
                   onSubmitClick={this.onSubmitClick}
                 />
               )
             );
           })}
-          {fileCount < 3 && (
+          {(fileCount < 2 || (fileCount === 2 && !loading)) && (
             <FileSelect
               setFileUrl={this.setFileUrl}
               onUpdateLoading={this.onUpdateLoading}
@@ -105,37 +126,34 @@ class Uploader extends Component {
             />
           )}
         </div>
-        {!!savedFiles && (
-          <ul>
-            {savedFiles.map(file => (
-              <li style={{ textAlign: "left" }} key={file.fileName}>
-                {file.fileName} saved
-              </li>
-            ))}
-          </ul>
-        )}
+        <div className={!submittedFiles.length ? styles.hidden : styles.saved}>
+          {submittedFiles.map(file => (
+            <p className={styles.savedItem} key={file.fileName}>
+              + {file.fileName} saved
+            </p>
+          ))}
+        </div>
       </div>
     );
   }
 }
-function mapStateToProps(state) {
+
+// function mapStateToProps(state) {
+//   return {
+//     filesToUpload: state.filesToUpload,
+//     date: state.date,
+//     folder: state.folder,
+//     notes: state.notes,
+//     detectedText: state.detectedText
+//   };
+// }
+function mapDispatchToProps(dispatch) {
   return {
-    filesToUpload: state.filesToUpload,
-    date: state.date,
-    folder: state.folder,
-    notes: state.notes,
-    detectedText: state.detectedText,
-    folder: state.folder
+    dispatchOnFileSubmit: file => dispatch(onFormSubmit(file))
   };
 }
 
 export default connect(
-  mapStateToProps,
-  {
-    updateDate,
-    updateNotes,
-    updateFolder,
-    onFormSubmit,
-    updateTextDetect
-  }
+  () => ({}),
+  mapDispatchToProps
 )(Uploader);

@@ -1,76 +1,47 @@
-import React, { Component } from "react";
-import axios from "axios";
-import { connect } from "react-redux";
-import { Thumbnail, Modal, Button } from "react-bootstrap";
-import { updateTextDetect } from "../../ducks/reducer";
+import React from "react";
+import { Thumbnail, Modal } from "react-bootstrap";
+import { Btn as Button } from "../Button/Button";
+import { Loading } from "../Loading/Loading";
 // this is the modal that pops up when tr
 // need help connecting image to user_id
-const BASE_URL = "http://localhost:3005";
+import styles from "./TextDetect.module.css";
 
-class TextDetect extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      show: false,
-      title: "",
-      detectedText: ""
-    };
-  }
-
-  handleClose = () => {
-    this.setState({ show: false });
-  };
-
-  handleShow = () => {
-    this.setState({ show: true });
-  };
-
-  onInputChange = e => {
-    this.setState({ title: e.target.value });
-  };
-
-  // componentDidMount() {
-  //   // once response comes back from onTranscript()
-  //   axios
-  //     .post(BASE_URL + "/api/textDetect/response", { upload_id, detectedText })
-  //     .then(this.setState({ detectedText }));
-  // }
-  render() {
-    return (
-      <div>
-        <Modal show={this.state.show} onHide={this.handleClose}>
-          <Modal.Header closeButton>
-            Here's the text from your image
-          </Modal.Header>
-          <Modal.Body>
-            <input
-              name="title"
-              placeholder="title"
-              onChange={this.onInputChange}
-            />
-            <Thumbnail src={this.props.src} />
-            <textarea
-              onChange={e => this.props.updateTextDetect(e.target.value)}
-            >
-              {this.props.detectedText}
-            </textarea>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={this.handleClose}>Save</Button>
-          </Modal.Footer>
-        </Modal>
-      </div>
-    );
-  }
-}
-function mapStateToProps(state) {
-  return {
-    detectedText: state.detectedText
-  };
-}
-
-export default connect(
-  mapStateToProps,
-  { updateTextDetect }
-)(TextDetect);
+export const TextDetect = ({
+  onUpdateTranscription,
+  file,
+  isOpen,
+  onClose
+}) => {
+  return (
+    <Modal show={isOpen} onHide={onClose}>
+      <Modal.Header closeButton>Image Transcription</Modal.Header>
+      <Modal.Body className={styles.body}>
+        <Thumbnail src={file.referenceLink} className={styles.thumb} />
+        {!!file.transcription && (
+          <textarea
+            placeholder="Transription"
+            value={file.transcription}
+            name="transcription"
+            onChange={e => {
+              onUpdateTranscription(file.fileName, {
+                transcription: e.target.value
+              });
+            }}
+            className={styles.text}
+            disabled={!file.transcription}
+          />
+        )}
+        {!file.transcription && <Loading />}
+      </Modal.Body>
+      <Modal.Footer>
+        <Button
+          onClick={() => {
+            onClose();
+          }}
+        >
+          Save
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+};
