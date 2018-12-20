@@ -1,16 +1,9 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import Nav from "../Nav/Nav";
 import styles from "./Home.module.css";
 
+const AUTHLINK = "http://localhost:3005/auth";
+
 class Home extends Component {
-  constructor(props) {
-    super(props);
-  }
-  onClick = () => {
-    axios.get("/auth");
-  };
   render() {
     return (
       <div className="home-container">
@@ -19,7 +12,7 @@ class Home extends Component {
           {/* <div className={styles.name}> */}
           <h1 className={styles.h1}>CITIZEN SIDEKICK</h1>
           {/* <p>a short description of what it is.</p> */}
-          <a href="http://localhost:3005/auth">sign up</a>
+          <a href={AUTHLINK}>Login to dashboard</a>
         </div>
       </div>
     );

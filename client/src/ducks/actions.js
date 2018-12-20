@@ -38,6 +38,7 @@ export function updateFolder(folder) {
 }
 
 /** async API calls */
+
 export function onFormSubmit(file) {
   return {
     type: ON_FORM_SUBMIT,

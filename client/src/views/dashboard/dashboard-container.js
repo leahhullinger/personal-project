@@ -5,6 +5,7 @@ import axios from "axios";
 import FileCard from "../../components/Card/FileCard/FileCard";
 import NewFolder from "../../components/Form/NewFolder/NewFolder";
 import styles from "./dashboard-container.module.css";
+import { authenticateUser } from "../../ducks/actions";
 
 const BASE_URL = "http://localhost:3005";
 
@@ -16,6 +17,7 @@ export default class Dashboard extends Component {
       folders: []
     };
   }
+
   // componentDidMount() {
   //   axios.get(BASE_URL + "/api/folders/").then(response => {
   //     this.setState({ folders: response.data });

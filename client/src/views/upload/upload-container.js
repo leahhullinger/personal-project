@@ -51,7 +51,7 @@ class Uploader extends Component {
   onTranscript = file => {
     console.log("file being passed", file);
     axios
-      .post("http://localhost:3005/api/textDetect", { file })
+      .post(`${API_URL}/textDetect`, { file })
       .then(response => {
         console.log(response.data);
         this.onUpdateUpload(file, { transcription: response.data });

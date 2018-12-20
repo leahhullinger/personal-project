@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import Routes from "./routes";
+import { Route, Switch, Redirect } from "react-router-dom";
+import Home from "./components/Home/Home";
+import DashboardRouter from "./views/dashboard/dashboard-router";
 import "./App.css";
 
 class App extends Component {
@@ -7,7 +9,11 @@ class App extends Component {
     return (
       <div className="App">
         <div className="main-body">
-          <Routes />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/dash" component={DashboardRouter} />
+            <Redirect to="/" />
+          </Switch>
         </div>
       </div>
     );
