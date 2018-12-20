@@ -53,9 +53,9 @@ passport.use(
       const dbInstance = app.get("db");
       const { id } = profile;
       const email = profile.emails[0].value;
+
       if (profile) {
         dbInstance.find_user([id]).then(results => {
-          console.log("find user results", results);
           let user = results[0];
           return done(null, user);
         });
@@ -103,16 +103,16 @@ app.get("/dash", (req, res, next) => {
 // FOLDER ENDPOINTS
 app.post("/api/add/folder", folder.createFolder);
 app.get("/api/folder/:id", folder.readFolder);
-app.get("/api/folders", folder.getFolders);
+app.get("/api/folders", folder.readFolders);
 app.delete("/api/folder/:id", folder.deleteFolder);
 app.put("/api/folder/:id", folder.updateFolderName);
 
 // FILE ENDPOINTS
-app.post("/api/add/post", file.newFile);
-app.get("/api/post/:id", file.readFile);
-app.get("/api/posts", file.readFiles);
-app.delete("/api/post/:id", file.deleteFile);
-app.put("/api/post/:id", file.updateFile);
+app.post("/api/add/file", file.newFile);
+app.get("/api/file/:id", file.readFile);
+app.get("/api/files", file.readFiles);
+app.delete("/api/file/:id", file.deleteFile);
+app.put("/api/file/:id", file.updateFile);
 
 // UPLOAD ENDPOINTS
 app.post("/api/aws", upload.sign); // s3 upload

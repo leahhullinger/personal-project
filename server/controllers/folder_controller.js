@@ -13,11 +13,11 @@ module.exports = {
       });
   },
   readFolder: (req, res, next) => {
+    console.log("req.params", req.params);
     const dbInstance = req.app.get("db");
     const { id } = req.params;
-
     dbInstance
-      .get_posts_in_folder(id, req.user.id)
+      .read_folder([id, req.user.id])
       .then(folder => {
         res.status(200).send(folder);
       })
@@ -26,7 +26,7 @@ module.exports = {
         console.log(err);
       });
   },
-  getFolders: (req, res, next) => {
+  readFolders: (req, res, next) => {
     const dbInstance = req.app.get("db");
 
     dbInstance

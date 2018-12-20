@@ -5,7 +5,8 @@ import {
   UPDATE_S3_URLS,
   UPDATE_SELECTED_FILES,
   UPDATE_TEXT_DETECT,
-  ON_FORM_SUBMIT
+  ON_FORM_SUBMIT,
+  ON_GET_FOLDERS_SUCCESS
 } from "./constants";
 /** 
 type FileT = {
@@ -32,7 +33,8 @@ const initialState = {
   notes: "",
   detectedText: "",
   folder: "",
-  s3Urls: []
+  s3Urls: [],
+  folders: []
 };
 
 function reducer(state = initialState, action) {
@@ -58,6 +60,8 @@ function reducer(state = initialState, action) {
       return { ...state, transcriptText: action.payload };
     case UPDATE_FOLDER:
       return { ...state, folder: action.payload };
+    case ON_GET_FOLDERS_SUCCESS:
+      return { ...state, folders: action.payload };
     case ON_FORM_SUBMIT:
       return { ...state, date: action.payload, notes: action.payload };
     default:
