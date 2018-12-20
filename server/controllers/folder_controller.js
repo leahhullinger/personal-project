@@ -17,7 +17,7 @@ module.exports = {
     const { id } = req.params;
 
     dbInstance
-      .get_posts_in_folder(id, req.user.id)
+      .read_folder(id, req.user.id)
       .then(folder => {
         res.status(200).send(folder);
       })
