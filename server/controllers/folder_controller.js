@@ -4,8 +4,8 @@ module.exports = {
     const { name } = req.body;
     dbInstance
       .create_folder(name, req.user.id)
-      .then(() => {
-        res.sendStatus(200);
+      .then(folders => {
+        res.status(200).send({ folder: folders[0] });
       })
       .catch(err => {
         res.status(500).send({ errorMessage: "error creating folder" });
@@ -28,8 +28,6 @@ module.exports = {
   },
   readFolders: (req, res, next) => {
     const dbInstance = req.app.get("db");
-    console.log({ req: req });
-
     dbInstance
       .get_folders(req.user.id)
       .then(folders => {
@@ -42,9 +40,11 @@ module.exports = {
   },
   // figure out sql statement for deleted files within the folder and folder
   deleteFolder: (req, res, next) => {
+    console.log(req.params);
     const dbInstance = req.app.get("db");
     const { id } = req.params;
 
+    console.log(req.user.id);
     dbInstance
       .delete_folder(id, req.user.id)
       .then(() => {

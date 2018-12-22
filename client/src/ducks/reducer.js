@@ -37,6 +37,7 @@ const initialState = {
 function reducer(state = initialState, action) {
   switch (action.type) {
     case ADD_FOLDER_COMPLETE:
+      console.log(action.payload);
       return {
         ...state,
         folders: [...state.folders, action.payload]
@@ -46,7 +47,7 @@ function reducer(state = initialState, action) {
     case GET_FOLDER_COMPLETE:
       return {
         ...state,
-        folders: this.state.map(folder => {
+        folders: state.folders.map(folder => {
           if (folder.id === action.payload.id) {
             return action.payload;
           }
@@ -56,12 +57,12 @@ function reducer(state = initialState, action) {
     case DELETE_FOLDER_COMPLETE:
       return {
         ...state,
-        folders: this.state.filter(folder => folder.id === action.payload)
+        folders: state.folders.filter(folder => folder.id !== action.payload)
       };
     case UPDATE_FOLDER_COMPLETE:
       return {
         ...state,
-        folders: this.state.map(folder => {
+        folders: state.folders.map(folder => {
           if (folder.id === action.payload.id) {
             return { ...action.payload };
           }

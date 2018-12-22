@@ -69,24 +69,22 @@ export function updateFolderComplete(id, update) {
 // }
 
 /** API calls */
-export function getAllFolders() {
+export function axiosGetAllFolders() {
   return axios.get("/api/folders");
 }
 
-export function folderAction(actionType, id) {
-  const apiCall = `/api/folder/${id}`;
-  switch (actionType) {
-    case "get":
-      return axios.get(apiCall);
-    case "delete":
-      return axios.delete(apiCall);
-    case "update":
-      return axios.put(apiCall);
-    default:
-      break;
-  }
+export function axiosGetFolder(id) {
+  return axios.get(`/api/folder/${id}`);
 }
 
-export function addFolder(name) {
+export function axiosDeleteFolder(id) {
+  return axios.delete(`/api/folder/${id}`);
+}
+
+export function axiosUpdateFolder(id) {
+  return axios.update(`/api/folder/${id}`);
+}
+
+export function axiosAddFolder(name) {
   return axios.post("/api/add/folder", { name });
 }

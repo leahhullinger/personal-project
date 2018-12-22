@@ -3,7 +3,7 @@
 import React from "react";
 import styles from "./Form.module.css";
 
-export const Form = ({ notes, onUpdateInput }) => {
+export const Form = ({ notes, onUpdateInput, folders }) => {
   return (
     <div className={styles.form}>
       <span className={styles.row}>
@@ -15,7 +15,18 @@ export const Form = ({ notes, onUpdateInput }) => {
             name="folder"
             onChange={onUpdateInput}
           >
-            <option value="default">default</option>
+            {folders &&
+              folders.length < 1 && (
+                <option key={0 + "add_folder"} value={0}>
+                  + add folder
+                </option>
+              )}
+            {folders &&
+              folders.map(folder => (
+                <option key={folder.id} value={folder.id}>
+                  {folder.folder_name}
+                </option>
+              ))}
           </select>
         </label>
 

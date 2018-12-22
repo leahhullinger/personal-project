@@ -13,7 +13,7 @@ class PreviewCard extends Component {
       isFormOpen: false,
       isTranscribeOpen: false,
       notes: file.notes || {
-        folder: "",
+        folder_id: 0,
         date: "",
         text: ""
       }
@@ -28,8 +28,14 @@ class PreviewCard extends Component {
 
   render() {
     const { isFormOpen, isTranscribeOpen, notes } = this.state;
-    const { file, onSubmitClick, onTranscript, onUpdateUpload } = this.props;
-
+    const {
+      file,
+      onSubmitClick,
+      onTranscript,
+      onUpdateUpload,
+      folders
+    } = this.props;
+    console.log(this.state.notes.folder_id);
     return (
       <div className={styles.card}>
         <Thumbnail
@@ -61,7 +67,11 @@ class PreviewCard extends Component {
           </div>
           {isFormOpen && (
             <div className={styles.formWrapper}>
-              <Form notes={notes} onUpdateInput={this.onUpdateInput} />
+              <Form
+                notes={notes}
+                onUpdateInput={this.onUpdateInput}
+                folders={folders}
+              />
               <Button
                 simpleBtn={true}
                 onClick={() => {
