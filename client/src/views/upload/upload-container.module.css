@@ -14,7 +14,7 @@
 .divider {
   margin: auto 0;
   width: 100vw;
-  border-bottom: 1px solid black;
+  /* border-bottom: 1px solid black; */
 }
 
 .uploadContainer {

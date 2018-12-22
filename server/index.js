@@ -30,7 +30,7 @@ app.use(
 );
 
 app.use(bodyParser.json());
-// app.use(cors());
+app.use(cors());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(__dirname + "/../build"));
