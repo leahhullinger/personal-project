@@ -55,13 +55,13 @@ passport.use(
       const email = profile.emails[0].value;
 
       if (profile) {
-        dbInstance.find_user([id]).then(results => {
+        dbInstance.find_user(id).then(results => {
           let user = results[0];
           return done(null, user);
         });
       } else {
         dbInstance
-          .create_user([id, email])
+          .create_user(id, email)
           .then(results => {
             console.log("create user results", results);
             let user = results[0];
@@ -92,6 +92,8 @@ app.get(
 
 app.get("/dash", (req, res, next) => {
   req.session.user = req.user;
+  console.log({ user: req.session });
+  console.log({ user: req.user });
   console.log("hitting /dash");
   if (!req.user) {
     return res.status(401).send("Log in required");

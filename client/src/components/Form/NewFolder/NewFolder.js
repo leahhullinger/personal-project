@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Modal, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
+import { Button } from "../../Button/Button";
 import styles from "./NewFolder.module.css";
 
 const BASE_URL = "http://localhost:3005";

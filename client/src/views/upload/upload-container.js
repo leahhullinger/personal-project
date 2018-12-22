@@ -110,6 +110,7 @@ class Uploader extends Component {
                 <PreviewCard
                   key={index}
                   file={file}
+                  folders={this.props.folders}
                   onUpdateUpload={this.onUpdateUpload}
                   onTranscript={this.onTranscript}
                   onSubmitClick={this.onSubmitClick}
@@ -137,15 +138,12 @@ class Uploader extends Component {
   }
 }
 
-// function mapStateToProps(state) {
-//   return {
-//     filesToUpload: state.filesToUpload,
-//     date: state.date,
-//     folder: state.folder,
-//     notes: state.notes,
-//     detectedText: state.detectedText
-//   };
-// }
+function mapStateToProps(state) {
+  return {
+    folderIds: state.folders
+  };
+}
+
 function mapDispatchToProps(dispatch) {
   return {
     dispatchOnFileSubmit: file => dispatch(console.log(file))
@@ -153,6 +151,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(
-  () => ({}),
+  mapStateToProps,
   mapDispatchToProps
 )(Uploader);
