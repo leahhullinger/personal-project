@@ -47,7 +47,7 @@ passport.use(
       domain: DOMAIN,
       clientID: CLIENT_ID,
       clientSecret: CLIENT_SECRET,
-      callbackURL: "/auth/callback",
+      callbackURL: "/auth",
       scope: "openid email profile"
     },
     function(accessToken, refreshToken, extraParams, profile, done) {
@@ -62,7 +62,7 @@ passport.use(
         });
       } else {
         dbInstance
-          .create_user(id, email)
+          .create_user([id, email])
           .then(results => {
             console.log("create user results", results);
             let user = results[0];
@@ -86,9 +86,9 @@ passport.deserializeUser(function(user, done) {
 app.get("/auth", passport.authenticate("auth0"));
 
 app.get(
-  "/auth/callback",
+  "/auth",
   passport.authenticate("auth0", {
-    successRedirect: "http://localhost:3000/auth/me",
+    successRedirect: "http://localhost:3000/dash",
     failureRedirect: "http://localhost:3000/"
   })
 );

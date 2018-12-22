@@ -1,10 +1,10 @@
 // MAIN DASHBOARD
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 import NewFolderModal from "../../components/Modal/NewFolderModal";
 import styles from "./dashboard-container.module.css";
-import Modal from "../../components/Modal/Modal";
-
+import FileCard from "../../components/Card/FileCard/FileCard";
+import Folder from "../folder/folder-container";
 import { axiosDeleteFolder, axiosAddFolder } from "../../ducks/actions";
 
 class Dashboard extends Component {
@@ -35,42 +35,37 @@ class Dashboard extends Component {
     console.log(files);
     return (
       <div className={styles.container}>
-        <h3>Dashboard</h3>
-        <div className={styles.body}>
-          <div>
-            {}
-            <h4>Recent Activity</h4>
-            <p>5 most recent files </p>
+        <div className={styles.box}>
+          <div name="col-1" className={styles.content}>
+            <h2>Folders</h2>
+            {folders.map(folder => {
+              console.log(folder);
+              return (
+                <button className={styles.folder} key={folder.id}>
+                  <Link
+                    className={styles.link}
+                    to={`${match.url}/folder/${folder.id}`}
+                  >
+                    {folder.folder_name}
+                  </Link>
+                  <p onClick={() => this.onDeleteFolder(folder.id)} />
+                </button>
+              );
+            })}
           </div>
-          <div>
-            <Link to={`${match.url}/upload`}>
-              <h2>+ UPLOAD </h2>
-            </Link>
-
-            <NewFolderModal onAddFolderClick={this.onAddFolderClick} />
+          <div name="col-1" className={styles.content}>
+            <Route
+              path="/dash/folder/:id"
+              render={({ match }) => (
+                <Folder
+                  folders={folders}
+                  dispatchDeleteFolder={this.props.dispatchDeleteFolder}
+                  match={match}
+                />
+              )}
+            />
           </div>
         </div>
-        <div>
-          <h2>Folders</h2>
-          {folders.map(folder => {
-            console.log(folder);
-            return (
-              <div key={folder.id}>
-                <Link to={`${match.url}/folder/${folder.id}`}>
-                  {folder.folder_name}
-                </Link>
-                <p onClick={() => this.onDeleteFolder(folder.id)}>delete</p>
-              </div>
-            );
-          })}
-        </div>
-        <div style={{ backgroundColor: "#a87a2f" }}>
-          <Link to="/folder">
-            <h2>+ UPLOAD </h2>
-          </Link>
-        </div>
-        {/* <UploadDash />
-      <FolderDash /> */}
       </div>
     );
   }

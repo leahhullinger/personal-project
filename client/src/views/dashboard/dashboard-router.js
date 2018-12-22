@@ -5,7 +5,6 @@ import { Route, Switch } from "react-router-dom";
 import Dashboard from "./dashboard-container";
 import Folder from "../folder/folder-container";
 import Uploader from "../upload/upload-container";
-import { Modal } from "../../components/Modal/Modal";
 
 import styles from "./dashboard-router.module.css";
 import {
@@ -49,16 +48,6 @@ class DashboardRouter extends Component {
                   folders={folders}
                   files={files}
                   dispatchAddFolderToState={dispatchAddFolderToState}
-                  dispatchDeleteFolder={dispatchDeleteFolder}
-                  match={match}
-                />
-              )}
-            />
-            <Route
-              path="/dash/folder/:id"
-              render={({ match }) => (
-                <Folder
-                  folders={folders}
                   dispatchDeleteFolder={dispatchDeleteFolder}
                   match={match}
                 />

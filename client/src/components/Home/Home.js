@@ -18,11 +18,6 @@ class Home extends Component {
           {/* <a href={AUTHLINK}>Login to dashboard</a> */}
           <a href="http://localhost:3005/auth">Login to dashboard</a>
         </div>
-        <FileCard>
-          <PreviewBox>
-            <img url="https://www.washingtonpost.com/graphics/2018/national/amp-stories/stories-year-in-photos/img/YIP-Shootings-008.jpg" />
-          </PreviewBox>
-        </FileCard>
       </div>
     );
   }
