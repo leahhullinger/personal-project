@@ -17,14 +17,13 @@ h2 {
 .wrapper {
   text-align: left;
   display: flex;
-  flex-direction: column;
   padding: 15px;
   min-height: 300px;
   background-color: #f8f8f8;
   height: 66vh;
   display: flex;
-  margin: 10px 50px 20px;
-  padding: 40px;
+  margin: 20px 50px;
+  padding: 10px 40px 40px;
 }
 .link {
   padding: 10px 0;
@@ -38,4 +37,47 @@ h2 {
 p.link {
   cursor: pointer;
   margin: 0;
+}
+
+.fileContent {
+  overflow: auto;
+}
+
+.contentInner {
+  display: flex;
+  padding: 15px;
+}
+
+.filesList {
+  min-width: 20%;
+  width: 20%;
+  margin-right: 20px;
+}
+
+.thumb {
+  max-width: 40%;
+  max-height: 500px;
+  overflow: auto;
+  margin-bottom: 0;
+}
+
+.notes {
+  padding: 0 15px;
+  max-width: 60%;
+}
+
+.notes dd {
+  padding: 6px 0 15px;
+}
+
+.row {
+  display: flex;
+}
+
+.row dt {
+  margin-right: 6px;
+}
+
+.row dd {
+  padding: 0 0 15px;
 }
