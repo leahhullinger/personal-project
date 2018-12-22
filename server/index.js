@@ -91,14 +91,11 @@ app.get(
 );
 
 app.get("/dash", (req, res, next) => {
-  req.session.user = req.user;
-  console.log({ user: req.session });
-  console.log({ user: req.user });
   console.log("hitting /dash");
   if (!req.user) {
     return res.status(401).send("Log in required");
   } else {
-    res.status(200).send(req.session.user);
+    res.status(200).send(req.user);
   }
 });
 

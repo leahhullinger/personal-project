@@ -16,22 +16,22 @@ export const TextDetect = ({
     <Modal show={isOpen} onHide={onClose}>
       <Modal.Header closeButton>Image Transcription</Modal.Header>
       <Modal.Body className={styles.body}>
-        <Thumbnail src={file.referenceLink} className={styles.thumb} />
-        {!!file.transcription && (
+        <Thumbnail src={file.s3_url} className={styles.thumb} />
+        {!!file.transcript && (
           <textarea
             placeholder="Transription"
-            value={file.transcription}
+            value={file.transcript}
             name="transcription"
             onChange={e => {
-              onUpdateTranscription(file.fileName, {
-                transcription: e.target.value
+              onUpdateTranscription(file.filename, {
+                transcript: e.target.value
               });
             }}
             className={styles.text}
-            disabled={!file.transcription}
+            disabled={!file.transcript}
           />
         )}
-        {!file.transcription && <Loading />}
+        {!file.transcript && <Loading />}
       </Modal.Body>
       <Modal.Footer>
         <Button

@@ -1,28 +1,18 @@
 // MAIN DASHBOARD
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import FileCard from "../../components/Card/FileCard/FileCard";
-import NewFolder from "../../components/Form/NewFolder/NewFolder";
+import NewFolderModal from "../../components/Modal/NewFolderModal";
 import styles from "./dashboard-container.module.css";
 
-import {
-  getFoldersComplete,
-  addFolderComplete,
-  deleteFolderComplete,
-  axiosGetAllFolders,
-  axiosDeleteFolder,
-  axiosAddFolder,
-  axiosGetFolder
-} from "../../ducks/actions";
+import { axiosDeleteFolder, axiosAddFolder } from "../../ducks/actions";
 
 class Dashboard extends Component {
   state = {
     folderName: ""
   };
 
-  onAddFolderClick = () => {
-    axiosAddFolder(this.state.folderName)
+  onAddFolderClick = folderName => {
+    axiosAddFolder(folderName)
       .then(response => {
         this.props.dispatchAddFolderToState(response.data.folder);
       })
@@ -40,7 +30,8 @@ class Dashboard extends Component {
   handleInputUpdate = e => this.setState({ [e.target.name]: e.target.value });
 
   render() {
-    const { folders, match } = this.props;
+    const { folders, match, files } = this.props;
+    console.log(files);
     return (
       <div className={styles.container}>
         <h3>Dashboard</h3>
@@ -54,11 +45,7 @@ class Dashboard extends Component {
               <h2>+ UPLOAD </h2>
             </Link>
 
-            <NewFolder
-              folderName={this.state.folderName}
-              onChange={this.handleInputUpdate}
-              onAdd={this.onAddFolderClick}
-            />
+            <NewFolderModal onAddFolderClick={this.onAddFolderClick} />
           </div>
         </div>
         <div>

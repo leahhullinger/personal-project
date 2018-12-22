@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import FileCard from "../../components/Card/FileCard/FileCard";
+import { axiosGetFolder } from "../../ducks/actions";
 import styles from "./folder-container.module.css";
 
 class Folder extends Component {
@@ -10,6 +11,13 @@ class Folder extends Component {
       name: "",
       files: []
     };
+  }
+
+  componentDidMount() {
+    console.log(this.props.match.params);
+    axiosGetFolder(this.props.match.params.id)
+      .then(res => console.log(res))
+      .catch(err => console.log({ err }));
   }
 
   render() {

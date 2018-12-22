@@ -13,7 +13,8 @@ class PreviewCard extends Component {
       isFormOpen: false,
       isTranscribeOpen: false,
       notes: file.notes || {
-        folder_id: 0,
+        title: "",
+        folder_id: 20,
         date: "",
         text: ""
       }
@@ -35,14 +36,10 @@ class PreviewCard extends Component {
       onUpdateUpload,
       folders
     } = this.props;
-    console.log(this.state.notes.folder_id);
+    console.log(this.state.notes);
     return (
       <div className={styles.card}>
-        <Thumbnail
-          className="img"
-          src={file.referenceLink}
-          alt="upload preview"
-        >
+        <Thumbnail className="img" src={file.s3_url} alt="upload preview">
           <div className={styles.actions}>
             <Button
               simpleBtn={true}
@@ -53,7 +50,7 @@ class PreviewCard extends Component {
             <Button
               simpleBtn={true}
               onClick={() => {
-                !file.transcription && onTranscript(file.fileName);
+                !file.transcription && onTranscript(file.filename);
                 this.setState({
                   isTranscribeOpen: !isTranscribeOpen
                 });
@@ -61,7 +58,10 @@ class PreviewCard extends Component {
             >
               Transcribe
             </Button>
-            <Button simpleBtn={true} onClick={() => onSubmitClick(file)}>
+            <Button
+              simpleBtn={true}
+              onClick={() => onSubmitClick(file.filename)}
+            >
               Submit
             </Button>
           </div>
@@ -75,7 +75,7 @@ class PreviewCard extends Component {
               <Button
                 simpleBtn={true}
                 onClick={() => {
-                  onUpdateUpload(file.fileName, { notes: this.state.notes });
+                  onUpdateUpload(file.filename, { notes: this.state.notes });
                   this.setState({ isFormOpen: false });
                 }}
               >

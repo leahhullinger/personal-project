@@ -5,7 +5,10 @@ import {
   GET_FOLDERS_COMPLETE,
   GET_FOLDER_COMPLETE,
   DELETE_FOLDER_COMPLETE,
-  UPDATE_FOLDER_COMPLETE
+  UPDATE_FOLDER_COMPLETE,
+  ADD_FILE_COMPLETE,
+  GET_FILES_COMPLETE,
+  API_URL
 } from "./constants";
 
 /** Action creators */
@@ -53,6 +56,20 @@ export function updateFolderComplete(id, update) {
   };
 }
 
+export function addFileComplete(file) {
+  return {
+    type: ADD_FILE_COMPLETE,
+    payload: file
+  };
+}
+
+export function getFilesComplete(files) {
+  return {
+    type: GET_FILES_COMPLETE,
+    payload: files
+  };
+}
+
 /** async API calls */
 
 // export function onFormSubmit(file) {
@@ -87,4 +104,13 @@ export function axiosUpdateFolder(id) {
 
 export function axiosAddFolder(name) {
   return axios.post("/api/add/folder", { name });
+}
+
+export function axiosGetAllFiles() {
+  return axios.get("/api/files");
+}
+
+export function axiosAddFile(upload) {
+  console.log(upload);
+  return axios.post(`${API_URL}/add/file`, { ...upload });
 }

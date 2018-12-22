@@ -12,7 +12,6 @@ module.exports = {
       transcript,
       folder_id
     } = req.body;
-
     dbInstance
       .new_upload(
         title,
@@ -26,12 +25,12 @@ module.exports = {
         req.user.id
       )
       .then(file => {
-        console.log("this is new upload response", response);
+        console.log("this is new upload response", file);
         res.status(200).send(file);
       })
-      .catch(err => {
-        res.status(500).send("there was an error adding new file", error);
+      .catch(error => {
         console.log(error);
+        res.status(500).send(error);
       });
   },
   readFile: (req, res, next) => {
@@ -43,8 +42,8 @@ module.exports = {
         res.status(200).send(file);
       })
       .catch(err => {
-        res.status(500).send({ errorMessage: "error getting files" });
         console.log(err);
+        res.status(500).send(err);
       });
   },
 
@@ -57,8 +56,8 @@ module.exports = {
         res.status(200).send(files);
       })
       .catch(err => {
-        res.status(500).send({ errorMessage: "error getting files" });
         console.log(err);
+        res.status(500).send({ errorMessage: "error getting files" });
       });
   },
 

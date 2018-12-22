@@ -17,13 +17,14 @@ module.exports = {
     const dbInstance = req.app.get("db");
     const { id } = req.params;
     dbInstance
-      .read_folder([id, req.user.id])
+      .read_folder(id, 5)
       .then(folder => {
+        console.log(folder);
         res.status(200).send(folder);
       })
       .catch(err => {
-        res.status(500).send({ errorMessage: "error getting folder" });
         console.log(err);
+        res.status(500).send({ errorMessage: "error getting folder" });
       });
   },
   readFolders: (req, res, next) => {
