@@ -13,20 +13,32 @@
 }
 .content {
   display: flex;
+  flex-direction: column;
+  text-align: left;
 }
 .folder {
   font-family: "Anton", san-serif;
   font-size: 14px;
   font-weight: 400;
 }
-/* 
+
+.footerActions {
+  display: flex;
+  justify-content: space-evenly;
+}
+.footerActions a {
+  flex: 1;
+}
+
 .link {
+  padding: 10px 0;
   font-size: 14px;
   font-family: "Roboto", sans-serif;
   font-weight: 400;
   color: #ff2f50;
+  position: relative;
 }
-.link:before {
+/* .link:before {
   top: 0;
   left: 0;
   right: -3px;

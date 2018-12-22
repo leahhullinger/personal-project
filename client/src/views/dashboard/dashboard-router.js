@@ -43,12 +43,24 @@ class DashboardRouter extends Component {
         <div className={styles.body}>
           <Switch>
             <Route
+              exact
               path="/dash"
               render={() => (
                 <Dashboard
                   folders={folders}
                   files={files}
                   dispatchAddFolderToState={dispatchAddFolderToState}
+                  dispatchDeleteFolder={dispatchDeleteFolder}
+                  match={match}
+                />
+              )}
+            />
+            <Route
+              path={`${match.url}/folder/:id`}
+              render={({ match }) => (
+                <Folder
+                  folders={folders}
+                  files={files}
                   dispatchDeleteFolder={dispatchDeleteFolder}
                   match={match}
                 />

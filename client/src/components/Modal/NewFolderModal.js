@@ -24,8 +24,10 @@ export default class NewFolderModal extends Component {
 
   render() {
     return (
-      <div>
-        <Button onClick={this.handleShow}>Create New Folder</Button>
+      <div style={{ flex: 1 }}>
+        <Button style={{ width: "100%" }} onClick={this.handleShow}>
+          Create New Folder +
+        </Button>
         <NewFolderForm
           isOpen={this.state.show}
           handleClose={this.handleClose}

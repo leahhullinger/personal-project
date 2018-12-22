@@ -41,36 +41,24 @@ class Dashboard extends Component {
                 {folders.map(folder => {
                   console.log(folder);
                   return (
-                    <button className={styles.folder} key={folder.id}>
-                      <Link
-                        className={styles.link}
-                        to={`${match.url}/folder/${folder.id}`}
-                      >
-                        {folder.folder_name}
-                      </Link>
-                      <p onClick={() => this.onDeleteFolder(folder.id)} />
-                    </button>
+                    <Link
+                      key={folder.id}
+                      className={styles.link}
+                      to={`${match.url}/folder/${folder.id}`}
+                    >
+                      {folder.folder_name}
+                    </Link>
                   );
                 })}
               </div>
             )}
           />
-          <div name="col-1" className={styles.content}>
-            <Route
-              path={`${match.url}/folder/:id`}
-              render={({ match }) => (
-                <Folder
-                  folders={folders}
-                  files={files}
-                  dispatchDeleteFolder={this.props.dispatchDeleteFolder}
-                  match={match}
-                />
-              )}
-            />
-          </div>
         </div>
-        <div>
-          <Button>UPLOAD + </Button>
+        <div className={styles.footerActions}>
+          <Link to="dash/upload">
+            <Button>UPLOAD + </Button>
+          </Link>
+          <NewFolderModal onAddFolderClick={this.onAddFolderClick} />
         </div>
       </div>
     );
