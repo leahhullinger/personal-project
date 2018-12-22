@@ -5,7 +5,9 @@ import {
   GET_FOLDERS_COMPLETE,
   GET_FOLDER_COMPLETE,
   DELETE_FOLDER_COMPLETE,
+  DELETE_FILE_COMPLETE,
   UPDATE_FOLDER_COMPLETE,
+  UPDATE_FILE_COMPLETE,
   ADD_FILE_COMPLETE,
   GET_FILES_COMPLETE,
   API_URL
@@ -49,9 +51,23 @@ export function deleteFolderComplete(id) {
   };
 }
 
+export function deleteFileComplete(id) {
+  return {
+    type: DELETE_FILE_COMPLETE,
+    payload: id
+  };
+}
+
 export function updateFolderComplete(id, update) {
   return {
     type: UPDATE_FOLDER_COMPLETE,
+    payload: { id, ...update }
+  };
+}
+
+export function updateFileComplete(id, update) {
+  return {
+    type: UPDATE_FILE_COMPLETE,
     payload: { id, ...update }
   };
 }
@@ -108,6 +124,14 @@ export function axiosAddFolder(name) {
 
 export function axiosGetAllFiles() {
   return axios.get("/api/files");
+}
+
+export function axiosDeleteFile(id) {
+  return axios.delete(`/api/file/${id}`);
+}
+
+export function axiosUpdateFile(id, file) {
+  return axios.put(`/api/file/${id}`, { ...file });
 }
 
 export function axiosAddFile(upload) {

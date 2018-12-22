@@ -5,7 +5,9 @@ import {
   GET_FOLDER_COMPLETE,
   GET_FILES_COMPLETE,
   DELETE_FOLDER_COMPLETE,
-  UPDATE_FOLDER_COMPLETE
+  DELETE_FILE_COMPLETE,
+  UPDATE_FOLDER_COMPLETE,
+  UPDATE_FILE_COMPLETE
 } from "./constants";
 /** 
 type FileT = {
@@ -56,17 +58,32 @@ function reducer(state = initialState, action) {
           return folder;
         })
       };
+    case DELETE_FILE_COMPLETE:
+      return {
+        ...state,
+        files: state.files.filter(file => file.id !== action.payload)
+      };
     case DELETE_FOLDER_COMPLETE:
       return {
         ...state,
         folders: state.folders.filter(folder => folder.id !== action.payload)
+      };
+    case UPDATE_FILE_COMPLETE:
+      return {
+        ...state,
+        files: state.files.map(file => {
+          if (file.id === action.payload.id) {
+            return { ...file, ...action.payload };
+          }
+          return file;
+        })
       };
     case UPDATE_FOLDER_COMPLETE:
       return {
         ...state,
         folders: state.folders.map(folder => {
           if (folder.id === action.payload.id) {
-            return { ...action.payload };
+            return { ...folder, ...action.payload };
           }
           return folder;
         })

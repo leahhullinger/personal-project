@@ -41,11 +41,11 @@ p.link {
 
 .fileContent {
   overflow: auto;
+  padding: 15px;
 }
 
 .contentInner {
   display: flex;
-  padding: 15px;
 }
 
 .filesList {
@@ -80,4 +80,25 @@ p.link {
 
 .row dd {
   padding: 0 0 15px;
+}
+
+.actionLink {
+  font-family: "VT323", sans-serif;
+  color: #ff2f50;
+  font-size: 16px;
+  padding-right: 15px;
+  border-color: none;
+  border-style: none;
+  border-width: 0;
+  padding: 6px;
+  background-color: transparent;
+}
+
+.actionLink:hover {
+  text-decoration: underline;
+}
+
+.actionBar {
+  display: flex;
+  justify-content: flex-end;
 }

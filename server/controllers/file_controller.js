@@ -65,12 +65,13 @@ module.exports = {
   updateFile: (req, res, next) => {
     const dbInstance = req.app.get("db");
     const { id } = req.params;
-    const { title, date, notes } = req.body;
+    const { title, date, notes, transcript } = req.body;
 
+    console.log(req.body);
     dbInstance
-      .update_file(title, date, notes, id, req.user.id)
-      .then(() => {
-        res.sendStatus(200);
+      .update_file(id, title, date, notes, transcript, req.user.id)
+      .then(response => {
+        res.status(200).send(response.data);
       })
       .catch(err => {
         res.status(500).send({ errorMessage: "error updating file" });
@@ -85,7 +86,7 @@ module.exports = {
     dbInstance
       .delete_file(id, req.user.id)
       .then(() => {
-        res.sendStatus(200);
+        res.status(200).send(res.status);
       })
       .catch(err => {
         res.status(500).send({ errorMessage: "error deleting file" });

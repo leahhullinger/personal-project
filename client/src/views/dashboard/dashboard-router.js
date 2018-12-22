@@ -13,6 +13,8 @@ import {
   addFolderComplete,
   addFileComplete,
   deleteFolderComplete,
+  deleteFileComplete,
+  updateFileComplete,
   axiosGetAllFiles,
   axiosGetAllFolders
 } from "../../ducks/actions";
@@ -33,6 +35,8 @@ class DashboardRouter extends Component {
       dispatchAddFolderToState,
       dispatchDeleteFolder,
       dispatchAddUpload,
+      dispatchDeleteFile,
+      dispatchUpdateFile,
       match
     } = this.props;
     return (
@@ -43,6 +47,7 @@ class DashboardRouter extends Component {
             src={
               "https://s3.us-east-2.amazonaws.com/citizen-sidekick/IMG_0146.jpg"
             }
+            alt="Citizen Sidekick logo"
           />
           <h1>CITIZEN SIDEKICK</h1>
         </header>
@@ -68,6 +73,8 @@ class DashboardRouter extends Component {
                   folders={folders}
                   files={files}
                   dispatchDeleteFolder={dispatchDeleteFolder}
+                  dispatchDeleteFile={dispatchDeleteFile}
+                  dispatchUpdateFile={dispatchUpdateFile}
                   match={match}
                 />
               )}
@@ -100,7 +107,9 @@ const mapDispatchToProps = dispatch => {
     dispatchSetFoldersState: folders => dispatch(getFoldersComplete(folders)),
     dispatchAddFolderToState: folder => dispatch(addFolderComplete(folder)),
     dispatchDeleteFolder: id => dispatch(deleteFolderComplete(id)),
+    dispatchDeleteFile: id => dispatch(deleteFileComplete(id)),
     dispatchSetFilesState: files => dispatch(getFilesComplete(files)),
+    dispatchUpdateFile: (id, file) => dispatch(updateFileComplete(id, file)),
     dispatchAddUpload: upload => dispatch(addFileComplete(upload))
   };
 };
