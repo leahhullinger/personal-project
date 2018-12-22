@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button } from "../Button/Button";
 import { NewFolderForm } from "../Form/NewFolder/NewFolder";
+import styles from "./NewFolderModal.module.css";
 
 export default class NewFolderModal extends Component {
   constructor(props) {
@@ -24,9 +25,9 @@ export default class NewFolderModal extends Component {
 
   render() {
     return (
-      <div style={{ flex: 1, padding: "10px" }}>
-        <Button style={{ width: "100%" }} onClick={this.handleShow}>
-          Create New Folder +
+      <div className={styles.container}>
+        <Button className={styles.btn} onClick={this.handleShow}>
+          CREATE NEW FOLDER +
         </Button>
         <NewFolderForm
           isOpen={this.state.show}
