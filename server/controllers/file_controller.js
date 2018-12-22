@@ -1,37 +1,38 @@
 module.exports = {
   newFile: (req, res, next) => {
-    console.log("new file");
-    //   const dbInstance = req.app.get("db");
-    //   const { postData, uploadFiles, transcript, folder } = req.body;
-    //   const postData = [
-    //     postData.title,
-    //     postData.date,
-    //     postData.notes,
-    //     folder.id,
-    //     req.user.id
-    //   ]
-    //   const uploadData = [
-    //     uploadFile.name,
-    //     uploadFile.type,
-    //     uploadFile.s3Url,
-    //     req.user.id
-    //   ]
-    //   const transcriptData = [
-    //     transcript.title,
-    //     transcript.transcript,
-    //     req.user.id
-    //   ]
-    //   dbInstance
-    //     .save_postData(postData).then(post => {
-    //       const post_id = post.id
-    //       dbInstance
-    //         .save_uploadFiles(uploadData, post_id).then( upload => {
-    //           const upload_file = upload.id
-    //         })
-    //     .catch(error => {
-    //       res.status(500).send({ errorMessage: "Error adding file" });
-    //       console.log(error);
-    //     });
+    const dbInstance = req.app.get("db");
+    const { id } = req.params;
+    const {
+      title,
+      date,
+      notes,
+      filename,
+      filetype,
+      s3_url,
+      transcript,
+      folder_id
+    } = req.body;
+
+    dbInstance
+      .new_upload(
+        title,
+        date,
+        notes,
+        filename,
+        filetype,
+        s3_url,
+        transcript,
+        folder_id,
+        req.user.id
+      )
+      .then(file => {
+        console.log("this is new upload response", response);
+        res.status(200).send(file);
+      })
+      .catch(err => {
+        res.status(500).send("there was an error adding new file", error);
+        console.log(error);
+      });
   },
   readFile: (req, res, next) => {
     const dbInstance = req.app.get("db");
