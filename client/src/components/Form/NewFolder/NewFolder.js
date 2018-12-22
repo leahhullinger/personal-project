@@ -11,28 +11,21 @@ export const NewFolderForm = ({
   handleInputUpdate
 }) => {
   return (
-    <Modal show={isOpen} onHide={handleClose}>
+    <Modal styles={{ borderRadius: "0" }} show={isOpen} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title className={styles.heading}>
-          Create a new folder.
-        </Modal.Title>
-        <Modal.Title className={styles.subheading}>
-          it makes record keeping much easier.
-        </Modal.Title>
+        <Modal.Title className={styles.heading}>+ NEW FOLDER</Modal.Title>
       </Modal.Header>
       <Modal.Body className={styles.body}>
-        <label className={styles.label}>Folder Name </label>
         <input
+          className={styles.input}
+          placeholder="FOLDER NAME"
           name="folderName"
           value={inputValue}
           onChange={handleInputUpdate}
         />
       </Modal.Body>
       <Modal.Footer>
-        <span>
-          Tip: what event do you need to track? Name your folder that.
-        </span>
-        <Button onClick={() => onClick()}>Save</Button>
+        <Button onClick={() => onClick()}>Save ></Button>
       </Modal.Footer>
     </Modal>
   );

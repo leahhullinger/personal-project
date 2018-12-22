@@ -29,3 +29,7 @@ button.simpleBtn:hover {
   font-family: "Roboto Mono", sans-serif;
   font-size: 18px;
 }
+
+.btn:hover {
+  border: 3px solid #023732;
+}

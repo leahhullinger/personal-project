@@ -10,7 +10,9 @@
 .mainHeader {
   padding-left: 25px;
   padding-right: 25px;
-  height: 64px;
+  padding-top: 15px;
+  padding-bottom: 20px;
+  height: 13vh;
 }
 
 .mainHeader h1 {

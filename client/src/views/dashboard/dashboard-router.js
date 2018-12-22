@@ -43,13 +43,12 @@ class DashboardRouter extends Component {
       <div className={styles.view}>
         <header className={styles.mainHeader}>
           <img
-            style={{ height: "70px" }}
+            style={{ height: "100px" }}
             src={
               "https://s3.us-east-2.amazonaws.com/citizen-sidekick/IMG_0146.jpg"
             }
             alt="Citizen Sidekick logo"
           />
-          <h1>CITIZEN SIDEKICK</h1>
         </header>
         <div className={styles.body}>
           <Switch>

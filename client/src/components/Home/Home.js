@@ -1,22 +1,28 @@
 import React, { Component } from "react";
 import styles from "./Home.module.css";
 import { Link } from "react-router-dom";
-import Modal, { PreviewBox } from "../Modal/Modal";
-import FileCard from "../Card/FileCard/FileCard";
 
 const AUTHLINK = "http://localhost:3005/auth";
 
 class Home extends Component {
   render() {
     return (
-      <div className="home-container">
-        {/* <Nav /> */}
+      <div className={styles.container}>
         <div className={styles.page}>
-          {/* <div className={styles.name}> */}
-          <h1 className={styles.h1}>CITIZEN SIDEKICK</h1>
-          {/* <p>a short description of what it is.</p> */}
-          {/* <a href={AUTHLINK}>Login to dashboard</a> */}
-          <a href="http://localhost:3005/auth">Login to dashboard</a>
+          <img
+            className={styles.img}
+            src={
+              "https://s3.us-east-2.amazonaws.com/citizen-sidekick/IMG_0146.jpg"
+            }
+          />
+          <span>
+            <h1 className={styles.h1}>CITIZEN SIDEKICK</h1>
+            <span>
+              <a class={styles.link} href="http://localhost:3005/auth">
+                LOGIN TO DASHBOARD >
+              </a>
+            </span>
+          </span>
         </div>
       </div>
     );
