@@ -10,8 +10,10 @@ import { Modal } from "../../components/Modal/Modal";
 import styles from "./dashboard-router.module.css";
 import {
   getFoldersComplete,
+  getFilesComplete,
   addFolderComplete,
   deleteFolderComplete,
+  axiosGetAllFiles,
   axiosGetAllFolders
 } from "../../ducks/actions";
 
@@ -20,10 +22,14 @@ class DashboardRouter extends Component {
     axiosGetAllFolders().then(response => {
       this.props.dispatchSetFoldersState(response.data);
     });
+    axiosGetAllFiles().then(response => {
+      this.props.dispatchSetFilesState(response.data);
+    });
   }
   render() {
     const {
       folders,
+      files,
       dispatchAddFolderToState,
       dispatchDeleteFolder,
       match
@@ -41,6 +47,7 @@ class DashboardRouter extends Component {
               render={() => (
                 <Dashboard
                   folders={folders}
+                  files={files}
                   dispatchAddFolderToState={dispatchAddFolderToState}
                   dispatchDeleteFolder={dispatchDeleteFolder}
                   match={match}
@@ -70,7 +77,8 @@ class DashboardRouter extends Component {
 
 const mapStateToProps = state => {
   return {
-    folders: state.folders
+    folders: state.folders,
+    files: state.files
   };
 };
 
@@ -78,7 +86,9 @@ const mapDispatchToProps = dispatch => {
   return {
     dispatchSetFoldersState: folders => dispatch(getFoldersComplete(folders)),
     dispatchAddFolderToState: folder => dispatch(addFolderComplete(folder)),
-    dispatchDeleteFolder: id => dispatch(deleteFolderComplete(id))
+    dispatchDeleteFolder: id => dispatch(deleteFolderComplete(id)),
+    dispatchSetFilesState: files => dispatch(getFilesComplete(files))
+    // dispatchAddUpload: upload => dispatch()
   };
 };
 

@@ -2,6 +2,7 @@ import {
   ADD_FOLDER_COMPLETE,
   GET_FOLDERS_COMPLETE,
   GET_FOLDER_COMPLETE,
+  GET_FILES_COMPLETE,
   DELETE_FOLDER_COMPLETE,
   UPDATE_FOLDER_COMPLETE
 } from "./constants";
@@ -23,15 +24,8 @@ type UserT = {
 */
 
 const initialState = {
-  filesToUpload: [],
-  date: "",
-  title: "",
-  folder: null,
-  notes: "",
-  detectedText: "",
-  folder: "",
-  s3Urls: [],
-  folders: []
+  folders: [],
+  files: []
 };
 
 function reducer(state = initialState, action) {
@@ -44,6 +38,8 @@ function reducer(state = initialState, action) {
       };
     case GET_FOLDERS_COMPLETE:
       return { ...state, folders: action.payload };
+    case GET_FILES_COMPLETE:
+      return { ...state, files: action.payload };
     case GET_FOLDER_COMPLETE:
       return {
         ...state,
@@ -69,6 +65,7 @@ function reducer(state = initialState, action) {
           return folder;
         })
       };
+
     default:
       return state;
   }

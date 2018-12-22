@@ -8,6 +8,17 @@ export const Form = ({ notes, onUpdateInput, folders }) => {
     <div className={styles.form}>
       <span className={styles.row}>
         <label>
+          Title
+          <input
+            type="text"
+            name="title"
+            value={notes.title}
+            onChange={onUpdateInput}
+          />
+        </label>
+      </span>
+      <span className={styles.row}>
+        <label>
           Add to folder:
           <select
             placeholder="Add To Folder:"
@@ -23,7 +34,11 @@ export const Form = ({ notes, onUpdateInput, folders }) => {
               )}
             {folders &&
               folders.map(folder => (
-                <option key={folder.id} value={folder.id}>
+                <option
+                  key={folder.id}
+                  value={folder.id}
+                  onClick={() => console.log(folder.id)}
+                >
                   {folder.folder_name}
                 </option>
               ))}

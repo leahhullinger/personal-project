@@ -7,6 +7,7 @@ import { API_URL } from "../../ducks/constants";
 import FileSelect from "../../components/Upload/FileSelect";
 import PreviewCard from "../../components/Card/PreviewCard/PreviewCard";
 import { Loading } from "../../components/Loading/Loading";
+import { axiosAddFile } from "../../ducks/actions";
 
 import styles from "./upload-container.module.css";
 
@@ -16,30 +17,14 @@ class Uploader extends Component {
 
     this.state = {
       loading: false,
-      /** Upload data structure
-      [
-        {fileName: string, 
-         referenceLink: string, 
-         transcription: string, 
-         isSubmitted: boolean 
-        }
-      ] */
-      uploads: [
-        {
-          fileName: "textmessage_image_1.jpg",
-          referenceLink:
-            "https://jonbrown.org/assets/images/blog/2017/bluegreen/textmessage_image_1.jpg",
-          isSubmitted: false
-        }
-      ]
+      uploads: []
     };
   }
-
   onUpdateLoading = val => this.setState({ loading: val });
 
-  onUpdateUpload = (fileName, updated) => {
+  onUpdateUpload = (filename, updated) => {
     const updatedUploads = this.state.uploads.map(f => {
-      if (f.fileName === fileName) {
+      if (f.filename === filename) {
         return { ...f, ...updated };
       }
       return f;
@@ -53,36 +38,46 @@ class Uploader extends Component {
       .post(`${API_URL}/textDetect`, { file })
       .then(response => {
         console.log(response.data);
-        this.onUpdateUpload(file, { transcription: response.data });
+        this.onUpdateUpload(file, { transcript: response.data });
       })
       .catch(err => console.log(err));
   };
 
   // s3 function passed to s3 upload function in fileSelect
-  setFileUrl = (url, fileName) => {
+  setFileUrl = (url, file) => {
     var newUrl = url.substring(0, url.indexOf("?"));
+    console.log(file);
     this.setState({
       loading: false,
       uploads: [
         ...this.state.uploads,
-        { referenceLink: newUrl, fileName, isSubmitted: false }
+        {
+          s3_url: newUrl,
+          filename: file.name,
+          filetype: file.type,
+          isSubmitted: false
+        }
       ]
     });
   };
 
-  onSubmitClick = file => {
-    const updated = this.state.uploads.map(f => {
-      if (f.fileName === file.fileName) {
-        return { ...f, isSubmitted: true };
-      }
-      return f;
-    });
-    this.setState({
-      uploads: updated
-    });
-    this.props.dispatchOnFileSubmit(
-      updated.find(f => f.fileName === file.fileName)
-    );
+  // title, date, notes, filename, filetype, s3_url, transcript, folder_id
+  onSubmitClick = filename => {
+    const file = this.state.uploads.find(file => file.filename === filename);
+    const uploadFile = {
+      title: file.notes.title,
+      date: file.notes.date,
+      notes: file.notes.text,
+      filename: file.filename,
+      filetype: file.filetype,
+      s3_url: file.s3_url,
+      transcript: file.transcript,
+      folder_id: file.notes.folder_id
+    };
+    console.log(uploadFile);
+    axiosAddFile(uploadFile)
+      .then(res => console.log(res))
+      .catch(err => console.log({ err }));
   };
 
   // ADD CREATE FOLDER BUTTON, FOLDER SELECT
@@ -91,6 +86,7 @@ class Uploader extends Component {
     const fileCount = this.state.uploads.filter(item => !item.isSubmitted)
       .length;
     const submittedFiles = uploads.filter(file => file.isSubmitted);
+    console.log(uploads);
     return (
       <div>
         <div className={styles.selectHeader}>
@@ -123,13 +119,14 @@ class Uploader extends Component {
               setFileUrl={this.setFileUrl}
               onUpdateLoading={this.onUpdateLoading}
               isDropZone={true}
+              onUpdateUpload={this.onUpdateUpload}
             />
           )}
         </div>
         <div className={!submittedFiles.length ? styles.hidden : styles.saved}>
           {submittedFiles.map(file => (
-            <p className={styles.savedItem} key={file.fileName}>
-              + {file.fileName} saved
+            <p className={styles.savedItem} key={file.filename}>
+              + {file.filename} saved
             </p>
           ))}
         </div>

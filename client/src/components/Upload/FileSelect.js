@@ -29,7 +29,6 @@ class FileSelect extends Component {
     var file = files[0];
     console.log(files);
     this.props.onUpdateLoading(true);
-    this.props.updateSelectedFiles(file);
 
     axios
       .post(`${API_URL}/aws`, {
@@ -47,7 +46,7 @@ class FileSelect extends Component {
         return axios.put(signedUrl, file, options);
       })
       .then(res => {
-        this.props.setFileUrl(res.config.url, file.name);
+        this.props.setFileUrl(res.config.url, file);
       })
       .catch(function(err) {
         console.log(2, err);
