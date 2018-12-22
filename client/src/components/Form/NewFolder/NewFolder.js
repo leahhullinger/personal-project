@@ -20,7 +20,7 @@ export const NewFolderForm = ({
           it makes record keeping much easier.
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body className={styles.body}>
         <label className={styles.label}>Folder Name </label>
         <input
           name="folderName"

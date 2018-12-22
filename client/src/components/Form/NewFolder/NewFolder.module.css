@@ -12,3 +12,10 @@
   font-size: 12px;
   font-weight: 300;
 }
+.body {
+  margin: 20px 0;
+}
+
+.body label {
+  margin-right: 6px;
+}

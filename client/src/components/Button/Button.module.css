@@ -29,22 +29,3 @@ button.simpleBtn:hover {
   font-family: "Roboto Mono", sans-serif;
   font-size: 18px;
 }
-.btn:before {
-  top: 0;
-  left: 0;
-  right: -3px;
-  z-index: -1;
-  bottom: -3px;
-  content: "\A";
-  position: absolute;
-  transition: all 0.2s ease-in-out 0s;
-  will-change: transform;
-  background-color: #1a1a1a;
-  -webkit-transform: translate(-6px, -6px);
-  transform: translate(-6px, -6px);
-}
-
-.btn:hover:before {
-  -webkit-transform: translate(-4px, -4px);
-  transform: translate(-4px, -4px);
-}

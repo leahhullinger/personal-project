@@ -7,10 +7,11 @@ import { Thumbnail } from "react-bootstrap";
 
 export default class FileCard extends Component {
   render() {
-    const { date, title, notes, text, s3Url, file } = this.props;
+    const { date, title, notes, text, s3_url, file } = this.props.file;
+    console.log(this.props);
     return (
       <div className={styles.card}>
-        <img src={this.props.url} />
+        {/* <img src={s3_url} /> */}
         <div className={styles.contentBox}>
           <h3>{this.props.title}</h3>
           <p>{this.props.date}</p>
