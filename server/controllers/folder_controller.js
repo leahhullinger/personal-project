@@ -28,6 +28,7 @@ module.exports = {
   },
   readFolders: (req, res, next) => {
     const dbInstance = req.app.get("db");
+    console.log({ req: req });
 
     dbInstance
       .get_folders(req.user.id)

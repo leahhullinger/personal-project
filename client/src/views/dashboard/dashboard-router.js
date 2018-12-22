@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import Dashboard from "./dashboard-container";
 import Folder from "../../components/Folder/Folder";
 import Uploader from "../upload/upload-container";
+import { Modal } from "../../components/Modal/Modal";
 
 import styles from "./dashboard-router.module.css";
 
@@ -20,6 +21,7 @@ class DashboardRouter extends Component {
             <Route exact path="/dash" component={Dashboard} />
             <Route path="/dash/folder/:id" component={Folder} />
             <Route path="/dash/upload" component={Uploader} />
+            <Route path="/dash/modal" component={Modal} />
           </Switch>
         </div>
       </div>

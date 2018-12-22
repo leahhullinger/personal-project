@@ -30,9 +30,10 @@ app.use(
 );
 
 app.use(bodyParser.json());
-app.use(cors());
+// app.use(cors());
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(express.static(__dirname + "/../build"));
 
 massive(process.env.DB_CONNECTION_STRING)
   .then(dbInstance => {
@@ -46,7 +47,7 @@ passport.use(
       domain: DOMAIN,
       clientID: CLIENT_ID,
       clientSecret: CLIENT_SECRET,
-      callbackURL: "/auth",
+      callbackURL: "/auth/callback",
       scope: "openid email profile"
     },
     function(accessToken, refreshToken, extraParams, profile, done) {
@@ -55,13 +56,13 @@ passport.use(
       const email = profile.emails[0].value;
 
       if (profile) {
-        dbInstance.find_user([id]).then(results => {
+        dbInstance.find_user({ id }).then(results => {
           let user = results[0];
           return done(null, user);
         });
       } else {
         dbInstance
-          .create_user([id, email])
+          .create_user({ id, email })
           .then(results => {
             console.log("create user results", results);
             let user = results[0];
@@ -82,21 +83,25 @@ passport.deserializeUser(function(user, done) {
 });
 
 // AUTH ENDPOINTS
+app.get("/auth", passport.authenticate("auth0"));
+
 app.get(
-  "/auth",
+  "/auth/callback",
   passport.authenticate("auth0", {
-    successRedirect: "http://localhost:3000/dash",
+    successRedirect: "http://localhost:3000/auth/me",
     failureRedirect: "http://localhost:3000/"
   })
 );
 
-app.get("/dash", (req, res, next) => {
-  req.session.user = req.user;
+app.get("/auth/me", (req, res, next) => {
   console.log("hitting /dash");
   if (!req.user) {
+    res.redirect("/");
+    console.log(req);
     return res.status(401).send("Log in required");
   } else {
-    res.status(200).send(req.session.user);
+    console.log(res);
+    res.status(200).send(req.user);
   }
 });
 

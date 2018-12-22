@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import FileCard from "../../components/Card/FileCard/FileCard";
 import NewFolder from "../../components/Form/NewFolder/NewFolder";
 import styles from "./dashboard-container.module.css";
+import Modal from "../../components/Modal/Modal";
 
 import {
   getFoldersComplete,
@@ -41,7 +42,6 @@ class Dashboard extends Component {
   handleInputUpdate = e => this.setState({ [e.target.name]: e.target.value });
 
   render() {
-    console.log(this.state.folderName);
     const { folders, match } = this.props;
     return (
       <div className={styles.container}>

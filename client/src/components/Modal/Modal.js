@@ -1,15 +1,12 @@
-import React from 'react'
-import styles from './Modal.module.css'
+import React from "react";
+import styles from "./Modal.module.css";
 
-
-export const Modal = ({}) => {
+export const Modal = ({ title, children, button }) => {
   return (
-    <div className={StyleSheet. }>
-      <header />
-      <main></main>
-      <footer></footer>
+    <div className={styles.container}>
+      <header className={styles.header}>{title}</header>
+      <div className={styles.body}>{children}</div>
+      <footer className={styles.footer}>{button}</footer>
     </div>
-  )
-  }
-
-
+  );
+};
