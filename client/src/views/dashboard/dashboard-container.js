@@ -5,6 +5,7 @@ import NewFolderModal from "../../components/Modal/NewFolderModal";
 import styles from "./dashboard-container.module.css";
 import FileCard from "../../components/Card/FileCard/FileCard";
 import Folder from "../folder/folder-container";
+import { Button } from "../../components/Button/Button";
 import { axiosDeleteFolder, axiosAddFolder } from "../../ducks/actions";
 
 class Dashboard extends Component {
@@ -37,7 +38,7 @@ class Dashboard extends Component {
             {folders.map(folder => {
               console.log(folder);
               return (
-                <button className={styles.folder} key={folder.id}>
+                <div className={styles.folder} key={folder.id}>
                   <Link
                     className={styles.link}
                     to={`${match.url}/folder/${folder.id}`}
@@ -45,7 +46,7 @@ class Dashboard extends Component {
                     {folder.folder_name}
                   </Link>
                   <p onClick={() => this.onDeleteFolder(folder.id)} />
-                </button>
+                </div>
               );
             })}
           </div>
@@ -61,6 +62,9 @@ class Dashboard extends Component {
               )}
             />
           </div>
+        </div>
+        <div>
+          <Button>UPLOAD + </Button>
         </div>
       </div>
     );

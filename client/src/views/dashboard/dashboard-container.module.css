@@ -1,14 +1,13 @@
 .container {
-  height: 100vh;
-  display: flex;
+  margin: 0 40px;
+  background-color: white;
 }
 
 .box {
+  background-color: #f8f8f8;
+  height: 66vh;
   display: flex;
   justify-content: space-between;
-  background-color: rgba(255, 174, 159, 0.3);
-  border-top: 2px solid #ff2f50;
-  border-bottom: 2px solid #ff2f50;
   margin: 20px 50px;
   padding: 40px;
 }
@@ -16,21 +15,18 @@
   display: flex;
 }
 .folder {
-  margin: 20px auto;
-  height: 50px;
-  width: 200px;
-  color: #000;
-  line-height: 1;
-  cursor: pointer;
-  border-radius: 0;
-  position: relative;
-  padding: 13px 20px;
-  display: inline-block;
-  background-color: transparent;
-  border: 2px solid rgb(0, 122, 255);
-  overflow: hidden;
+  font-family: "Anton", san-serif;
+  font-size: 14px;
+  font-weight: 400;
 }
-.folder:before {
+/* 
+.link {
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  color: #ff2f50;
+}
+.link:before {
   top: 0;
   left: 0;
   right: -3px;
@@ -40,17 +36,10 @@
   position: absolute;
   transition: all 0.2s ease-in-out 0s;
   will-change: transform;
-  background-color: rgb(0, 122, 255);
+  background-color: #1a1a1a;
   -webkit-transform: translate(-6px, -6px);
   transform: translate(-6px, -6px);
-}
-
-.link {
-  font-size: 14px;
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  color: #ff2f50;
-}
+} */
 
 h1,
 h2 {

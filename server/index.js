@@ -83,7 +83,6 @@ passport.deserializeUser(function(user, done) {
 });
 
 // AUTH ENDPOINTS
-app.get("/auth", passport.authenticate("auth0"));
 
 app.get(
   "/auth",
