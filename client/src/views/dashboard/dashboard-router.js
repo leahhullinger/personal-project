@@ -43,7 +43,6 @@ class DashboardRouter extends Component {
         <div className={styles.body}>
           <Switch>
             <Route
-              exact
               path="/dash"
               render={() => (
                 <Dashboard

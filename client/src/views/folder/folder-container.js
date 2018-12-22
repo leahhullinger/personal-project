@@ -14,10 +14,10 @@ class Folder extends Component {
 
   render() {
     const { folders, match, files } = this.props;
-    const folder = folders.find(
-      folder => folder.id === Number(match.params.id)
-    );
-    const folderFiles = files.filter(file => file.folder_id === folder.id);
+    const folder =
+      folders && folders.find(folder => folder.id === Number(match.params.id));
+    const folderFiles =
+      files && files.filter(file => file.folder_id === folder.id);
     return (
       !!folder && (
         <div className={styles.foldercontainer}>

@@ -5,6 +5,7 @@ import NewFolderModal from "../../components/Modal/NewFolderModal";
 import styles from "./dashboard-container.module.css";
 import FileCard from "../../components/Card/FileCard/FileCard";
 import Folder from "../folder/folder-container";
+import { Button } from "../../components/Button/Button";
 import { axiosDeleteFolder, axiosAddFolder } from "../../ducks/actions";
 
 class Dashboard extends Component {
@@ -32,29 +33,35 @@ class Dashboard extends Component {
     return (
       <div className={styles.container}>
         <div className={styles.box}>
-          <div name="col-1" className={styles.content}>
-            <h2>Folders</h2>
-            {folders.map(folder => {
-              console.log(folder);
-              return (
-                <button className={styles.folder} key={folder.id}>
-                  <Link
-                    className={styles.link}
-                    to={`${match.url}/folder/${folder.id}`}
-                  >
-                    {folder.folder_name}
-                  </Link>
-                  <p onClick={() => this.onDeleteFolder(folder.id)} />
-                </button>
-              );
-            })}
-          </div>
+          <Route
+            path={match.url}
+            render={() => (
+              <div name="col-1" className={styles.content}>
+                <h2>Folders</h2>
+                {folders.map(folder => {
+                  console.log(folder);
+                  return (
+                    <button className={styles.folder} key={folder.id}>
+                      <Link
+                        className={styles.link}
+                        to={`${match.url}/folder/${folder.id}`}
+                      >
+                        {folder.folder_name}
+                      </Link>
+                      <p onClick={() => this.onDeleteFolder(folder.id)} />
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          />
           <div name="col-1" className={styles.content}>
             <Route
-              path="/dash/folder/:id"
+              path={`${match.url}/folder/:id`}
               render={({ match }) => (
                 <Folder
                   folders={folders}
+                  files={files}
                   dispatchDeleteFolder={this.props.dispatchDeleteFolder}
                   match={match}
                 />
@@ -62,6 +69,7 @@ class Dashboard extends Component {
             />
           </div>
         </div>
+        <Button>UPload</Button>
       </div>
     );
   }
