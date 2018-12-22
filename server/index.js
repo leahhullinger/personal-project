@@ -30,9 +30,10 @@ app.use(
 );
 
 app.use(bodyParser.json());
-app.use(cors());
+// app.use(cors());
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(express.static(__dirname + "/../build"));
 
 massive(process.env.DB_CONNECTION_STRING)
   .then(dbInstance => {
@@ -61,7 +62,7 @@ passport.use(
         });
       } else {
         dbInstance
-          .create_user(id, email)
+          .create_user([id, email])
           .then(results => {
             console.log("create user results", results);
             let user = results[0];
@@ -82,6 +83,8 @@ passport.deserializeUser(function(user, done) {
 });
 
 // AUTH ENDPOINTS
+app.get("/auth", passport.authenticate("auth0"));
+
 app.get(
   "/auth",
   passport.authenticate("auth0", {
@@ -93,12 +96,26 @@ app.get(
 app.get("/dash", (req, res, next) => {
   console.log("hitting /dash");
   if (!req.user) {
+    res.redirect("/");
+    console.log(req);
     return res.status(401).send("Log in required");
   } else {
     res.status(200).send(req.user);
   }
 });
 
+// app.get("/api/authenticate", (req, res, next) => {
+//   const dbInstance = app.get("db");
+//   const { username, password } = req.params;
+
+//   dbInstance.find_user(username, password).then(user => {
+//     if (username && password) {
+//       return user;
+//     } else {
+//       dbInstance.create_user(username, password, email);
+//     }
+//   });
+// });
 // FOLDER ENDPOINTS
 app.post("/api/add/folder", folder.createFolder);
 app.get("/api/folder/:id", folder.readFolder);

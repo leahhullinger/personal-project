@@ -1,1 +1,85 @@
-import React from 'react';
+.container {
+  display: block;
+  color: #007aff;
+  border-style: solid;
+  border-width: 1px 0;
+  border-color: #007aff;
+  background-color: #ebf5ff;
+  padding: 10px 30px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.header {
+  background: transparent;
+  height: 25%;
+  padding: 5px;
+  font-family: "Anton", san-serif;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 0.17em;
+  line-height: 1em;
+  text-align: start;
+}
+
+.body {
+  background: transparent;
+  min-height: 100px;
+  font-family: "Roboto", sans-serif;
+  font-size: 10px;
+}
+
+.previewBox,
+.contentBox {
+  background-color: inherit;
+  border: 0.25px solid black;
+  border-radius: 2px;
+}
+
+.contentBox {
+  flex-wrap: wrap;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background: transparent;
+  height: 20%;
+  padding: 8px 0;
+}
+
+.btn {
+  margin: 0;
+  color: #000;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 0;
+  position: relative;
+  padding: 13px 20px;
+  display: inline-block;
+  background-color: transparent;
+  border: 2px solid #1a1a1a;
+  -webkit-appearance: none;
+  font-family: "Roboto Mono", sans-serif;
+  font-size: 18px;
+}
+.btn:before {
+  top: 0;
+  left: 0;
+  right: -3px;
+  z-index: -1;
+  bottom: -3px;
+  content: "\A";
+  position: absolute;
+  transition: all 0.2s ease-in-out 0s;
+  will-change: transform;
+  background-color: #1a1a1a;
+  -webkit-transform: translate(-6px, -6px);
+  transform: translate(-6px, -6px);
+}
+
+.btn:hover:before {
+  -webkit-transform: translate(-4px, -4px);
+  transform: translate(-4px, -4px);
+}

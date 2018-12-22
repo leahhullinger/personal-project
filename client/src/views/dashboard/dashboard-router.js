@@ -56,17 +56,6 @@ class DashboardRouter extends Component {
               )}
             />
             <Route
-              path="/dash/folder/:id"
-              render={({ match }) => (
-                <Folder
-                  folders={folders}
-                  files={files}
-                  dispatchDeleteFolder={dispatchDeleteFolder}
-                  match={match}
-                />
-              )}
-            />
-            <Route
               path="/dash/upload"
               render={({ match }) => (
                 <Uploader
