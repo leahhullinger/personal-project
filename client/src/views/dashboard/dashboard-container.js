@@ -69,7 +69,9 @@ class Dashboard extends Component {
             />
           </div>
         </div>
-        <Button>UPload</Button>
+        <div>
+          <Button>UPLOAD + </Button>
+        </div>
       </div>
     );
   }
