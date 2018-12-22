@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Thumbnail } from "react-bootstrap";
+import { Thumbnail, Alert } from "react-bootstrap";
 import { Button } from "../../Button/Button";
 import { TextDetect } from "../../TextDetect/TextDetect";
 import { Form } from "../../Form/Form";
@@ -14,7 +14,7 @@ class PreviewCard extends Component {
       isTranscribeOpen: false,
       notes: file.notes || {
         title: "",
-        folder_id: 20,
+        folder_id: 0,
         date: "",
         text: ""
       }
@@ -60,13 +60,23 @@ class PreviewCard extends Component {
             </Button>
             <Button
               simpleBtn={true}
-              onClick={() => onSubmitClick(file.filename)}
+              onClick={() => {
+                if (notes.folder_id === 0) {
+                  this.setState({ isFormOpen: true });
+                }
+                if (notes.folder_id !== 0) {
+                  onSubmitClick(file.filename);
+                }
+              }}
             >
               Submit
             </Button>
           </div>
           {isFormOpen && (
             <div className={styles.formWrapper}>
+              {notes.folder_id === 0 && (
+                <Alert bsStyle="warning">A folder must be selected</Alert>
+              )}
               <Form
                 notes={notes}
                 onUpdateInput={this.onUpdateInput}

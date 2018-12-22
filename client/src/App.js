@@ -12,7 +12,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/dash" component={DashboardRouter} />
-            <Redirect to="/" />
+            {/* <Redirect to="/" /> */}
           </Switch>
         </div>
       </div>

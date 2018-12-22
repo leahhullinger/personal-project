@@ -29,7 +29,10 @@ export default class NewFolderModal extends Component {
         <NewFolderForm
           isOpen={this.state.show}
           handleClose={this.handleClose}
-          onClick={this.props.onAddFolderClick}
+          onClick={() => {
+            this.props.onAddFolderClick(this.state.folderName);
+            this.handleClose();
+          }}
           inputValue={this.state.folderName}
           handleInputUpdate={this.handleInputUpdate}
         />

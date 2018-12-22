@@ -7,10 +7,6 @@ import styles from "./dashboard-container.module.css";
 import { axiosDeleteFolder, axiosAddFolder } from "../../ducks/actions";
 
 class Dashboard extends Component {
-  state = {
-    folderName: ""
-  };
-
   onAddFolderClick = folderName => {
     axiosAddFolder(folderName)
       .then(response => {

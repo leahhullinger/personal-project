@@ -65,18 +65,18 @@ class Uploader extends Component {
   onSubmitClick = filename => {
     const file = this.state.uploads.find(file => file.filename === filename);
     const uploadFile = {
-      title: file.notes.title,
-      date: file.notes.date,
-      notes: file.notes.text,
+      title: file.notes ? file.notes.title : "",
+      date: file.notes ? file.notes.date : "",
+      notes: file.notes ? file.notes.text : "",
       filename: file.filename,
       filetype: file.filetype,
       s3_url: file.s3_url,
-      transcript: file.transcript,
-      folder_id: file.notes.folder_id
+      transcript: file.transcript || "",
+      folder_id: Number(file.notes.folder_id)
     };
     console.log(uploadFile);
     axiosAddFile(uploadFile)
-      .then(res => console.log(res))
+      .then(res => this.props.dispatchAddFile(uploadFile))
       .catch(err => console.log({ err }));
   };
 

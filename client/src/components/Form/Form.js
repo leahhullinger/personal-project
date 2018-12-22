@@ -22,16 +22,13 @@ export const Form = ({ notes, onUpdateInput, folders }) => {
           Add to folder:
           <select
             placeholder="Add To Folder:"
-            value={notes.folder || ""}
-            name="folder"
+            value={notes.folder_id}
+            name="folder_id"
             onChange={onUpdateInput}
           >
-            {folders &&
-              folders.length < 1 && (
-                <option key={0 + "add_folder"} value={0}>
-                  + add folder
-                </option>
-              )}
+            <option value={0} disabled>
+              choose folder
+            </option>
             {folders &&
               folders.map(folder => (
                 <option

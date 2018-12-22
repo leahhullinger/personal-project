@@ -11,6 +11,7 @@ import {
   getFoldersComplete,
   getFilesComplete,
   addFolderComplete,
+  addFileComplete,
   deleteFolderComplete,
   axiosGetAllFiles,
   axiosGetAllFolders
@@ -31,6 +32,7 @@ class DashboardRouter extends Component {
       files,
       dispatchAddFolderToState,
       dispatchDeleteFolder,
+      dispatchAddUpload,
       match
     } = this.props;
     return (
@@ -58,6 +60,7 @@ class DashboardRouter extends Component {
               render={({ match }) => (
                 <Folder
                   folders={folders}
+                  files={files}
                   dispatchDeleteFolder={dispatchDeleteFolder}
                   match={match}
                 />
@@ -65,7 +68,12 @@ class DashboardRouter extends Component {
             />
             <Route
               path="/dash/upload"
-              render={({ match }) => <Uploader folders={folders} />}
+              render={({ match }) => (
+                <Uploader
+                  folders={folders}
+                  dispatchAddFile={dispatchAddUpload}
+                />
+              )}
             />
           </Switch>
         </div>
@@ -86,8 +94,8 @@ const mapDispatchToProps = dispatch => {
     dispatchSetFoldersState: folders => dispatch(getFoldersComplete(folders)),
     dispatchAddFolderToState: folder => dispatch(addFolderComplete(folder)),
     dispatchDeleteFolder: id => dispatch(deleteFolderComplete(id)),
-    dispatchSetFilesState: files => dispatch(getFilesComplete(files))
-    // dispatchAddUpload: upload => dispatch()
+    dispatchSetFilesState: files => dispatch(getFilesComplete(files)),
+    dispatchAddUpload: upload => dispatch(addFileComplete(upload))
   };
 };
 

@@ -1,5 +1,6 @@
 import {
   ADD_FOLDER_COMPLETE,
+  ADD_FILE_COMPLETE,
   GET_FOLDERS_COMPLETE,
   GET_FOLDER_COMPLETE,
   GET_FILES_COMPLETE,
@@ -35,6 +36,11 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         folders: [...state.folders, action.payload]
+      };
+    case ADD_FILE_COMPLETE:
+      return {
+        ...state,
+        files: [...state.files, action.payload]
       };
     case GET_FOLDERS_COMPLETE:
       return { ...state, folders: action.payload };
