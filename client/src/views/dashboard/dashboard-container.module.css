@@ -25,9 +25,11 @@
 .footerActions {
   display: flex;
   justify-content: space-evenly;
+  margin: 0 40px;
 }
 .footerActions a {
   flex: 1;
+  padding: 10px;
 }
 
 .link {
@@ -37,6 +39,7 @@
   font-weight: 400;
   color: #ff2f50;
   position: relative;
+  text-transform: capitalize;
 }
 /* .link:before {
   top: 0;

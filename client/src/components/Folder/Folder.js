@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { Button } from "../Button/Button";
 import axios from "axios";
 import FileCard from "../Card/FileCard/FileCard";
 import styles from "./Folder.module.css";
@@ -34,6 +36,11 @@ export default class Folder extends Component {
               <FileCard key={file.id} date={file.date} notes={file.notes} />
             );
           })}
+        </div>
+        <div className={styles.footer}>
+          <Link to="/dash">
+            <Button>Back</Button>
+          </Link>
         </div>
       </div>
     );

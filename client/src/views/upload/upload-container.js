@@ -3,11 +3,13 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { API_URL } from "../../ducks/constants";
 import FileSelect from "../../components/Upload/FileSelect";
 import PreviewCard from "../../components/Card/PreviewCard/PreviewCard";
 import { Loading } from "../../components/Loading/Loading";
 import { axiosAddFile } from "../../ducks/actions";
+import { Button } from "../../components/Button/Button";
 
 import styles from "./upload-container.module.css";
 
@@ -20,6 +22,10 @@ class Uploader extends Component {
       uploads: []
     };
   }
+  componentDidMount() {
+    this.setState({ loading: false, uploads: [] });
+  }
+
   onUpdateLoading = val => this.setState({ loading: val });
 
   onUpdateUpload = (filename, updated) => {
@@ -76,7 +82,10 @@ class Uploader extends Component {
     };
     console.log(uploadFile);
     axiosAddFile(uploadFile)
-      .then(res => this.props.dispatchAddFile(uploadFile))
+      .then(res => {
+        this.props.dispatchAddFile(uploadFile);
+        this.onUpdateUpload(filename, { isSubmitted: true });
+      })
       .catch(err => console.log({ err }));
   };
 
@@ -88,17 +97,8 @@ class Uploader extends Component {
     const submittedFiles = uploads.filter(file => file.isSubmitted);
     console.log(uploads);
     return (
-      <div>
-        <div className={styles.selectHeader}>
-          <span className={styles.divider} />
-          <FileSelect
-            setFileUrl={this.setFileUrl}
-            onUpdateLoading={this.onUpdateLoading}
-            isDropZone={false}
-            disabled={fileCount === 3}
-          />
-        </div>
-        <div className={styles.uploadContainer}>
+      <div className={styles.uploadContainer}>
+        <div className={styles.uploadWrapper}>
           {!!loading && <Loading className={styles.previewCardPlaceholder} />}
           {uploads.map((file, index) => {
             return (
@@ -122,13 +122,20 @@ class Uploader extends Component {
               onUpdateUpload={this.onUpdateUpload}
             />
           )}
+          <div
+            className={!submittedFiles.length ? styles.hidden : styles.saved}
+          >
+            {submittedFiles.map(file => (
+              <p className={styles.savedItem} key={file.filename}>
+                + {file.filename} saved
+              </p>
+            ))}
+          </div>
         </div>
-        <div className={!submittedFiles.length ? styles.hidden : styles.saved}>
-          {submittedFiles.map(file => (
-            <p className={styles.savedItem} key={file.filename}>
-              + {file.filename} saved
-            </p>
-          ))}
+        <div className={styles.footer}>
+          <Link to="/dash">
+            <Button>Back</Button>
+          </Link>
         </div>
       </div>
     );

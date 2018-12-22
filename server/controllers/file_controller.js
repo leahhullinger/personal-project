@@ -22,7 +22,8 @@ module.exports = {
         s3_url,
         transcript,
         folder_id,
-        req.user.id
+        5
+        //req.user.id
       )
       .then(file => {
         console.log("this is new upload response", file);

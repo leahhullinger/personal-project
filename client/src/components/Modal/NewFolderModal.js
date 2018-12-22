@@ -24,7 +24,7 @@ export default class NewFolderModal extends Component {
 
   render() {
     return (
-      <div style={{ flex: 1 }}>
+      <div style={{ flex: 1, padding: "10px" }}>
         <Button style={{ width: "100%" }} onClick={this.handleShow}>
           Create New Folder +
         </Button>

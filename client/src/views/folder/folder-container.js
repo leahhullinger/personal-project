@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import FileCard from "../../components/Card/FileCard/FileCard";
+import { Link } from "react-router-dom";
+import { Button } from "../../components/Button/Button";
 import styles from "./folder-container.module.css";
 
 class Folder extends Component {
@@ -7,8 +9,7 @@ class Folder extends Component {
     super(props);
 
     this.state = {
-      name: "",
-      files: []
+      activeFile: ""
     };
   }
 
@@ -21,13 +22,25 @@ class Folder extends Component {
     return (
       !!folder && (
         <div className={styles.foldercontainer}>
-          <h2>{folder.folder_name}</h2>
-          <div>
+          <div className={styles.wrapper}>
+            <h2>{folder.folder_name}</h2>
+            <h4 className={styles.subhead}>Uploads</h4>
             {folderFiles.map(file => {
               return (
-                <FileCard key={file.id} date={file.date} notes={file.notes} />
+                <p
+                  className={styles.link}
+                  key={file.id}
+                  onClick={() => this.setState({ activeFile: file.id })}
+                >
+                  {file.title}
+                </p>
               );
             })}
+          </div>
+          <div className={styles.footer}>
+            <Link to="/dash">
+              <Button>Back</Button>
+            </Link>
           </div>
         </div>
       )
