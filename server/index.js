@@ -108,6 +108,18 @@ app.get("/dash", (req, res, next) => {
   }
 });
 
+// app.get("/api/authenticate", (req, res, next) => {
+//   const dbInstance = app.get("db");
+//   const { username, password } = req.params;
+
+//   dbInstance.find_user(username, password).then(user => {
+//     if (username && password) {
+//       return user;
+//     } else {
+//       dbInstance.create_user(username, password, email);
+//     }
+//   });
+// });
 // FOLDER ENDPOINTS
 app.post("/api/add/folder", folder.createFolder);
 app.get("/api/folder/:id", folder.readFolder);

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import styles from "./Home.module.css";
 import { Link } from "react-router-dom";
+import Modal, { PreviewBox } from "../Modal/Modal";
+import FileCard from "../Card/FileCard/FileCard";
 
 const AUTHLINK = "http://localhost:3005/auth";
 
@@ -16,6 +18,11 @@ class Home extends Component {
           {/* <a href={AUTHLINK}>Login to dashboard</a> */}
           <a href="http://localhost:3005/auth">Login to dashboard</a>
         </div>
+        <FileCard>
+          <PreviewBox>
+            <img url="https://www.washingtonpost.com/graphics/2018/national/amp-stories/stories-year-in-photos/img/YIP-Shootings-008.jpg" />
+          </PreviewBox>
+        </FileCard>
       </div>
     );
   }

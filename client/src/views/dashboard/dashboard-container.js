@@ -47,6 +47,7 @@ class Dashboard extends Component {
         <h3>Dashboard</h3>
         <div className={styles.body}>
           <div>
+            {}
             <h4>Recent Activity</h4>
             <p>5 most recent files </p>
           </div>

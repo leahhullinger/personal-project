@@ -1,3 +1,5 @@
-INSERT INTO Users (auth_id, email)
-VALUES ($1, $2 )
+INSERT INTO UserAuth
+(username, password, email)
+VALUES
+( $1, $2, $3)
 RETURNING *
